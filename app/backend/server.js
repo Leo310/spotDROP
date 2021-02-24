@@ -52,13 +52,22 @@ function setup(callback)
       logger.log(`Server is running on http://${host}:${port}`, "Info");
       callback();
     });
-  });
+  }); 
 };
 
 
 setup(() => {
-  app.use(logger.mw("debug"));
+  app.use(logger.mw("debug"));  //middleware gets called first (only when its first in code) everytime when a request comes in
+
+  //testing communtication between frontend and backend
+  app.use(express.raw({ limit: '1mb', type:"text/plain"}));
   
+  app.post("/index", (req, res) => {
+    logger.log(req.body.toString(), "debug");
+    res.type("text/plain")
+    res.send(req.body.toString());
+  });
+
   app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html')
     res.send(webpages.get("/index"));
