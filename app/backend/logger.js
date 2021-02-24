@@ -1,23 +1,24 @@
 'use strict';
 const fs = require("fs").promises;
 
-const logger = function(log) {
-    if(log) {
-        if(log.content)
-        {
-            fs.appendFile("srvlog.txt", '['+log.level+"]: " + log.content + '\n')
-            .then()
-            .catch(err => console.error(err));
-        } else {    
-            return (req, res, next) => {
-                fs.appendFile("srvlog.txt", '['+log.level+"]: " + req.method + " " + req.path + '\n')
-                .then()
-                .catch(err => console.error(err));
-                next();
-            }
-        }
-        
+
+const reset = function() {
+    fs.rm("./srvlog.txt")
+    .catch(err => console.error(err));
+};
+
+const log = function(content, options) {
+    fs.appendFile("srvlog.txt", '['+options+"]: " + content + '\n')
+    .catch(err => console.error(err));
+}
+
+const middleware = function(options)
+{
+    return (req, res, next) => {
+        fs.appendFile("srvlog.txt", '['+options+"]: " + req.method + " " + req.path + '\n')
+        .catch(err => console.error(err));
+        next();
     }
 }
 
-module.exports = logger;
+module.exports = { log: log, mw: middleware, reset: reset};

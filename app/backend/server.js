@@ -33,37 +33,44 @@ function readAllWebpages(callback) {
       callback();
     })
     .catch(err => {
-      console.error(err);
-      logger({content: `Could not read file: ${err}`, level: "Error"});
+      logger.log(`Could not read file: ${err}`, "Error");
       process.exit(1);
     });
     })
   .catch(err => {
-    console.error(`Could not read directory: ${err}`);
-    logger({content: `Could not read directory: ${err}`, level: "Error"});
+    logger.log(`Could not read directory: ${err}`, "Error");
     process.exit(1);
   });
 
 }
 
-app.use(logger({ level: "Debug" }));
-
-readAllWebpages(() => {
-  server.listen(3000, () => {
-    console.log(`Server is running on http://${host}:${port}`);
-    logger({content: `Server is running on http://${host}:${port}`, level: "Info"});
+function setup(callback)
+{
+  logger.reset();
+  readAllWebpages(() => {
+    server.listen(3000, () => {
+      logger.log(`Server is running on http://${host}:${port}`, "Info");
+      callback();
+    });
   });
+};
+
+
+setup(() => {
+  app.use(logger.mw("debug"));
+  
   app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html')
     res.send(webpages.get("/index"));
   });
+
   for(let [filename, pagecontent] of webpages)
   {
     app.get(filename, (req, res) => {
       res.set('Content-Type', 'text/html')
       res.send(pagecontent);
-    })
-  };
+    });
+  }
 });
 
 
