@@ -3,6 +3,8 @@
 const http = require("http");
 const fs = require("fs").promises;
 
+const logger = require("./logger");
+
 const express = require("express");
 
 const app = express();
@@ -32,19 +34,24 @@ function readAllWebpages(callback) {
     })
     .catch(err => {
       console.error(err);
+      logger({content: `Could not read file: ${err}`, level: "Error"});
       process.exit(1);
     });
     })
   .catch(err => {
-    console.error(`Could not read file: ${err}`);
+    console.error(`Could not read directory: ${err}`);
+    logger({content: `Could not read directory: ${err}`, level: "Error"});
     process.exit(1);
   });
 
 }
 
+app.use(logger({ level: "Debug" }));
+
 readAllWebpages(() => {
   server.listen(3000, () => {
     console.log(`Server is running on http://${host}:${port}`);
+    logger({content: `Server is running on http://${host}:${port}`, level: "Info"});
   });
   app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html')
