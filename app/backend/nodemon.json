@@ -2,6 +2,6 @@
     "ignore": [
         "node_modules/**/node_modules"
     ],
-    "watch": "../frontend/",
+    "watch": ["../frontend/", "./"],
     "ext": "js,json,html,css"
 }

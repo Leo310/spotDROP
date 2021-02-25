@@ -12,94 +12,36 @@ const app = express();
 const host = "localhost";
 const port = "3000";
 
-let webpages = new Map(); //Map with filename and content
+const server = http.createServer(app); //creates a server with a callback "app" that gets called when a request comes in
 
 
-function readAllWebpages(callback) {
-  let promises = [];
-  let filenames = [];
-  fs.readdir("../frontend/")
-  .then(files => {
-    for(let i = 0; i < files.length; i++)
-    {
-      promises.push(fs.readFile(`../frontend/${files[i]}`));
-      filenames[i] = '/'+files[i].split('.')[0];
-    }
-    Promise.all(promises)
-    .then(results => {
-      for(let i = 0; i < filenames.length; i++)
-        webpages.set(filenames[i], results[i]);
-      //FINISHED READING FILES
-      callback();
-    })
-    .catch(err => {
-      logger.log(`Could not read file: ${err}`, "Error");
-      process.exit(1);
-    });
-    })
-  .catch(err => {
-    logger.log(`Could not read directory: ${err}`, "Error");
-    process.exit(1);
+server.listen(3000, () => {
+  logger.reset(() => { //clears logfile
+    logger.log(`Server is running on http://${host}:${port}`, "Info");
   });
-
-}
-
-function setup(callback)
-{
-  logger.reset();
-  readAllWebpages(() => {
-    server.listen(3000, () => {
-      logger.log(`Server is running on http://${host}:${port}`, "Info");
-      callback();
-    });
-  }); 
-};
-
-
-setup(() => {
-  app.use(logger.mw("debug"));  //middleware gets called first (only when its first in code) everytime when a request comes in
-
-  //testing communtication between frontend and backend
-  app.use(express.raw({ limit: '1mb', type:"text/plain"}));
-  
-  app.post("/index", (req, res) => {
-    logger.log(req.body.toString(), "debug");
-    res.type("text/plain")
-    res.send(req.body.toString());
-  });
-
-  app.get('/', (req, res) => {
-    res.set('Content-Type', 'text/html')
-    res.send(webpages.get("/index"));
-  });
-
-  for(let [filename, pagecontent] of webpages)
-  {
-    app.get(filename, (req, res) => {
-      res.set('Content-Type', 'text/html')
-      res.send(pagecontent);
-    });
-  }
 });
 
+//middleware gets called first (only when its first in code) everytime when a request comes in
+app.use(logger.mw("debug"));  //logs stuff
 
-
-const server = http.createServer(app);
-
-
-/*
-const requestListener = function(req, res) {
-  for(let i = 0; i < filenames.length; i++)
-  {
-    if(req.url == filenames[i])
-    {
-      res.setHeader("Content-Type", "text/html");
-      res.writeHead(200);
-      res.end(webpages[i]);
-      return;
-    }
+//middleware for serving html files to client
+var options = {
+  dotfiles: 'ignore',
+  etag: true,
+  extensions: ['html', 'htm'],
+  index: "index.html",
+  redirect: true,
+  setHeaders: function (res, path, stat) {
+    res.set('x-timestamp', Date.now())
   }
-  res.writeHead(404);
-  res.end();
-}*/
+}
+app.use(express.static('../frontend/public/', options));
+  
+//testing communtication between frontend and backend
+app.use(express.raw({ limit: '1mb', type:"text/plain"}));
 
+app.post("/index", (req, res) => {
+  logger.log(req.body.toString(), "debug");
+  res.type("text/plain")
+  res.send(req.body.toString());
+});
