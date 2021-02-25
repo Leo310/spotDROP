@@ -1,7 +1,6 @@
 "use strict"; //doesnt let me initialize undefinde variables
 
 const http = require("http");
-const fs = require("fs").promises;
 
 const logger = require("./logger");
 
@@ -39,9 +38,17 @@ app.use(express.static('../frontend/public/', options));
   
 //testing communtication between frontend and backend
 app.use(express.raw({ limit: '1mb', type:"text/plain"}));
+app.use(express.json());
 
 app.post("/index", (req, res) => {
-  logger.log(req.body.toString(), "debug");
   res.type("text/plain")
   res.send(req.body.toString());
+});
+
+app.post("/login", (req, res) => {
+  res.json({
+    status:"succes",
+    name: req.body.name,
+    password: req.body.password
+  })
 });

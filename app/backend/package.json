@@ -1,5 +1,5 @@
 {
-    "name": "spotDrop",
+    "name": "spotDROP",
     "version": "0.0.0",
     "dependencies": {
         "express": "4.17.1"
