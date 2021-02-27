@@ -2,9 +2,10 @@
 
 const http = require("http");
 
-const logger = require("./logger");
-
 const express = require("express");
+const mysql = require("mysql");
+
+const logger = require("./logger");
 
 const app = express();
 
@@ -12,6 +13,14 @@ const host = "localhost";
 const port = "3000";
 
 const server = http.createServer(app); //creates a server with a callback "app" that gets called when a request comes in
+
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  user: "root",
+  host: "127.0.0.1",
+  password: "test1234",
+  database: "test"
+});
 
 
 server.listen(3000, () => {
@@ -46,9 +55,15 @@ app.post("/index", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  pool.query(`insert into user (name, password) values ('${req.body.name}', '${req.body.password}');`, (error, results, fields) => {
+    if (error) throw error;
+    console.log('The solution is: ', results);});
   res.json({
     status:"succes",
     name: req.body.name,
     password: req.body.password
   })
 });
+
+
+
