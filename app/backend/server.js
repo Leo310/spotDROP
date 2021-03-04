@@ -4,13 +4,15 @@ const http = require("http");
 
 const express = require("express");
 const mysql = require("mysql");
+const redis = require("redis");
 
 const logger = require("./logger");
 
-const app = express();
 
 const host = process.env.HOST;
 const port = process.env.PORT;
+
+const app = express();
 
 const server = http.createServer(app); //creates a server with a callback "app" that gets called when a request comes in
 
@@ -22,8 +24,18 @@ const pool = mysql.createPool({
   database: "test"
 });
 
+const redisclient = redis.createClient();
 
-server.listen(3000, () => {
+redisclient.on("error", function(error) {
+  console.error(error);
+});
+
+redisclient.set("testkey", "testvalue");
+redisclient.get("testkey", redis.print);
+
+
+
+server.listen(port, () => {
   logger.reset(() => { //clears logfile
     logger.log(`Server is running on http://${host}:${port}`, "Info");
   });
