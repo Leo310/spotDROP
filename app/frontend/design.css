@@ -29,6 +29,10 @@ body {
     top: .55rem
 }
 
+.header-nav > ul > li {
+    display: inline-block;
+}
+
 
 
 
