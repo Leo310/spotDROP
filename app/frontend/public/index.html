@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>spotDROP</title>
+    <style>
+        *,
+        html {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: rgb(236, 152, 42);
+        }
+
+        .center {
+            width: 100%;
+            height: 50%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: "Trebuchet MS", Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 144px;
+        }
+
+        p {
+            font-size: 64px;
+        }
+        a {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function sendResulttoSrv() {
+            const textinput = document.getElementById("textinput").value;
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: textinput
+            }
+            fetch("/index", options).then(response => {
+                return response.text();
+            }).then(content => {
+                document.getElementById("srvtext").textContent = "This is send from server: "+ content;
+            }).catch(err => console.error(err));
+        }
+    </script>
+    <div class="center">
+        <h1>Hello Again!</h1>
+        <p>Welcome to spotDROP</p>
+        <a href="test1">test</a>
+        <a href="login">Login</a>
+        <p>Type  something in: </p>
+        <input  type="text" id="textinput" name="textinput" >
+        <input type="button" onclick="sendResulttoSrv()" value="submit">
+        <p id="srvtext"></p>
+    </div>
+</body>
+
+</html>
