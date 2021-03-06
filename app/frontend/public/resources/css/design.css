@@ -1,0 +1,352 @@
+/* === fonts grab === */
+
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova/ProximaNova-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova/ProximaNova-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova/ProximaNova-Semibold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova/ProximaNova-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova/ProximaNova-Extrabld.ttf") format("truetype");
+    font-style: normal; 
+    font-weight: 800;
+}
+
+
+/* === === === === === === ===  general === === === === === === === */
+
+html {
+    height: 100%;
+    width:  100%;
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69) );
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    margin: 0;
+    
+    font-family: "ProximaNova";
+    font-weight: 600;
+
+}
+
+
+/* === === === === === === === navigation === === === === === === === */
+
+.header-nav {
+    width:  100%;
+    height: 52px;
+    background:transparent;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);  */
+    position: relative;
+    top: 2rem;
+    transition: 0.5s;
+    overflow: auto;
+  
+}
+
+.header-nav > img {
+    height: 40px;
+    width: auto;
+    margin-top: 0.03rem;
+    position: absolute;
+    left: 5%;
+    
+}
+
+.header-nav > ul {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 5%;
+    top: 0;
+    
+    text-align:right;
+   
+}
+
+.header-nav > ul > li {
+    display: inline-block;
+
+    font-family: "ProximaNova";
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    margin-left: 2.5rem;
+}
+
+.header-nav > ul > li > a:link {
+    color:#ffffff;
+    text-decoration: none;
+}
+
+.header-nav > ul > li > a:hover {
+    color:#e5e5e5;
+    text-decoration: none;
+}
+
+.header-nav > ul > li > a:active {
+    display: inline-block;
+}
+
+.header-nav > ul > li > a:visited {
+    color:#ffffff;
+    text-decoration: none;
+}
+
+
+/* === === === === === === ===  farben === === === === === === === */
+
+:root {
+    --nav-color: #ffffff;           /* var(--bg-color) */
+
+}
+
+
+/* === === === === === === ===  divs === === === === === === === */
+
+* {
+    box-sizing: border-box;
+} 
+
+.greeting {
+    position:relative;
+    margin-top: 120px;
+
+}
+
+.search {
+    position: relative;
+    
+    margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
+    padding: 5px;
+    
+    border-radius: 15px;
+
+    background-color: rgba(255, 255, 255, 1);
+
+}
+
+#searchicon {
+    
+    height: 30px;
+    width: auto;
+    display:inline-block;
+    left: 5%;
+    margin-top:25px;
+    margin-bottom:25px;
+
+}
+
+
+
+.arrowdown {
+    margin-top: 100px;
+    display:flex;
+   
+    position: relative;
+    height: 50px;
+    width:50px;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+
+.overview {
+    position:relative;
+    width: 90%;
+    height: 1000px;
+
+    background-color: transparent;
+
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/* === === === === === === === inputs === === === === === === ===  */
+
+#menubutton {
+    background-color:transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 7px;
+
+    padding: 12px 24px 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+}
+
+#menubutton:hover {
+    background-color: #ffffff;
+    border: 1.5px solid #ffffff;
+
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #7ec096;
+
+}
+
+#search {
+    width: 60%;
+    height: 50px;
+    padding: 12px 24px;
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    
+}
+
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -moz-padding-start: calc(10px - 3px);
+    appearance: none;
+    border: none;
+    
+    position: relative;
+    width: 30%;
+    height: 50px;
+    padding: 12px 24px;
+    margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    display: inline-block;
+
+    font-family: "ProximaNova";
+    font-weight: 500;
+    font-size: 16px;
+    color: #808080;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+
+
+/* === === === === === === === text === === === === === === === */
+
+#logo {
+    
+    font-family: "ProximaNova";
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    
+
+    color: #ffffff;
+    padding: 12px 24px;
+
+}
+
+#welcomeback {
+    font-family: "ProximaNova";
+    font-size: 60px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+#intro {
+    font-family: "ProximaNova";
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.7rem;
+
+    display: inline-block;
+    margin:0px;
+    width: 40%;
+   
+    
+
+    
+}
+
+::-webkit-input-placeholder {
+    color: #808080;
+    font-family: "ProximaNova";
+    font-weight: 500;
+    font-size: 16px;
+}
+
+
+
+
+
+/* === === === === === === === NOTIZEN AUS KURS === === === === === === === 
+
+
+margin-right: auto;
+margin-left: auto;
+
+
+GRID SYSTEM
+
+.flex-container > * { }       > * wendet auf alle Kind-Elemente, also alle eingeschlossenen Elemente, dieses Containers an
+
+
+
+<-----------------*/
+
+

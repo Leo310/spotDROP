@@ -5,31 +5,86 @@
 
         <meta charset="utf-8">
         <title>Startseite</title>
-        <link rel="stylesheet" type="text/css" href="design.css">
+        <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+       
     </head>
     <body>
     
         <!-- === navigationsleiste === -->
+    
         <nav class="header-nav">
 
-            <img src="resources/img/logo.png" alt=spotDROP>
+            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+          
             <ul>
-                <li><a href="index">Search</a></li>
-                <li><a href="2"></a>Profile</li>
-                <li><a href="3"></a>Boards</li>
-                <li><a href="Contact">Contact</a></li>
+
+                <li><a href="index">SPOTS</a></li>
+                <li><a href="index">PROFILE</a></li>
+                <li><a href="index">BOARDS</a></li>
+                <li><a href="index">CONTACT</a></li>
+                <li><button type="button" id="menubutton">SIGN IN</button></li>
+                
             </ul>
 
         </nav>   
-                                                              
 
-        <!-- <div id="div1">
-            <h1>test</h1>
+<!--    <script>
+            window.onscroll = scrollShowNav;
+            function scrollShowNav() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                 document.getElementsByTagName("nav")[0].style.top = "-50px";
+                } else {
+                    document.getElementsByTagName("nav")[0].style.top = "0px";
+                }
+            }
+        </script> -->
+        
+        <!-- === willkommenstext === -->
 
-        </div> -->
+        <div class="greeting">
+            <p id="welcomeback">Welcome back, Leo.</p>
+            <center><p id="intro">Great to see you again.
+                            Start searching for Spots right away or share 
+                            your favorite Spots with everyone else.</p></center>
+        </div> 
 
-        <h1>TEST1</h1>
-        <a href="test2">test2</a>
+        <div class="search">
+            
+            <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
+
+            <input type="text" id="search" placeholder="Search Spot" name="Search">
+            <select placeholder="Category" name="Category">
+                <option value="0">Category</option>
+                <option value="searchall">Search All</option>
+                <option value="belebt">Belebt</option>
+                <option value="ruhig">Ruhig</option>
+                <option value="wassernah">Wassernah</option>
+                <option value="bank">Bank</option>
+                <option value="parkour">Parkour</option>
+                <option value="skating">Skating</option>
+                <option value="fotografie">Fotografie</option>    
+            </select>
+            
+
+        </div>
+            <img class="arrowdown" src="resources/img/arrow-down.png">
+        </div>
+
+        <div class="overview">
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
     </body>
 
 </html>
