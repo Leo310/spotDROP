@@ -6,7 +6,7 @@ const path = require("path");
 exports.postlogin = (req, res) => {
     if(!req.session.uid)
     {
-        db.getUser("name, password","name",req.body.name).then((user) => {
+        db.get("user" ,"name, password","name",req.body.name).then((user) => {
             if(user[0].password === req.body.password)
             {
                 req.session.uid = user[0].name;
@@ -22,7 +22,7 @@ exports.postlogin = (req, res) => {
 }
 
 exports.postregister = (req, res) => {
-    db.insertUser(req.body.name, req.body.password);
+    db.insert("user", "name, password", req.body.name, req.body.password);
     req.session.uid = req.body.name;
     res.redirect("/home");
 }
