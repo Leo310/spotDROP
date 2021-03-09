@@ -1,13 +1,12 @@
 "use strict"; //doesnt let me initialize undefinde variables
 
 const http = require("http");
-const path = require("path"); //ensures correct path on every os
 
 const express = require("express"); //handels routes
 
 const session = require("./sessions")
 const logger = require("./logger");
-const authroutes = require("./routes/auth");
+const routes = require("./router");
 
 const host = process.env.HOST;
 const port = process.env.PORT;
@@ -29,9 +28,5 @@ app.use(logger.mw("debug"));  //logs stuff
 app.use(express.json());
 app.use(express.urlencoded({extended: false})); //encodes forms and makes it accessible through req.body
 app.use(session);
-app.use("/",authroutes);
-app.use("/", (req, res, next) => { 
-  res.sendFile(path.join(__dirname, "..", "frontend", "public", "index.html"));
-});
-
+app.use("/",routes);
 

@@ -39,24 +39,3 @@ exports.postlogout = (req, res) => {
 exports.posthome = (req, res) => {
     
 }
-
-exports.getlogin = (req, res) => {
-    if(req.session.uid)
-        res.redirect("/home");
-    else
-        res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "login.html"));
-}
-
-exports.getregister = (req, res) => {
-    if(req.session.uid)
-        res.redirect("/home");
-    else
-        res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "register.html"));
-}
-
-exports.gethome = (req, res) => {
-    if(!req.session.uid)
-        res.redirect("/login");
-    else
-        res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "home.html"));
-}
