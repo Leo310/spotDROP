@@ -1,0 +1,43 @@
+'use strict';
+
+const mysql = require("mysql");
+const errorcodes = require("../errorcodes");
+
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    user: process.env.MYSQL_USER,
+    host: process.env.HOST,
+    password: process.env.MYSQL_PASSWORD,
+    database: "test"
+});
+
+exports.insert = (table, rows, ...values) => {
+    return new Promise((resolve, reject) => {
+        let queryvalues = []; //values to string for query
+        for (let i = 0; i < values.length; i++) //-1 because we dont want the comma at the end
+            queryvalues[i] = "\'" + values[i] + "\'";
+        pool.query(`insert into ${table} (${rows}) values (${queryvalues});`, (error, results, fields) => {
+            if (error && error.errno == 1062) //error code for dublicate entry 
+                reject(errorcodes.mysql.duplicateEntry);
+            else if (error) //unregistered errors (not documentaded in errorcodes.js)
+                reject(error.sqlMessage)
+            else
+                resolve(results);
+        });
+    });
+}
+
+exports.get = (table, rows, key, value) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`select ${rows} from ${table} where ${key}='${value}';`, (error, results, fields) => {
+            if (results[0] === undefined) //couldnt find a column with given entry
+            {
+                reject(errorcodes.mysql.notFound);
+            } else if (error) {
+                reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+            } else {
+                resolve(results);
+            }
+        });
+    })
+}

@@ -9,7 +9,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - ./db-init:/docker-entrypoint-initdb.d
+      - ./db:/docker-entrypoint-initdb.d
 
   redisdb:
     image: redis:6.2.1
