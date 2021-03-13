@@ -14,6 +14,6 @@ router.post("/login", user.postLogin);
 router.post("/register", user.postRegister);
 router.post("/logout", user.postLogout);
 
-router.post("/home", fileuploaded.single('addpp'), user.postHome); //add profile picture
+router.post("/profile", fileuploaded.single('addpp'), user.postProfile); //add profile picture
 
 module.exports = router;

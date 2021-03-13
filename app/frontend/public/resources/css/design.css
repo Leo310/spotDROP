@@ -798,7 +798,7 @@ select::-ms-expand {
     display: none;
 }
 
-#detailinput {
+.detailinput {
     width: 50%;
     height: 45px;
     padding: 12px 24px;

@@ -40,10 +40,17 @@ exports.postLogout = (req, res) => {
         res.redirect("/login");
 }
 
-exports.postHome = async (req, res) => {
+exports.postProfile = async (req, res) => {
     if(req.session.uname) //will be removed after adding proper redirect middleware
     {
-        if (req.file && req.file.fieldname == "addpp") {
+        if(req.body.getusername){
+            res.json({
+                status: errorcodes.success,
+                username: req.session.uname
+            })
+        }
+
+        else if (req.file && req.file.fieldname == "addpp") {
             profilepicture.add(req.session);
             res.json({
                 status: errorcodes.success

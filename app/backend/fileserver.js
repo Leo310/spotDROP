@@ -23,7 +23,7 @@ module.exports = function serveFile(req, res) {
                     res.redirect("home");
                     return;
                 }
-            } else if (file == "home.html") {
+            } else if (file == "home.html" || file == "profile.html") {
                 res.redirect("login");
                 return;
             }

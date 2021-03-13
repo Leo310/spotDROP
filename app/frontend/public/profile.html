@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
+</head>
+
+<body>
+    <script>
+        function getUsername() {
+            fetch("/profile", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getusername": "Get username"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully fetched Username");
+                        document.querySelector("#username").innerHTML = "@" + content.username;
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function getPP() {
+            fetch("/profile", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getpp": "Get Profilepicture"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(image => {
+                    if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
+                        document.querySelector("#profilepicture").src = URL.createObjectURL(image);
+                    else
+                        document.querySelector("#profilepicture").src =
+                        "resources/img/defaultprofile.png"; //default profile picture
+                })
+                .catch(err => console.log(err));
+        }
+        getPP();
+        getUsername();
+    </script>
+
+    <script>
+        async function logout() {
+            const options = {
+                method: 'POST',
+            }
+            const response = await fetch("/logout", options);
+            window.location = response.url;
+        }
+    </script>
+    <!-- === navigationsleiste === -->
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="index">SPOTS</a></li>
+                <li><a href="index">BOARDS</a></li>
+                <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="userwrapper">
+
+            <div class="userdata">
+                <div class="userimage">
+                    <img id="profilepicture" src="">
+                    <script>
+                        function uploadPP() {
+                            image = document.getElementById("fileup").files[0];
+                            if (image != undefined) {
+
+                                let formData = new FormData();
+                                formData.append("addpp", image);
+                                fetch("/profile", {
+                                        method: "post",
+                                        body: formData
+                                    })
+                                    .then(response => {
+                                        if (!response.ok)
+                                            throw new Error('Network response was not ok');
+                                        return response.json();
+                                    })
+                                    .then(content => {
+                                        if (content.status == errorcodes.success) {
+                                            console.log("Succesfully uploaded Profile Picture");
+                                            getPP();
+                                            window.location = "/profile";
+                                        } else {
+                                            console.log(content.status);
+                                        }
+                                    })
+                                    .catch(err => console.log(err))
+                            } else {
+                                console.log("no image selected")
+                            }
+                        }
+
+                        function deletePP() {
+                            fetch("/profile", {
+                                    method: "post",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        "deletepp": "Delete the Profile Picture"
+                                    })
+                                })
+                                .then(response => {
+                                    if (!response.ok)
+                                        throw new Error('Network response was not ok');
+                                    return response.json();
+                                })
+                                .then(content => {
+                                    if (content.status == "Success") {
+                                        console.log("Succesfully deleted Profile Picture");
+                                        window.location = "/profile";
+                                    } else
+                                        console.log(content.status);
+
+                                })
+                                .catch(err => console.log(err))
+                        }
+                    </script>
+                    <input type="file" id="fileup" name="file" accept="image/*" style="display: block;">
+                    <input type="button" value="Upload" onclick="uploadPP()" style="display: block;">
+                    <input type="button" value="Delete" onclick="deletePP()" style="display: block;">
+                </div>
+                <h3>USERNAME</h3>
+                <h2 id="username"></h2>
+                <h3>SPOTS</h3>
+                <h2>420</h2>
+                <h3>BOARDS</h3>
+                <h2>11</h2>
+
+
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+</body>
+
+</html>

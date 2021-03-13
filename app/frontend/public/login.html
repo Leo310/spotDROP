@@ -1,18 +1,75 @@
 <!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="utf-8">
-        <title>Login</title>
-    </head>
-    <body>
-        <a href="index">index</a>
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            Name/Email:
-            <input type="text" name="nameemail" required>
-            Password:
-            <input type="password" name="password" required>
-            <input type="submit" value="submit" onclick="login()">
-        </form>
-    </body>
+<html lang="en" class="whitebg">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+</head>
+
+<body>
+    <!-- === navigationsleiste === -->
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="index">SPOTS</a></li>
+                <li><a href="index">PROFILE</a></li>
+                <li><a href="index">BOARDS</a></li>
+                <li><a href="index">CONTACT</a></li>
+                <li><button type="button" id="menubutton" onclick="history.back()">CANCEL</button></li>
+
+            </ul>
+
+        </nav>
+
+
+        <div class="loginwrapper">
+            
+            <div class="loginactivelogin">
+                <h1>Sign in to spotDROP</h1>
+                <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
+                <form action="/login" method="POST">
+                    <input type="text" id="nameinput" class="detailinput" placeholder="username or email" name="nameemail">
+                    <input type="password" id="passwordinput" class="detailinput" placeholder="password" name="password">
+                    <p>Forgot your password?</p>
+                    <button type="submit" id="loginbutton">SIGN IN</button>
+                </form>
+                
+            </div>
+        
+            <div class="loginactiveregister">
+                <h1>New here?</h1>
+                <p>Enter your details and easily create a free account.</p>
+                <button type="button" id="tosignup" onclick="location.href='register';">SIGN UP</button>
+            </div>
+
+
+        </div>
+        
+
+        
+
+
+    
+    
+    </div>
+
+  
+
+
+   
+
+
+
+
+
+
+</body>
+
 </html>
