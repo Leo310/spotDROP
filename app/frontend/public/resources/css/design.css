@@ -32,7 +32,7 @@
 @font-face {
     font-family: "ProximaNova";
     src: url("../fonts/ProximaNova/ProximaNova-Extrabld.ttf") format("truetype");
-    font-style: normal; 
+    font-style: normal;
     font-weight: 800;
 }
 
@@ -40,57 +40,68 @@
 /* === === === === === === ===  general === === === === === === === */
 
 html {
-    height: 100%;
-    width:  100%;
-    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69) );
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.whitebg {
+    background-image: inherit;
+    background-color:white;
+}
+
 body {
     margin: 0;
-    
+
     font-family: "ProximaNova";
     font-weight: 600;
 
 }
 
+*:focus {
+    outline: none !important
+}
+
+
 
 /* === === === === === === === navigation === === === === === === === */
 
 .header-nav {
-    width:  100%;
+    width: 100%;
     height: 52px;
-    background:transparent;
+    background: transparent;
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);  */
     position: relative;
     top: 2rem;
     transition: 0.5s;
     overflow: auto;
-  
+
 }
 
-.header-nav > img {
+.header-nav>img {
     height: 40px;
     width: auto;
     margin-top: 0.03rem;
     position: absolute;
     left: 5%;
-    
+
 }
 
-.header-nav > ul {
+.header-nav>ul {
+
+    max-width: 75%;
     margin: 0;
     padding: 0;
+    top: 0;
     position: absolute;
     right: 5%;
-    top: 0;
-    
-    text-align:right;
-   
+    text-align: right;
+
 }
 
-.header-nav > ul > li {
+.header-nav>ul>li {
     display: inline-block;
 
     font-family: "ProximaNova";
@@ -99,58 +110,207 @@ body {
     letter-spacing: 1px;
 
     margin-left: 2.5rem;
+    transition: all 0.3s ease 0s; 
 }
 
-.header-nav > ul > li > a:link {
+.header-nav>ul>li>a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.header-nav>ul>li>a:visited {
     color:#ffffff;
-    text-decoration: none;
+    
+}
+.header-nav>ul>li>a:hover {
+    color: #595959;
+    transform: translateY(-20px);
+    
+    
+    
 }
 
-.header-nav > ul > li > a:hover {
-    color:#e5e5e5;
-    text-decoration: none;
-}
-
-.header-nav > ul > li > a:active {
+.header-nav>ul>li>a:active {
     display: inline-block;
 }
 
-.header-nav > ul > li > a:visited {
-    color:#ffffff;
-    text-decoration: none;
-}
+
 
 
 /* === === === === === === ===  farben === === === === === === === */
 
 :root {
-    --nav-color: #ffffff;           /* var(--bg-color) */
+    --nav-color: #ffffff;
+    /* var(--bg-color) */
 
 }
 
+/* === === === === === === ===  spot flex grid system === === === === === === === */
 
-/* === === === === === === ===  divs === === === === === === === */
+.flex-container {
+    display: flex;
+    width: 95%;
+    margin-top: 50px;
+    margin-bottom: 200px;
+    margin-left: auto;
+    margin-right: auto;
+
+    
+    flex-flow: row wrap;
+    
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+
+.spot-preview {
+    width: 280px;
+    height: 350px;
+    background-color: white;
+
+    border-radius: 20px;
+    
+    margin: 30px;
+
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+
+    transition: all 0.3s ease 0s; 
+
+}
+
+.spot-preview:hover {
+    transform: translateY(-20px);
+} 
+
+.previewimg {
+    position: relative;
+    top:    0;
+    left:   0;
+    width:100%;
+    border-radius: 20px 20px 0px 0px;
+} 
+
+.spot-preview > h2 {
+
+    position: relative;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 15px;
+    
+    font-family: "ProximaNova";
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    color: #6c6c6c;
+}
+
+.spot-preview > h3 {
+
+    position: relative;
+    margin: 0;
+    margin-left: 15px;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #6c6c6c;
+}
+
+/* .actionbarmini {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right:0;
+    background-color: red;
+    height: 50px;
+    width: 150px;
+} */
+
+.actionbarmini1 {
+    position: relative;
+    display: inline-block;
+    left: 150px;
+    bottom: -45px;
+    margin:0;
+    
+    width: 22px;
+       
+}
+
+.actionbarmini2 {
+    position: relative;
+    display: inline-block;
+    left: 160px;
+    bottom: -45px;
+    margin:0;
+    
+    width: 22px;
+       
+}
+
+.actionbarmini3 {
+    position: relative;
+    display: inline-block;
+    left: 170px;
+    bottom: -45px;
+    margin:0;
+    
+    width: 22px;
+       
+}
+
+
+
+
+/* === === === === === === ===  divs options === === === === === === === */
 
 * {
     box-sizing: border-box;
-} 
+}
+
+
+.fullscreen {
+    height: 100vh;
+}
+
+.center {
+    vertical-align: center;
+}
+
+
+/* === === === === === === ===  individual divs  === === === === === === === */
+
+
 
 .greeting {
-    position:relative;
+    position: relative;
     margin-top: 120px;
 
 }
 
 .search {
     position: relative;
-    
-    margin-top: 75px;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    margin-top: 100px;
+
+    /* position: absolute;
+    left: 50%;
+    right:50%;
+    transform: translate(-50%, -50%);
+     
+     bottom: 0;
+     margin-bottom: 0; */
+
+
+
+    width: 75%;
     text-align: center;
     padding: 5px;
-    
+
     border-radius: 15px;
 
     background-color: rgba(255, 255, 255, 1);
@@ -158,49 +318,316 @@ body {
 }
 
 #searchicon {
-    
+
     height: 30px;
     width: auto;
-    display:inline-block;
+    display: inline-block;
     left: 5%;
-    margin-top:25px;
-    margin-bottom:25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 
 }
 
 
 
 .arrowdown {
-    margin-top: 100px;
-    display:flex;
-   
+    margin-top: 10%;
+    display: flex;
+
     position: relative;
     height: 50px;
-    width:50px;
-    margin-left:auto;
+    width: 50px;
+    margin-left: auto;
     margin-right: auto;
+    
 }
 
-
 .overview {
-    position:relative;
-    width: 90%;
-    height: 1000px;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
 
-    background-color: transparent;
+    
 
-    margin-top: 50px;
+    top: 0;
     margin-left: auto;
     margin-right: auto;
 
 }
 
-/* === === === === === === === inputs === === === === === === ===  */
+
+.loginwrapper {
+    position: fixed;
+    display: flex;
+    width: 55%;
+    min-height: 60%;
+
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: white;
+    border-radius: 20px;
+
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+
+    
+
+
+}
+
+
+.loginactivelogin {
+    float: left;
+    width: 65%;
+    text-align: center;
+
+}
+
+.loginactivelogin>h1 {
+    font-family: "ProximaNova";
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgb(126, 192, 149);
+
+    margin-top: 15%;
+    margin-bottom: 7%;
+}
+
+
+.loginactivelogin>p {
+    font-family: "ProximaNova";
+    position: relative;
+    font-size: 16px;
+    font-weight: 400;
+    color: #adadad;
+
+
+    margin: 0px auto;
+
+
+    margin-top: 5%;
+}
+
+
+.loginactiveregister {
+    float: left;
+    width: 35%;
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(62, 88, 89));
+    border-radius: 0px 19px 19px 0px;
+
+    text-align: center;
+
+
+}
+
+.loginactiveregister>h1 {
+    font-family: "ProximaNova";
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+
+    margin-top: 40%;
+    margin-bottom: 7%;
+
+}
+
+.loginactiveregister>p {
+    font-family: "ProximaNova";
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    max-width: 60%;
+    line-height: 1.7rem;
+    position: relative;
+    margin: 0px auto;
+
+
+}
+
+.registeractiveregister {
+    float: left;
+    width: 65%;
+    text-align: center;
+
+}
+
+.registeractiveregister>h1 {
+    font-family: "ProximaNova";
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgb(126, 192, 149);
+
+
+    margin-top: 10%;
+    margin-bottom: 7%;
+}
+
+
+
+.registeractivelogin {
+    float: left;
+    width: 35%;
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(62, 88, 89));
+    border-radius: 19px 0px 0px 19px;
+
+    text-align: center;
+
+
+}
+
+.registeractivelogin>h1 {
+    font-family: "ProximaNova";
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+
+    margin-top: 50%;
+    margin-bottom: 7%;
+
+}
+
+.registeractivelogin>p {
+    font-family: "ProximaNova";
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    max-width: 60%;
+    line-height: 1.7rem;
+    position: relative;
+    margin: 0px auto;
+
+
+}
+
+.userwrapper {
+    position: fixed;
+    display: flex;
+    width: 75%;
+    min-height: 100%;
+
+
+    left: 50%;
+    margin-top: 8%;
+
+    transform: translateX(-50%);
+
+    /* position: absolute;
+    left: 50%;
+    right:50%;
+    transform: translate(-50%, -50%);
+     
+     bottom: 0;
+     margin-bottom: 0; */
+
+
+
+    
+   
+    text-align: center;
+    padding: 5px;
+
+    background-color: rgba(255, 255, 255, 0.2)
+
+}
+
+.userdata {
+    position: relative;
+    float:left;
+    width: 30%;
+    height: 500px;
+    text-align: center;
+    padding: 5px;
+
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 1);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+}
+
+.userdata > h2,h3 {
+    float:left;
+    clear: both;
+    margin:0;
+}
+
+.userdata > h3 {
+    margin-top: 20px;
+    margin-left:25px;
+    color: #b0b0b0;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.userdata > h2 {
+    margin-top: 5px;
+    margin-left:25px;
+    color: rgb(126, 192, 149);
+    font-weight: 700;
+    font-size: 25px;
+
+}
+
+.userimage {
+    position: relative;
+    float: left;
+    background-color:transparent;
+    height: 150px;
+    width: 110px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.userimage > img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin-top: 5px;
+    position: relative;
+    margin-left:auto;
+    margin-right: auto;
+
+    /* border-width: 3px;
+    border-style: solid;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69)); */
+
+}
+
+.userimage > h5{
+
+    font-weight: 600;
+    color: rgb(126, 192, 149);
+    margin:0;
+    margin-top: 5px;
+    position: relative;
+    margin-left:auto;
+    margin-right: auto;
+
+    /* border-width: 3px;
+    border-style: solid;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69)); */
+
+}
+
+
+
+
+/* === === === === === === === button === === === === === === ===  */
 
 #menubutton {
-    background-color:transparent;
-    border: 1.5px solid rgba(255, 255, 255, 0.6);
-    border-radius: 7px;
+    background-color: transparent;
+    border: 1.8px solid rgba(255, 255, 255, 1);
+    border-radius: 20px;
 
     padding: 12px 24px 12px 24px;
     text-align: center;
@@ -216,7 +643,7 @@ body {
 
 #menubutton:hover {
     background-color: #ffffff;
-    border: 1.5px solid #ffffff;
+    border: 1.8px solid #ffffff;
 
     text-align: center;
     text-decoration: none;
@@ -229,11 +656,102 @@ body {
 
 }
 
+
+#loginbutton {
+    background-color: rgb(126, 192, 149);
+    border: 1.8px solid rgb(126, 192, 149);
+    border-radius: 20px;
+
+    padding: 12px 24px 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+
+#loginbutton:hover {
+    background-color: transparent;
+    border: 1.8px solid rgb(126, 192, 149);
+
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #7ec096;
+
+}
+
+#tosignup {
+    background-color: transparent;
+    border: 1.8px solid white;
+    border-radius: 20px;
+
+    padding: 12px 24px 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+    margin-top: 10%;
+
+}
+
+#tosignup:hover {
+    background-color: white;
+    border: 1.8px solid white;
+
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #7ec096;
+
+}
+
+#profile {
+    border-left: 1.8px solid white;
+    padding-left: 2.5rem;
+}
+
+
+/* === === === === === === === inputs === === === === === === ===  */
+
+#TopSpots {
+    font-weight: 700px;
+    font-size: 3em;
+    text-align:center;
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin:0;
+    margin-top: 80px;
+    
+    padding: 0;
+}
+
 #search {
     width: 60%;
     height: 50px;
     padding: 12px 24px;
-    
+
     margin-top: 20px;
     margin-bottom: 20px;
     position: relative;
@@ -244,7 +762,7 @@ body {
 
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    
+
 }
 
 
@@ -254,7 +772,7 @@ select {
     -moz-padding-start: calc(10px - 3px);
     appearance: none;
     border: none;
-    
+
     position: relative;
     width: 30%;
     height: 50px;
@@ -280,17 +798,73 @@ select::-ms-expand {
     display: none;
 }
 
+#detailinput {
+    width: 50%;
+    height: 45px;
+    padding: 12px 24px;
+
+    margin-top: 20px;
+
+    position: relative;
+
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: block;
+}
+
+
+#detailinput2 {
+    width: 25%;
+    height: 50px;
+    padding: 12px 24px;
+
+
+
+    position: relative;
+
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: inline-block;
+
+}
+
 
 
 /* === === === === === === === text === === === === === === === */
 
+.subtext {
+
+    font-family: "ProximaNova";
+    font-size: 20px;
+    font-weight: 500;
+    color: #6c6c6c;
+    line-height: 1.7rem;
+
+    text-align:center;
+    margin-top: 20px;
+}
+
 #logo {
-    
+
     font-family: "ProximaNova";
     font-size: 18px;
     font-weight: 600;
     letter-spacing: 1px;
-    
+
 
     color: #ffffff;
     padding: 12px 24px;
@@ -315,12 +889,9 @@ select::-ms-expand {
     line-height: 1.7rem;
 
     display: inline-block;
-    margin:0px;
+    margin: 0px;
     width: 40%;
-   
-    
 
-    
 }
 
 ::-webkit-input-placeholder {
@@ -343,10 +914,14 @@ margin-left: auto;
 
 GRID SYSTEM
 
-.flex-container > * { }       > * wendet auf alle Kind-Elemente, also alle eingeschlossenen Elemente, dieses Containers an
 
 
 
 <-----------------*/
 
+@keyframes jump {
+    0% { transform: translate(-50%, -50%) scale(1.25, 0.75); }
+    50% { transform: translate(-50%, -150%) scale(1, 1); }
+    100% { transform: translate(-50%, -50%) scale(1.25, 0.75); }
+}
 
