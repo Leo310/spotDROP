@@ -1,13 +1,101 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="utf-8">
-        <title>Home</title>
-    </head>
-    <body>
-        <h1>Home</h1>
-        <form action="/logout" method="POST">
-            <input type="submit" value="Logout">
-        </form>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <script src="./errorcodes.js"></script>
+</head>
+
+<body>
+    <h1>Home</h1>
+    <img id="image" src="" alt="Default" style="width: 100px; display: inline-block;">
+    <script>
+        function getPP() {
+            fetch("/home", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getpp": "Get Profilepicture"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(image => {
+                    document.querySelector("#image").src = URL.createObjectURL(image);
+                })
+                .catch(err => console.log(err));
+        }
+        getPP();
+    </script>
+    <script>
+        function uploadPP() {
+            image = document.getElementById("fileup").files[0];
+            let formData = new FormData();
+            formData.append("addpp", image);
+            fetch("/home", {
+                    method: "post",
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                    })
+                .then(json => {
+                    if (json.status == errorcodes.success)
+                    {
+                        console.log("Succesfully uploaded Profile Picture");
+                        getPP();
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
+        function deletePP() {
+            fetch("/home", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "deletepp": "Delete the Profile Picture"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(json => {
+                    if (json.status == "Success")
+                        console.log("Succesfully deleted Profile Picture");
+                })
+                .catch(err => console.log(err))
+        }
+    </script>
+    <input type="file" id="fileup" name="file" accept="image/*" style="display: block;">
+    <input type="button" value="Upload" onclick="uploadPP()" style="display: block;">
+    <input type="button" value="Delete" onclick="deletePP()" style="display: block;">
+    <script>
+        async function logout() {
+            const options = {
+                method: 'POST',
+            }
+            const response = await fetch("/logout", options);
+            window.location = response.url;
+        }
+    </script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input type="button" value="Logout" onclick="logout()" style="display: block;">
+</body>
+
 </html>

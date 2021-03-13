@@ -8,7 +8,7 @@ const pool = mysql.createPool({
     user: process.env.MYSQL_USER,
     host: process.env.HOST,
     password: process.env.MYSQL_PASSWORD,
-    database: "test"
+    database: "spotdrop"
 });
 
 exports.insert = (table, rows, ...values) => {
@@ -18,7 +18,7 @@ exports.insert = (table, rows, ...values) => {
             queryvalues[i] = "\'" + values[i] + "\'";
         pool.query(`insert into ${table} (${rows}) values (${queryvalues});`, (error, results, fields) => {
             if (error && error.errno == 1062) //error code for dublicate entry 
-                reject(errorcodes.mysql.duplicateEntry);
+                reject(errorcodes.duplicateEntry);
             else if (error) //unregistered errors (not documentaded in errorcodes.js)
                 reject(error.sqlMessage)
             else
@@ -32,8 +32,21 @@ exports.get = (table, rows, key, value) => {
         pool.query(`select ${rows} from ${table} where ${key}='${value}';`, (error, results, fields) => {
             if (results[0] === undefined) //couldnt find a column with given entry
             {
-                reject(errorcodes.mysql.notFound);
+                reject(errorcodes.notFound);
             } else if (error) {
+                reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+            } else {
+                resolve(results);
+            }
+        });
+    })
+}
+
+exports.update = (table, where, value1, set, value2) =>
+{
+    return new Promise((resolve, reject) => {
+        pool.query(`update ${table} set ${set}=${value2} where ${where}='${value1}';`, (error, results, fields) => {
+            if (error) {
                 reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
             } else {
                 resolve(results);

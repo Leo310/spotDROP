@@ -18,7 +18,7 @@ exports.verifyPassword = (password, hashedpw, salt) => {
         if (pw == hashedpw)
             resolve();
         else
-            reject(errorcodes.utilities.invalidPassword);
+            reject(errorcodes.invalidPassword);
     })
 }
 
@@ -33,7 +33,7 @@ exports.validateUsername = (username) => {
         if (/^[0-9a-zA-Z_.-]+$/.test(username))
             resolve("name");
         else
-            reject(errorcodes.utilities.usernameInvalid);
+            reject(errorcodes.usernameInvalid);
     });
 }
 
@@ -43,6 +43,6 @@ exports.validateEmail = (email) => {
         if (re.test(String(email).toLowerCase()))
             resolve("email");
         else
-            reject(errorcodes.utilities.emailInvalid);
+            reject(errorcodes.emailInvalid);
     })
 }
