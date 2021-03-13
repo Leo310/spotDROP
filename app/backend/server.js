@@ -1,54 +1,49 @@
 "use strict"; //doesnt let me initialize undefinde variables
 
 const http = require("http");
+//const path = require("path");
 
+const express = require("express"); //handels routes
+
+const session = require("./sessions")
 const logger = require("./logger");
+const routes = require("./router");
 
-const express = require("express");
+
+const host = process.env.HOST;
+const port = process.env.PORT;
 
 const app = express();
 
-const host = "localhost";
-const port = "3000";
-
 const server = http.createServer(app); //creates a server with a callback "app" that gets called when a request comes in
 
-
-server.listen(3000, () => {
+server.listen(port, () => {
   logger.reset(() => { //clears logfile
     logger.log(`Server is running on http://${host}:${port}`, "Info");
   });
 });
 
 //middleware gets called first (only when its first in code) everytime when a request comes in
-app.use(logger.mw("debug"));  //logs stuff
+app.use(logger.mw("debug")); //logs stuff
 
-//middleware for serving html files to client
-var options = {
+/*
+//serves public files
+const options = {
   dotfiles: 'ignore',
   etag: true,
-  extensions: ['html', 'htm'],
+  extensions: ['htm', 'html'],
   index: "index.html",
-  redirect: true,
+  maxAge: '1d',
+  redirect: false,
   setHeaders: function (res, path, stat) {
     res.set('x-timestamp', Date.now())
   }
 }
-app.use(express.static('../frontend/public/', options));
-  
-//testing communtication between frontend and backend
-app.use(express.raw({ limit: '1mb', type:"text/plain"}));
+app.use(express.static(path.join(__dirname, "..", "frontend", "public"), options));*/
+
 app.use(express.json());
-
-app.post("/index", (req, res) => {
-  res.type("text/plain")
-  res.send(req.body.toString());
-});
-
-app.post("/login", (req, res) => {
-  res.json({
-    status:"succes",
-    name: req.body.name,
-    password: req.body.password
-  })
-});
+app.use(express.urlencoded({
+  extended: false
+})); //encodes forms and makes it accessible through req.body
+app.use(session);
+app.use("/", routes);

@@ -1,3 +1,4 @@
 node_modules/
 srvlog.txt
 .DS_Store
+.env
