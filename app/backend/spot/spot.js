@@ -85,17 +85,30 @@ exports.postDeleteSpot = async (req, res) => {
 }
 
 exports.postGetAllSpots = async (req, res) => {
-    const spotsdata = await getallspots();
-    if (spotsdata == errorcodes.notFound) {
-        res.json({
-            status: errorcodes.noSpotImage
-        });
-    } else {
-        let spotjson = [];
-        for (let i = 0; i < spotsdata.length; i++)
-            spotjson[i] = spotutilities.spotdatatojson(spotsdata[i]);
+    if(req.body.spotcount) {
+        if(/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
+        {
+            const spotsdata = await getallspots();    
+            if (spotsdata == errorcodes.notFound) {
+                res.json({
+                    status: errorcodes.noSpotImage
+                });
+            } else {
+                let spotcount = req.body.spotcount;
+                if(spotcount == 0 || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                    spotcount = spotsdata.length;
 
-        res.json(spotjson);
+                let spotjson = [];
+                for (let i = 0; i < spotcount; i++)
+                    spotjson[i] = spotutilities.spotdatatojson(spotsdata[i]);
+        
+                res.json(spotjson);
+            }
+        } else {
+            res.json({
+                status: errorcodes.spotCountInvalid
+            });
+        }
     }
 }
 

@@ -24,5 +24,6 @@ module.exports = {
     notLogedIn: "You are not loged in",
     notFound: "Not Found",
     notCreatorOfSpot: "You are not the creator of this spot",
-    categoryNotExist: "This category doesnt exist"
+    categoryNotExist: "This category doesnt exist",
+    spotCountInvalid: "The requested count is invalid"
 }

@@ -14,7 +14,7 @@ create table if not exists user(
 
 create table if not exists spot(
     sid int unsigned not null auto_increment, 
-    username varchar(15), 
+    username varchar(15) not null, 
     title varchar(35) not null, 
     description varchar(1000), 
     cid TINYINT not null, 
@@ -31,3 +31,18 @@ create table if not exists spot(
         on delete cascade 
         on update cascade
 );
+
+create table if not exists views(
+    username varchar(15) not null,
+    sid int unsigned not null,
+    date DATETIME,
+    primary key (username, sid),
+    foreign key (username) 
+        references user(name) 
+        on delete cascade 
+        on update cascade,
+    foreign key (sid) 
+        references spot(sid) 
+        on delete cascade 
+        on update cascade
+)

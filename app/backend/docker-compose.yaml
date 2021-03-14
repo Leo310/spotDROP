@@ -10,8 +10,18 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
 
   redisdb:
     image: redis:6.2.1
     ports:
       - 6379:6379
+    volumes: 
+      - redis-data:/data
+
+volumes: 
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  
