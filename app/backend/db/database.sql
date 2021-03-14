@@ -7,7 +7,7 @@ create table if not exists user(
     password varchar(128) not null, 
     salt varchar(32) not null, 
     profilepicture boolean not null, 
-    permission TINYINT(1) unsigned not null, 
+    permission TINYINT unsigned not null, 
     date DATETIME not null, 
     primary key (name)
 );
@@ -35,7 +35,7 @@ create table if not exists spot(
 create table if not exists views(
     username varchar(15) not null,
     sid int unsigned not null,
-    date DATETIME,
+    date DATETIME not null,
     primary key (username, sid),
     foreign key (username) 
         references user(name) 
@@ -45,4 +45,21 @@ create table if not exists views(
         references spot(sid) 
         on delete cascade 
         on update cascade
-)
+);
+
+create table if not exists rates(
+    username varchar(15) not null,
+    sid int unsigned not null,
+    stars TINYINT not null,
+    text varchar(1000),
+    date DATETIME not null,
+    primary key (username, sid),
+    foreign key (username) 
+        references user(name) 
+        on delete cascade 
+        on update cascade,
+    foreign key (sid) 
+        references spot(sid) 
+        on delete cascade 
+        on update cascade
+);

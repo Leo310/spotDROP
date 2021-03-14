@@ -1,10 +1,10 @@
 'use strict';
 
 const userutilities = require("./utilities"); // user utilities
-const utilities = require("../utilities");
-const db = require("../db/db");
+const utilities = require("../../utilities");
+const db = require("../../db/db");
 const permission = require("./permissions");
-const errorcodes = require("../errorcodes");
+const errorcodes = require("../../errorcodes");
 
 module.exports = (name, email, password, session) => {
     return userutilities.validateUsername(name)

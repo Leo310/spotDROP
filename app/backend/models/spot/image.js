@@ -3,17 +3,17 @@
 const fs = require("fs");
 const path = require("path");
 
-const db = require("../db/db");
+const db = require("../../db/db");
 
 
 exports.add = (sid, session) => {
-    fs.renameSync(path.join(__dirname, "..", "uploads", "tmp", "spotimages", session.uname + ".png"), path.join(__dirname, "..", "uploads", "spotimages", sid + ".png")); //from tmp to athorized)
+    fs.renameSync(path.join(__dirname, "..", "..", "uploads", "tmp", "spotimages", session.uname + ".png"), path.join(__dirname, "..", "..", "uploads", "spotimages", sid + ".png")); //from tmp to athorized)
     return db.update("spot", "sid", sid, "image", 1)
     .catch(err => {return err;});
 }
 
 exports.delete = (sid) => {
-    fs.rmSync(path.join(__dirname, "..", "uploads", "spotimages", sid + ".png"));
+    fs.rmSync(path.join(__dirname, "..", "..", "uploads", "spotimages", sid + ".png"));
     return db.update("spot", "sid", sid, "image", 0)
     .catch(err => {return err;});
 }

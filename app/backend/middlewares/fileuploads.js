@@ -1,19 +1,19 @@
 const multer = require("multer");
 
-const db = require("./db/db");
+const path = require("path");
 
 const fileStorage = multer.diskStorage({
     destination: function(req,file,cb) {
         switch(file.fieldname)
         {
             case "addpp": //profilepicture
-                cb(null, __dirname + "/uploads/tmp/profilepictures");
+                cb(null, path.join(__dirname, "..", "uploads", "tmp", "profilepictures"));
                 break;
             case "addimage":
-                cb(null, __dirname + "/uploads/tmp/spotimages");
+                cb(null, path.join(__dirname, "..", "uploads", "tmp", "spotimages"));
                 break;
             default:
-                cb(null, __dirname + "/uploads/tmp/wierd"); //files that come from different client like postman
+                cb(null, path.join(__dirname, "..", "uploads", "tmp", "wierd")); //files that come from different client like postman
         }
     },
     filename: function (req, file, cb) {
@@ -26,7 +26,7 @@ const fileStorage = multer.diskStorage({
 
 function fileFilter(req, file, cb)
 {
-    if(file.mimetype.startsWith("image")) //image/png, image/jpg , image/...
+    if(file.mimetype.startsWith("image")) //image/png, image/jpeg , image/...
     {
         cb(null, true);
     } else{

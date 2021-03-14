@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require("crypto");
-const errorcodes = require("../errorcodes");
+const errorcodes = require("../../errorcodes");
 
 exports.hashPassword = (password) => {
     const salt = crypto.randomBytes(16).toString("hex"); //creates salt

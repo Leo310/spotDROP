@@ -5,8 +5,8 @@ const http = require("http");
 
 const express = require("express"); //handels routes
 
-const session = require("./sessions")
-const logger = require("./logger");
+const session = require("./middlewares/sessions")
+const logger = require("./middlewares/logger");
 const routes = require("./router");
 
 

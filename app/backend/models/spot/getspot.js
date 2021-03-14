@@ -1,6 +1,6 @@
 'use strict';
 
-const db = require("../db/db");
+const db = require("../../db/db");
 
 module.exports = (sid) => {
     return db.get("spot", "*", "sid", sid)

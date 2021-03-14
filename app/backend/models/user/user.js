@@ -6,7 +6,8 @@ const login = require("./login");
 const register = require("./register");
 const logout = require("./logout");
 const profilepicture = require("./profilepicture");
-const errorcodes = require("../errorcodes");
+const getuser = require("./getuser");
+const errorcodes = require("../../errorcodes");
 
 exports.postLogin = async (req, res) => {
     const logined = await login(req.body.nameemail, req.body.password, req.session); //need to invert with not because return zero when succesful and errorcode when unsuccesful
@@ -29,9 +30,21 @@ exports.postLogout = (req, res) => {
     });
 }
 
+exports.postGetUser = async (req,res) => {
+    const user = await getuser(req.params.username);
+    if(user == errorcodes.notFound)
+    {
+        res.json({
+            status: user
+        });
+    } else {
+        res.json(user);
+    }
+}
+
 exports.postProfile = async (req, res) => {
     //sends username to client
-    if (req.body.getusername) {
+    if (req.body.getloginedusername) {
         res.json({
             status: errorcodes.success,
             username: req.session.uname
@@ -60,7 +73,7 @@ exports.postProfile = async (req, res) => {
     else if (req.body.getpp) {
         if (await profilepicture.get(req.session)) //checks if there is an image on server
         {
-            res.sendFile(path.join(__dirname, "..", "uploads", "profilepictures", req.session.uname + ".png"));
+            res.sendFile(path.join(__dirname, "..", "..", "uploads", "profilepictures", req.session.uname + ".png"));
         }
         else{
             res.json({
