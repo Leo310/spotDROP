@@ -11,5 +11,5 @@ const errorcodes = {
     emailInvalid: "Email is invalid",
     emailAlreadyExists: "Email already Exists",
     invalidPassword: "Password is invalid",
-    noPP: "No profile picture saved on server"
+    noImage: "No profile picture saved on server"
 }

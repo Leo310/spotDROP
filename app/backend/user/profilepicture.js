@@ -7,6 +7,7 @@ const db = require("../db/db");
 
 
 exports.add = (session) => {
+    fs.renameSync(path.join(__dirname, "..", "uploads", "tmp", "profilepictures", session.uname + ".png"), path.join(__dirname, "..", "uploads", "profilepictures", session.uname + ".png")); //from tmp to athorized
     db.update("user", "name", session.uname, "profilepicture", 1)
     .catch(err => console.log(err));
 }

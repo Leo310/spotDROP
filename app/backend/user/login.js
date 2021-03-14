@@ -2,6 +2,7 @@
 
 const utilities = require("./utilities");
 const db = require("../db/db");
+const errorcodes = require("../errorcodes");
 
 module.exports = (nameemail, password, session) => {
     let username; //need to access username over different promises
@@ -14,7 +15,7 @@ module.exports = (nameemail, password, session) => {
         })
         .then(() => {
             session.uname = username;
-            return; //logined
+            return errorcodes.success; //logined
         }).catch((errorcode) => {
             console.log("Loginerror: " + errorcode)
             return errorcode; //not logined

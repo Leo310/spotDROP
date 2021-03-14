@@ -1,3 +1,33 @@
 create database if not exists spotdrop;
 use spotdrop;
-create table if not exists user(name varchar(15) not null, email varchar(254) not null unique, password varchar(128) not null, salt varchar(32) not null, profilepicture boolean not null, permission TINYINT(1) unsigned not null, date DATETIME not null, primary key (name));
+
+create table if not exists user(
+    name varchar(15) not null, 
+    email varchar(254) not null unique, 
+    password varchar(128) not null, 
+    salt varchar(32) not null, 
+    profilepicture boolean not null, 
+    permission TINYINT(1) unsigned not null, 
+    date DATETIME not null, 
+    primary key (name)
+);
+
+create table if not exists spot(
+    sid int unsigned not null auto_increment, 
+    username varchar(15), 
+    title varchar(35) not null, 
+    description varchar(1000), 
+    cid TINYINT not null, 
+    image boolean not null, 
+    street varchar(100) not null, 
+    housenumber varchar(3) not null, 
+    zip varchar(9) not null, 
+    city varchar(50) not null, 
+    ustars TINYINT, 
+    date DATETIME not null, 
+    primary key (sid), 
+    foreign key (username) 
+        references user(name) 
+        on delete cascade 
+        on update cascade
+);

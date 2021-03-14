@@ -27,13 +27,51 @@ exports.insert = (table, rows, ...values) => {
     });
 }
 
-exports.get = (table, rows, key, value) => {
+exports.get = (table, rows, where, value) => {
     return new Promise((resolve, reject) => {
-        pool.query(`select ${rows} from ${table} where ${key}='${value}';`, (error, results, fields) => {
-            if (results[0] === undefined) //couldnt find a column with given entry
-            {
-                reject(errorcodes.notFound);
-            } else if (error) {
+        if (where && value) {
+            pool.query(`select ${rows} from ${table} where ${where}='${value}';`, (error, results, fields) => {
+                if (results[0] === undefined) //couldnt find a column with given entry
+                {
+                    reject(errorcodes.notFound);
+                } else if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results);
+                }
+            });
+        } else {
+            pool.query(`select ${rows} from ${table};`, (error, results, fields) => {
+                if (Object.keys(results).length === 0) //couldnt find a column with given entry
+                {
+                    reject(errorcodes.notFound);
+                }
+                if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results);
+                }
+            });
+        }
+    })
+}
+
+exports.getRowCount = (table) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`select COUNT(*) from ${table};`, (error, results, fields) => {
+            if (error) {
+                reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+            } else {
+                resolve(results[0]['COUNT(*)']);
+            }
+        });
+    })
+}
+
+exports.update = (table, where, value1, set, value2) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`update ${table} set ${set}=${value2} where ${where}='${value1}';`, (error, results, fields) => {
+            if (error) {
                 reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
             } else {
                 resolve(results);
@@ -42,10 +80,9 @@ exports.get = (table, rows, key, value) => {
     })
 }
 
-exports.update = (table, where, value1, set, value2) =>
-{
+exports.delete = (table, where, value) => {
     return new Promise((resolve, reject) => {
-        pool.query(`update ${table} set ${set}=${value2} where ${where}='${value1}';`, (error, results, fields) => {
+        pool.query(`delete from ${table} where ${where}='${value}';`, (error, results, fields) => {
             if (error) {
                 reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
             } else {
