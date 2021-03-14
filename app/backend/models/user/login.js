@@ -1,8 +1,8 @@
 'use strict';
 
 const utilities = require("./utilities");
-const db = require("../db/db");
-const errorcodes = require("../errorcodes");
+const db = require("../../db/db");
+const errorcodes = require("../../errorcodes");
 
 module.exports = (nameemail, password, session) => {
     let username; //need to access username over different promises

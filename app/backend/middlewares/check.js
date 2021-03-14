@@ -1,7 +1,7 @@
 'use strict';
 
-const errorcodes = require("./errorcodes");
-const userutilities = require("./user/utilities");
+const errorcodes = require("../errorcodes");
+const userutilities = require("../models/user/utilities");
 
 exports.auth = (req, res, next) => {
     if(!req.session.uname)

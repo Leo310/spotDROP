@@ -1,9 +1,9 @@
 'use strict';
 
-const errorcodes = require("../errorcodes");
-const utilities = require("../utilities");
+const errorcodes = require("../../errorcodes");
+const utilities = require("../../utilities");
 const spotutilities = require("./utilities");
-const db = require("../db/db");
+const db = require("../../db/db");
 
 
 module.exports = (title, description, category, image, street, housenumber, zip, city, session) => {

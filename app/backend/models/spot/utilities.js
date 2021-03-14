@@ -1,7 +1,7 @@
 'use strict';
 
-const errorcodes = require("../errorcodes");
-const db = require("../db/db");
+const errorcodes = require("../../errorcodes");
+const db = require("../../db/db");
 const categories = require("./categories")
 
 exports.getSpotCount = async() => {

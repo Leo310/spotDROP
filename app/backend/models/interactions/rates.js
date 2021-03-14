@@ -1,10 +1,10 @@
 'use strict';
 
-const utilities = require("../utilities");
+const utilities = require("../../utilities");
 const iautilities = require("./utilities")
 
-const db = require("../db/db");
-const errorcodes = require("../errorcodes");
+const db = require("../../db/db");
+const errorcodes = require("../../errorcodes");
 
 exports.create = (username, sid, stars, text) => {
     return iautilities.validateRatingStars(stars)

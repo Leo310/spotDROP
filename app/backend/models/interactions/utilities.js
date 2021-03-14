@@ -1,6 +1,6 @@
 'use strict';
 
-const errorcodes = require("../errorcodes");
+const errorcodes = require("../../errorcodes");
 
 exports.validateRatingStars = (stars) => {
     return new Promise((resolve, reject) => {

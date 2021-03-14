@@ -3,12 +3,12 @@
 const router = require("express").Router();
 
 const fileserver = require("./fileserver");
-const fileuploaded = require("./fileuploads");
+const fileuploaded = require("./middlewares/fileuploads");
 
-const check = require("./check");
-const user = require("./user/user");
-const spot = require("./spot/spot");
-const interactions = require("./interactions/interactions");
+const check = require("./middlewares/check");
+const user = require("./models/user/user");
+const spot = require("./models/spot/spot");
+const interactions = require("./models/interactions/interactions");
 
 router.get("*", (res, req) => { //on get request always serve html files
     fileserver(res, req);

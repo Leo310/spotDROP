@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-const errorcodes = require("../errorcodes");
+const errorcodes = require("../../errorcodes");
 const getspot = require("./getspot");
 const getspots = require("./getspots");
 const createspot = require("./createspot");
@@ -123,7 +123,7 @@ exports.postGetSpot = async (req, res) => {
     if (req.body.getimage) {
         const imageonserver = await image.get(req.params.sid);
         if (errorcodes.notFound != imageonserver && imageonserver != 0) //checks if there is an image on server
-            res.sendFile(path.join(__dirname, "..", "uploads", "spotimages", req.params.sid + ".png"));
+            res.sendFile(path.join(__dirname, "..", "..", "uploads", "spotimages", req.params.sid + ".png"));
         else
             res.json({
                 status: errorcodes.noSpotImage

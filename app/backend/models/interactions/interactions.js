@@ -1,6 +1,6 @@
 'use strict';
 
-const errorcodes = require("../errorcodes");
+const errorcodes = require("../../errorcodes");
 const views = require("./views");
 const rating = require("./rates");
 const getspot = require("../spot/getspot");
