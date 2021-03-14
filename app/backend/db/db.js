@@ -27,9 +27,21 @@ exports.insert = (table, rows, ...values) => {
     });
 }
 
-exports.get = (table, rows, where, value) => {
+exports.get = (table, rows, where, value, where2, value2) => {
     return new Promise((resolve, reject) => {
-        if (where && value) {
+        if (where2 && value2) {
+            pool.query(`select ${rows} from ${table} where ${where}='${value}' and ${where2}='${value2}';`, (error, results, fields) => {
+                if (results[0] === undefined) //couldnt find a column with given entry
+                {
+                    reject(errorcodes.notFound);
+                } else if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results);
+                }
+            }); 
+        }
+        else if (where && value) {
             pool.query(`select ${rows} from ${table} where ${where}='${value}';`, (error, results, fields) => {
                 if (results[0] === undefined) //couldnt find a column with given entry
                 {
@@ -56,15 +68,25 @@ exports.get = (table, rows, where, value) => {
     })
 }
 
-exports.getRowCount = (table) => {
+exports.getRowCount = (table, where, value) => {
     return new Promise((resolve, reject) => {
-        pool.query(`select COUNT(*) from ${table};`, (error, results, fields) => {
-            if (error) {
-                reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
-            } else {
-                resolve(results[0]['COUNT(*)']);
-            }
-        });
+        if(where && value) {
+            pool.query(`select COUNT(*) from ${table} where ${where}=${value};`, (error, results, fields) => {
+                if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results[0]['COUNT(*)']);
+                }
+            });
+        }else {
+            pool.query(`select COUNT(*) from ${table};`, (error, results, fields) => {
+                if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results[0]['COUNT(*)']);
+                }
+            });
+        }
     })
 }
 
@@ -80,14 +102,24 @@ exports.update = (table, where, value1, set, value2) => {
     })
 }
 
-exports.delete = (table, where, value) => {
+exports.delete = (table, where1, value1, where2, value2) => {
     return new Promise((resolve, reject) => {
-        pool.query(`delete from ${table} where ${where}='${value}';`, (error, results, fields) => {
-            if (error) {
-                reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
-            } else {
-                resolve(results);
-            }
-        });
+        if(where2 && value2){
+            pool.query(`delete from ${table} where ${where1}='${value1}' and ${where2}='${value2}';`, (error, results, fields) => {
+                if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results);
+                }
+            });
+        }else {
+            pool.query(`delete from ${table} where ${where}='${value}';`, (error, results, fields) => {
+                if (error) {
+                    reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+                } else {
+                    resolve(results);
+                }
+            });
+        }
     })
 }

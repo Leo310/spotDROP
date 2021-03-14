@@ -8,24 +8,6 @@ exports.getSpotCount = async() => {
     return await db.getRowCount("spot");
 }
 
-exports.spotdatatojson = (dbresults) => {
-    return {
-        status: errorcodes.success,
-        sid: dbresults["sid"],
-        username: dbresults["username"],
-        title: dbresults["title"],
-        description: dbresults["description"],
-        categoryid: dbresults["cid"],
-        image: dbresults["image"],
-        street: dbresults["street"],
-        housenumber: dbresults["housenumber"],
-        zip: dbresults["zip"],
-        city: dbresults["city"],
-        ustars: dbresults["ustars"],
-        date: dbresults["date"]
-    }
-}
-
 exports.getSpotAuthor = (sid) => {
     return new Promise((resolve, reject) => {
         db.get("spot", "sid, username", "sid", sid)

@@ -6,6 +6,7 @@ const login = require("./login");
 const register = require("./register");
 const logout = require("./logout");
 const profilepicture = require("./profilepicture");
+const getuser = require("./getuser");
 const errorcodes = require("../errorcodes");
 
 exports.postLogin = async (req, res) => {
@@ -29,9 +30,21 @@ exports.postLogout = (req, res) => {
     });
 }
 
+exports.postGetUser = async (req,res) => {
+    const user = await getuser(req.params.username);
+    if(user == errorcodes.notFound)
+    {
+        res.json({
+            status: user
+        });
+    } else {
+        res.json(user);
+    }
+}
+
 exports.postProfile = async (req, res) => {
     //sends username to client
-    if (req.body.getusername) {
+    if (req.body.getloginedusername) {
         res.json({
             status: errorcodes.success,
             username: req.session.uname

@@ -6,6 +6,7 @@ module.exports = {
     success: "Success",
     duplicateEntry: "Dublicate Entry",
     notFound: "Couldnt find matching entry",
+    spotIdInvalid: "The spotid is invalid",
     usernameInvalid: "Username is Invalid",
     usernameAlreadyExists: "Username already Exists",
     emailInvalid: "Email is invalid",
@@ -25,5 +26,9 @@ module.exports = {
     notFound: "Not Found",
     notCreatorOfSpot: "You are not the creator of this spot",
     categoryNotExist: "This category doesnt exist",
-    spotCountInvalid: "The requested count is invalid"
+    countInvalid: "The requested count is invalid",
+    noCount: "No count specified",
+    ratingTextInvalid: "The rating text is invalid",
+    ratingStarsInvalid: "The rating stars are invalid",
+    noRating: "The spot has no ratings"
 }
