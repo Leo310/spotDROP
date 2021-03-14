@@ -18,7 +18,7 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "getusername": "Get username"
+                        "getloginedusername": "Get username"
                     })
                 })
                 .then(response => {
@@ -78,7 +78,7 @@
     <div class="fullscreen">
         <nav class="header-nav">
 
-            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+            <a href="/index"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
 
             <ul>
 
@@ -86,6 +86,7 @@
                 <li><a href="index">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
                 <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
 
             </ul>

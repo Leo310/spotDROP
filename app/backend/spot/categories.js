@@ -8,5 +8,6 @@ module.exports = {
     skaten: 5,
     parkour: 6,
     fotografie: 7,
-    basketball: 8
+    basketball: 8,
+    date: 9
 }

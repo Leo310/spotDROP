@@ -6,14 +6,60 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
 </head>
 
 <body>
+    <script>
+        function login() {
+            const nameemail = document.getElementById("nameinput").value;
+            const password = document.getElementById("passwordinput").value;
+            fetch("/login", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "nameemail": nameemail,
+                        "password": password
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    console.log(content);
+                    if (content.status == errorcodes.success) {
+                        window.location = "/home";
+                    } else
+                        document.querySelector("#errorp").innerHTML = content.status;
+                })
+                .catch(err => console.log(err))
+        }
+
+        window.addEventListener('load', (event) => {
+            var input = document.getElementById("passwordinput");
+        console.log(input)
+
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                console.log("Log");
+                event.preventDefault();
+                document.getElementById("loginbutton").click();
+            }
+            
+        });
+        })
+        
+    </script>
+
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
         <nav class="header-nav">
 
-            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+            <a href="/index"><img src="resources/img/logosketchgreenlight.png" alt=spotDROP.de></a>
 
             <ul>
 
@@ -32,15 +78,19 @@
         <div class="loginwrapper">
             
             <div class="loginactivelogin">
-                <h1>Sign in to spotDROP</h1>
+                <div class="centerdiv">
+                    <h1>Sign in to spotDROP</h1>
                 <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
-                <form action="/login" method="POST">
-                    <input type="text" id="nameinput" class="detailinput" placeholder="username or email" name="nameemail">
-                    <input type="password" id="passwordinput" class="detailinput" placeholder="password" name="password">
-                    <p>Forgot your password?</p>
-                    <button type="submit" id="loginbutton">SIGN IN</button>
-                </form>
                 
+                        <input type="text" id="nameinput" maxlength="254" class="detailinput" placeholder="username or email" name="nameemail">
+                        <input type="password" id="passwordinput" class="detailinput" placeholder="password" name="password">
+                        <p class="forgotpass">Forgot your password?</p>
+                        <button onclick="login()" id="loginbutton">SIGN IN</button>
+                        
+                </div>
+                <div class="errordiv">
+                        <p class="error" id="errorp"></p>
+                </div>
             </div>
         
             <div class="loginactiveregister">

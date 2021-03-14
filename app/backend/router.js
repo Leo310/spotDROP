@@ -24,7 +24,7 @@ router.post("/profile", auth.checkauth, fileuploaded.single('addpp'), user.postP
 router.post("/spots", spot.postGetAllSpots);
 router.post("/spots/create", auth.checkauth, spot.postCreateSpot);
 router.post("/spots/:sid", interactions.views, spot.postGetSpot);
-router.post("/spots/delete/:sid", auth.checkauth, spot.postDeleteSpot);
-router.post("/spots/image/:sid", auth.checkauth, fileuploaded.single('addimage'), spot.postSpotImage);
+router.post("/spots/:sid/delete", auth.checkauth, spot.postDeleteSpot);
+router.post("/spots/:sid/image", auth.checkauth, fileuploaded.single('addimage'), spot.postSpotImage);
 
 module.exports = router;

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
+    <script src="./categories.js"></script>
+</head>
+
+<body>
+    <script>
+        function showCatDiv() {
+            var x = document.getElementById("selectcat");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+
+
+        window.addEventListener('load', (event) => {
+            
+        var div = document.getElementById('checkboxes');
+        
+        for (var i = 0; i < Object.keys(categories).length; i++) {
+
+           
+
+            var checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.name = "name" + Object.keys(categories)[i];
+            checkbox.value = "value";
+            checkbox.id = "id" + i;
+            div.appendChild(checkbox);
+
+            var newlabel = document.createElement("label");
+            newlabel.setAttribute("for","id" + i);
+            newlabel.innerHTML = Object.keys(categories)[i];
+            div.appendChild(newlabel);    
+
+        }
+        });
+    </script>
+    <!-- <script>
+        function getUsername() {
+            fetch("/profile", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getusername": "Get username"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully fetched Username");
+                        document.querySelector("#username").innerHTML = "@" + content.username;
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function getPP() {
+            fetch("/profile", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getpp": "Get Profilepicture"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(image => {
+                    if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
+                        document.querySelector("#profilepicture").src = URL.createObjectURL(image);
+                    else
+                        document.querySelector("#profilepicture").src =
+                        "resources/img/defaultprofile.png"; //default profile picture
+                })
+                .catch(err => console.log(err));
+        }
+        getPP();
+        getUsername();
+    </script>
+
+    <script>
+        async function logout() {
+            const options = {
+                method: 'POST',
+            }
+            const response = await fetch("/logout", options);
+            window.location = response.url;
+        }
+    </script> -->
+
+    <!-- === navigationsleiste === -->
+
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <a href="/index"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="index">SPOTS</a></li>
+                <li><a href="index">BOARDS</a></li>
+                <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="spotcreatewrapper">
+
+            <div class="spotdata">
+
+
+                <h1>Share New Spot</h1>
+
+
+
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="title">TITLE</label></td>
+
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="title" maxlength="35" class="spotdatainput" placeholder='Roof with sunset-view' name="titel"></td>
+                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="street">STREET</label></td>
+                        <td style="width:30%"><label class="tl" for="number">NUMBER</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="street" maxlength="100" class="spotdatainput" placeholder='Brunnenstraße'
+                                name="titel"></td>
+                        <td><input type="text" id="number" maxlength="3" class="spotdatainput" placeholder='151''  name="titel"></td>
+                    </tr>
+                </table>
+                
+               
+                <table>
+                    <tr>
+                        <td><label class="tl" for="city">CITY</label></td>
+                        <td style="width:30%"><label class="tl" for="zip">ZIP</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder=' Berlin' name="titel"></td>
+                        <td><input type="text" maxlength="5" id="zip" class="spotdatainput" placeholder="10115" name="titel"></td>
+                    </tr>
+                </table>
+
+                <label id="infolabel" for="info">DESCRIPTION</label>
+                <textarea id="info" maxlength="1000" class="spotdatainput"
+                    placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
+                    name="titel"></textarea>
+
+            </div>
+            <div id="selectcat" class="setcategory">
+                
+
+                <div id="checkboxes" class="checkboxes">
+                    
+                </div>
+
+            </div>
+            <div class="spotcreateright">
+
+                <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
+                <input class="inputspotimage" type="file" id="fileup" name="file" accept="image/*"
+                    style="display: block;">
+                <label for="fileup">Add an image</label>
+                <input class="deletespotimage" type="button" value="Delete" onclick="deletePP()">
+                <input class="uploadspotimage" type="button" value="Upload" onclick="uploadPP()">
+                
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+</body>
+
+</html>

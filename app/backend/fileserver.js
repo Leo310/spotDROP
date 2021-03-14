@@ -19,7 +19,7 @@ module.exports = function serveFile(req, res) {
         .then(() => {
             //redirects if user already signed in
             if (req.session.uname) {
-                if (file == "login.html" || file == "register.html") {
+                if (file == "login.html" || file == "register.html" || file == "index.html") {
                     res.redirect("home");
                     return;
                 }

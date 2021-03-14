@@ -6,16 +6,80 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
 
 </head>
 
 <body>
+    <script>
+         function register() {
+            const name = document.getElementById("registername").value;
+            const email = document.getElementById("registeremail").value;
+            const password = document.getElementById("pass1").value;
+            fetch("/register", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "name": name,
+                        "email": email,
+                        "password": password
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == errorcodes.success) {
+                        window.location = "/home";
+                        
+                    } else
+                        document.querySelector("#errorp").innerHTML = content.status;
+                })
+                .catch(err => console.log(err))
+        }
+        
+        window.addEventListener('load', (event) => {
+            var input = document.getElementById("pass2");
+        console.log(input)
 
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                console.log("Log");
+                event.preventDefault();
+                document.getElementById("loginbutton").click();
+            }
+            
+        });
+        })
+        
+        
+        
+        
+        
+        function checksubmit(form){
+            form.preventDefault();
+            var pass1 = document.getElementById("pass1").value;
+            var pass2 = document.getElementById("pass2").value;
+
+            if (pass1 != pass2) {
+                console.log("Your passwords do not match.");
+                return false;
+            } else {
+              return true;  
+            }
+            
+        }
+
+    </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
         <nav class="header-nav">
 
-            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+            <a href="/index"><img src="resources/img/logosketchgreenlight.png" alt=spotDROP.de></a>
 
             <ul>
 
@@ -38,17 +102,22 @@
                 <button type="button" id="tosignup" onclick="location.href='login';">SIGN IN</button>
             </div>
             <div class="registeractiveregister">
+                <div class="centerdiv">
                 <h1>Create an Account</h1>
                 <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
 
-                <form method="POST" action="/register">
+                
 
-                    <input type="text" class="detailinput" placeholder="username" name="name">
-                    <input type="text" class="detailinput" placeholder="email" name="email">
-                    <input type="password" class="detailinput" placeholder="password" name="password">
+                    <input type="text" id="registername" maxlength="15" class="detailinput" placeholder="username" name="name">
+                    <input type="text" id="registeremail" maxlength="254" class="detailinput" placeholder="email" name="email">
+                    <input type="password" id="pass1" class="detailinput" placeholder="password" name="password">
+                    <input type="password" id="pass2" class="detailinput" placeholder="retype password" name="retypepassword">
                     
-                    <button type="submit" id="loginbutton">SIGN UP</button>
-                </form>
+                    <button onclick="register()" id="loginbutton">SIGN UP</button>
+                </div>
+                <div class="errordiv2">
+                    <p class="error" id="errorp"></p>
+                </div>
                 
             </div>
            

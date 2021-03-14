@@ -18,12 +18,39 @@
             const response = await fetch("/logout", options);
             window.location = response.url;
         }
+
+        function getUsername() {
+            fetch("/profile", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getloginedusername": "Get username"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully fetched Username");
+                        document.querySelector("#welcomeback").innerHTML = "Welcome back, " + content.username +".";
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+        getUsername();
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
         <nav class="header-nav">
 
-            <img src="resources/img/logosketchwhite.png" alt=spotDROP.de>
+            <a href="/index"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
 
             <ul>
 
@@ -31,6 +58,7 @@
                 <li><a href="index">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
                 <li><button type="button" id="menubutton" onclick="logout();">SIGN OUT</button></li>
 
             </ul>
@@ -51,7 +79,7 @@
         <!-- === willkommenstext === -->
 
         <div class="greeting">
-            <p id="welcomeback">Welcome back, Leo.</p>
+            <p class="welcomeback" id="welcomeback"></p>
             <center>
                 <p id="intro">Great to see you again.
                     Start searching for Spots right away or share
@@ -104,67 +132,123 @@
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
 
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">
                 <h2>Skatepark in Mitte</h2>
                 <h3>Pappelplatz, 10115 Berlin </h3>
+                
+                <img class="actionbarmini1" src="resources/img/icons/view.png">
+                <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                <img class="actionbarmini3" src="resources/img/icons/save.png">
+                
             </div>
+            
 
         </div>
 

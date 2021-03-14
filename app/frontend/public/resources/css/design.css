@@ -49,7 +49,7 @@ html {
 
 .whitebg {
     background-image: inherit;
-    background-color:white;
+    background-color: white;
 }
 
 body {
@@ -80,7 +80,7 @@ body {
 
 }
 
-.header-nav>img {
+.header-nav>a>img {
     height: 40px;
     width: auto;
     margin-top: 0.03rem;
@@ -88,6 +88,7 @@ body {
     left: 5%;
 
 }
+
 
 .header-nav>ul {
 
@@ -110,7 +111,7 @@ body {
     letter-spacing: 1px;
 
     margin-left: 2.5rem;
-    transition: all 0.3s ease 0s; 
+
 }
 
 .header-nav>ul>li>a:link {
@@ -119,15 +120,14 @@ body {
 }
 
 .header-nav>ul>li>a:visited {
-    color:#ffffff;
-    
+    color: #ffffff;
+
 }
+
 .header-nav>ul>li>a:hover {
-    color: #595959;
-    transform: translateY(-20px);
-    
-    
-    
+    color: #425458;
+
+
 }
 
 .header-nav>ul>li>a:active {
@@ -155,9 +155,9 @@ body {
     margin-left: auto;
     margin-right: auto;
 
-    
+
     flex-flow: row wrap;
-    
+
     justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
@@ -170,36 +170,36 @@ body {
     background-color: white;
 
     border-radius: 20px;
-    
+
     margin: 30px;
 
-    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 
-    transition: all 0.3s ease 0s; 
+    transition: all 0.3s ease 0s;
 
 }
 
 .spot-preview:hover {
     transform: translateY(-20px);
-} 
+}
 
 .previewimg {
     position: relative;
-    top:    0;
-    left:   0;
-    width:100%;
+    top: 0;
+    left: 0;
+    width: 100%;
     border-radius: 20px 20px 0px 0px;
-} 
+}
 
-.spot-preview > h2 {
+.spot-preview>h2 {
 
     position: relative;
     margin: 0;
     margin-top: 10px;
-    margin-left: 15px;
-    
+    margin-left: 20px;
+
     font-family: "ProximaNova";
     font-weight: 700;
     font-size: 1.3rem;
@@ -207,16 +207,16 @@ body {
     color: #6c6c6c;
 }
 
-.spot-preview > h3 {
+.spot-preview>h3 {
 
     position: relative;
     margin: 0;
-    margin-left: 15px;
+    margin-left: 20px;
     font-family: "ProximaNova";
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem;
     line-height: 1.5rem;
-    color: #6c6c6c;
+    color: #c0c0c0;
 }
 
 /* .actionbarmini {
@@ -232,34 +232,34 @@ body {
 .actionbarmini1 {
     position: relative;
     display: inline-block;
-    left: 150px;
-    bottom: -45px;
-    margin:0;
-    
-    width: 22px;
-       
+    right: 30px;
+    bottom: -70px;
+    margin: 0;
+
+    width: 20px;
+
 }
 
 .actionbarmini2 {
     position: relative;
     display: inline-block;
-    left: 160px;
-    bottom: -45px;
-    margin:0;
-    
-    width: 22px;
-       
+    right: 20px;
+    bottom: -70px;
+    margin: 0;
+
+    width: 20px;
+
 }
 
 .actionbarmini3 {
     position: relative;
     display: inline-block;
-    left: 170px;
-    bottom: -45px;
-    margin:0;
-    
-    width: 22px;
-       
+    right: 10px;
+    bottom: -70px;
+    margin: 0;
+
+    width: 20px;
+
 }
 
 
@@ -287,7 +287,7 @@ body {
 
 .greeting {
     position: relative;
-    margin-top: 120px;
+    margin-top: 15vh;
 
 }
 
@@ -295,7 +295,7 @@ body {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 10vh;
 
     /* position: absolute;
     left: 50%;
@@ -331,7 +331,7 @@ body {
 
 
 .arrowdown {
-    margin-top: 10%;
+    margin-top: 20vh;
     display: flex;
 
     position: relative;
@@ -339,7 +339,7 @@ body {
     width: 50px;
     margin-left: auto;
     margin-right: auto;
-    
+
 }
 
 .overview {
@@ -347,7 +347,7 @@ body {
     width: 100%;
     min-height: 100vh;
 
-    
+
 
     top: 0;
     margin-left: auto;
@@ -371,11 +371,11 @@ body {
     background: white;
     border-radius: 20px;
 
-    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 
-    
+
 
 
 }
@@ -385,21 +385,31 @@ body {
     float: left;
     width: 65%;
     text-align: center;
+}
+
+.centerdiv {
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
 }
 
-.loginactivelogin>h1 {
+
+.loginactivelogin h1 {
     font-family: "ProximaNova";
     font-size: 2rem;
     font-weight: 700;
     color: rgb(126, 192, 149);
 
-    margin-top: 15%;
+    margin: 0;
     margin-bottom: 7%;
 }
 
 
-.loginactivelogin>p {
+.forgotpass {
     font-family: "ProximaNova";
     position: relative;
     font-size: 16px;
@@ -425,7 +435,7 @@ body {
 
 }
 
-.loginactiveregister>h1 {
+.loginactiveregister h1 {
     font-family: "ProximaNova";
     font-size: 2rem;
     font-weight: 700;
@@ -436,7 +446,7 @@ body {
 
 }
 
-.loginactiveregister>p {
+.loginactiveregister p {
     font-family: "ProximaNova";
     font-size: 16px;
     font-weight: 500;
@@ -456,14 +466,14 @@ body {
 
 }
 
-.registeractiveregister>h1 {
+.registeractiveregister h1 {
     font-family: "ProximaNova";
     font-size: 2rem;
     font-weight: 700;
     color: rgb(126, 192, 149);
 
 
-    margin-top: 10%;
+    margin: 0;
     margin-bottom: 7%;
 }
 
@@ -480,7 +490,7 @@ body {
 
 }
 
-.registeractivelogin>h1 {
+.registeractivelogin h1 {
     font-family: "ProximaNova";
     font-size: 2rem;
     font-weight: 700;
@@ -491,7 +501,7 @@ body {
 
 }
 
-.registeractivelogin>p {
+.registeractivelogin p {
     font-family: "ProximaNova";
     font-size: 16px;
     font-weight: 500;
@@ -509,8 +519,6 @@ body {
     display: flex;
     width: 75%;
     min-height: 100%;
-
-
     left: 50%;
     margin-top: 8%;
 
@@ -523,21 +531,13 @@ body {
      
      bottom: 0;
      margin-bottom: 0; */
-
-
-
-    
-   
     text-align: center;
-    padding: 5px;
-
     background-color: rgba(255, 255, 255, 0.2)
-
 }
 
 .userdata {
     position: relative;
-    float:left;
+    float: left;
     width: 30%;
     height: 500px;
     text-align: center;
@@ -545,28 +545,29 @@ body {
 
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 1);
-    -webkit-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 20px 40px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 }
 
-.userdata > h2,h3 {
-    float:left;
+.userdata>h2,
+h3 {
+    float: left;
     clear: both;
-    margin:0;
+    margin: 0;
 }
 
-.userdata > h3 {
+.userdata>h3 {
     margin-top: 20px;
-    margin-left:25px;
+    margin-left: 25px;
     color: #b0b0b0;
     font-weight: 700;
     font-size: 13px;
 }
 
-.userdata > h2 {
+.userdata>h2 {
     margin-top: 5px;
-    margin-left:25px;
+    margin-left: 25px;
     color: rgb(126, 192, 149);
     font-weight: 700;
     font-size: 25px;
@@ -576,7 +577,7 @@ body {
 .userimage {
     position: relative;
     float: left;
-    background-color:transparent;
+    background-color: transparent;
     height: 150px;
     width: 110px;
     margin-top: 20px;
@@ -584,13 +585,13 @@ body {
     margin-bottom: 20px;
 }
 
-.userimage > img{
+.userimage>img {
     height: 100px;
     width: 100px;
     border-radius: 50%;
     margin-top: 5px;
     position: relative;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
 
     /* border-width: 3px;
@@ -601,14 +602,14 @@ body {
 
 }
 
-.userimage > h5{
+.userimage>h5 {
 
     font-weight: 600;
     color: rgb(126, 192, 149);
-    margin:0;
+    margin: 0;
     margin-top: 5px;
     position: relative;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
 
     /* border-width: 3px;
@@ -619,6 +620,376 @@ body {
 
 }
 
+
+.spotcreatewrapper {
+    position: fixed;
+    display: flex;
+    width: 90%;
+    height: 78%;
+
+
+    left: 50%;
+    margin-top: 10vh;
+    border-radius: 20px;
+
+    transform: translateX(-50%);
+
+    /* position: absolute;
+    left: 50%;
+    right:50%;
+    transform: translate(-50%, -50%);
+     
+     bottom: 0;
+     margin-bottom: 0; */
+
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 2;
+
+}
+
+.spotcreatewrapper h2,
+h3 {
+    float: left;
+    clear: both;
+    margin: 0;
+}
+
+.spotdata {
+    position: relative;
+
+    float: left;
+    margin-top: 0;
+    width: 40%;
+
+    border-radius: 20px 0 0 20px;
+    background-color: white;
+    z-index: 2;
+}
+
+.spotdata label {
+    display: block;
+
+    margin-bottom: 0;
+    font-weight: 700;
+    color: #c0c0c0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-left: 5%;
+}
+
+table {
+    margin-left: 10%;
+    table-layout: fixed;
+    width: 80%;
+}
+
+td {
+    padding: 0;
+    margin: 0;
+
+}
+
+tr {
+    padding: 0;
+    margin: 0;
+}
+
+#infolabel {
+    margin-left: 13%;
+}
+
+#title,
+#street,
+#number,
+#zip,
+#city,
+#info {
+    width: 100%;
+    height: 5vh;
+    padding: 12px;
+
+    margin-top: 3px;
+    margin-bottom: 20px;
+
+    position: relative;
+
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: block;
+}
+
+
+
+#title,
+#street,
+#city {
+    width: 95%;
+
+}
+
+#number,
+#zip {
+    width: 95%;
+
+}
+
+#info {
+    height: 15vh;
+    width: 78%;
+    margin-left: 10.5%;
+    resize: none;
+    overflow: scroll;
+}
+
+
+
+
+.spotcreatewrapper h1 {
+
+    display: table;
+    margin-top: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    font-weight: 700px;
+    font-size: 3em;
+
+
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.spotdata>h2 {
+    margin-top: 5px;
+    margin-left: 25px;
+    color: rgb(126, 192, 149);
+    font-weight: 700;
+    font-size: 25px;
+
+}
+
+.spotcreatewrapper h3 {
+    margin-top: 20px;
+    margin-left: 25px;
+    color: #b0b0b0;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.spotcreateright {
+    position: relative;
+    float: left;
+    width: 60%;
+    background-color: transparent;
+    z-index: 2;
+
+
+}
+
+.fullsizeimage {
+    height: 100%;
+    width: 100%;
+
+    padding: 0;
+    position: relative;
+
+    border-radius: 0 20px 20px 0;
+    opacity: 0.5;
+
+    /* border-width: 3px;
+    border-style: solid;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69)); */
+}
+
+
+
+.uploadspotimage,
+.deletespotimage
+ {
+    position: absolute;
+    background-color: rgb(126, 192, 149);
+    border: none;
+    border-radius: 20px;
+    
+    width: 100PX;
+    padding: 12px 0px 12px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+
+
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+}
+
+.inputspotimage {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.uploadspotimage:hover {
+    background-color: white;
+    color: rgb(126, 192, 149);
+    
+    border-radius: 20px;
+}
+
+.deletespotimage:hover {
+    background-color: white;
+    color: rgb(126, 192, 149);
+    
+    border-radius: 20px;
+}
+
+
+
+
+.spotcreateright > label {
+    position: absolute;
+    background-color: rgb(126, 192, 149);
+    border: 1.8px solid rgb(126, 192, 149);
+    border-radius: 20px;
+    
+    width: 200px;
+    padding: 12px 0px 12px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+
+
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+}
+
+.deletespotimage {
+    top: 90%;
+
+    transform: translate(-50%, -90%);
+}
+
+.uploadspotimage {
+    top: 80%;
+    transform: translate(-50%, -80%);
+}
+
+
+.spotcreateright>h5 {
+
+    font-weight: 600;
+    color: rgb(126, 192, 149);
+    margin: 0;
+    margin-top: 5px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* border-width: 3px;
+    border-style: solid;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69)); */
+
+}
+
+.setcategory {
+    position: absolute;
+    float: left;
+    top: 18%;
+    left: 40%;
+    display: none;
+
+
+    padding: 20px;
+    width: 300px;
+
+    background-color: white;
+    z-index: 3;
+    border-radius: 0 20px 20px 0;
+}
+
+
+
+.checkboxes {
+    position: relative;
+    
+    margin-top: 2vh;
+    white-space: nowrap;
+    width: 70%;
+    height: 100%;
+
+}
+
+.checkboxes>input {
+    display: inline-block;
+
+    float: left;
+
+
+
+}
+
+.checkboxes>label {
+    display: block;
+    margin: 0;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    font-size: 16px;
+
+
+    font-weight: 700;
+    color: #c0c0c0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+}
+
+#catbutton {
+    width: 100%;
+    height: 5vh;
+   
+
+    margin-top: 3px;
+    margin-bottom: 20px;
+
+    position: relative;
+
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 10px;
+    display: block;
+    background-color: rgb(126, 192, 149);
+}
 
 
 
@@ -638,6 +1009,7 @@ body {
     font-size: 13px;
     letter-spacing: 1px;
     color: #ffffff;
+
 
 }
 
@@ -673,7 +1045,7 @@ body {
     color: #ffffff;
 
     margin-top: 5%;
-    margin-bottom: 5%;
+
 
 }
 
@@ -737,13 +1109,13 @@ body {
 #TopSpots {
     font-weight: 700px;
     font-size: 3em;
-    text-align:center;
+    text-align: center;
     background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin:0;
+    margin: 0;
     margin-top: 80px;
-    
+
     padding: 0;
 }
 
@@ -851,10 +1223,10 @@ select::-ms-expand {
     font-family: "ProximaNova";
     font-size: 20px;
     font-weight: 500;
-    color: #6c6c6c;
+    color: #c0c0c0;
     line-height: 1.7rem;
 
-    text-align:center;
+    text-align: center;
     margin-top: 20px;
 }
 
@@ -871,7 +1243,7 @@ select::-ms-expand {
 
 }
 
-#welcomeback {
+.welcomeback {
     font-family: "ProximaNova";
     font-size: 60px;
     font-weight: 700;
@@ -899,9 +1271,31 @@ select::-ms-expand {
     font-family: "ProximaNova";
     font-weight: 500;
     font-size: 16px;
+    opacity: 0.5;
 }
 
+.error {
+    position: relative;
+    color: inherit;
+    color: #c61b1b;
+    font-weight: 600;
+    font-size: 13px;
 
+    line-height: 1.7rem;
+}
+
+.errordiv,
+.errordiv2 {
+    position: absolute;
+    display: block;
+    width: 65%;
+    bottom: 2%;
+}
+
+.errordiv2 {
+    bottom: inherit;
+    top: 6vh;
+}
 
 
 
@@ -920,8 +1314,15 @@ GRID SYSTEM
 <-----------------*/
 
 @keyframes jump {
-    0% { transform: translate(-50%, -50%) scale(1.25, 0.75); }
-    50% { transform: translate(-50%, -150%) scale(1, 1); }
-    100% { transform: translate(-50%, -50%) scale(1.25, 0.75); }
-}
+    0% {
+        transform: translate(-50%, -50%) scale(1.25, 0.75);
+    }
 
+    50% {
+        transform: translate(-50%, -150%) scale(1, 1);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.25, 0.75);
+    }
+}
