@@ -4,6 +4,7 @@ const userutilities = require("./utilities"); // user utilities
 const utilities = require("../utilities");
 const db = require("../db/db");
 const permission = require("./permissions");
+const errorcodes = require("../errorcodes");
 
 module.exports = (name, email, password, session) => {
     return userutilities.validateUsername(name)
@@ -14,7 +15,7 @@ module.exports = (name, email, password, session) => {
         })
         .then(results => {
             session.uname = name; //inits session
-            return;
+            return errorcodes.success;
         })
         .catch(errorcode => {
             console.log("Registererror: " + errorcode);

@@ -19,7 +19,7 @@ exports.postCreateSpot = async (req, res) => {
 }
 
 exports.postSpotImage = async (req, res) => {
-    if(await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
+    if (await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
     {
         //adds image to spot
         if (req.file && req.file.fieldname == "addimage") {
@@ -65,14 +65,21 @@ exports.postSpotImage = async (req, res) => {
 }
 
 exports.postDeleteSpot = async (req, res) => {
-    if (req.session.uname == await spotutilities.getSpotAuthor(req.params.sid)) {
-        deletespot(req.params.sid);
-        res.json({
-            status: errorcodes.success
-        });
+    if (await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
+    {
+        if (req.session.uname == await spotutilities.getSpotAuthor(req.params.sid)) {
+            deletespot(req.params.sid);
+            res.json({
+                status: errorcodes.success
+            });
+        } else {
+            res.json({
+                status: errorcodes.notCreatorOfSpot
+            });
+        }
     } else {
         res.json({
-            status: errorcodes.notCreatorOfSpot
+            status: errorcodes.noSpotImage
         });
     }
 }
@@ -94,8 +101,7 @@ exports.postGetAllSpots = async (req, res) => {
 
 exports.postGetSpot = async (req, res) => {
     //you can only fetch image and spotdata independently from server for now
-    if(req.body.getimage)
-    {
+    if (req.body.getimage) {
         const imageonserver = await image.get(req.params.sid);
         if (errorcodes.notFound != imageonserver && imageonserver != 0) //checks if there is an image on server
             res.sendFile(path.join(__dirname, "..", "uploads", "spotimages", req.params.sid + ".png"));
@@ -103,7 +109,7 @@ exports.postGetSpot = async (req, res) => {
             res.json({
                 status: errorcodes.noSpotImage
             });
-    }else { //send spotdata to client
+    } else { //send spotdata to client
         const spotdata = await getspot(req.params.sid);
         if (spotdata == errorcodes.notFound) {
             res.json({
