@@ -82,6 +82,7 @@
                         spotid = content.sid;
                         addCategories(spotid);
                         addImage(spotid);
+                        window.location = "/spot?sid="+spotid;
                     } else
                         console.log(content.status);
 
@@ -190,7 +191,7 @@
             <ul>
 
                 <li><a href="home">HOME</a></li>
-                <li><a href="allspots">SPOTS</a></li>
+                <li><a href="spots">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
                 <li><a href="spotcreate">NEW SPOT</a></li>

@@ -26,21 +26,15 @@ exports.postCreateSpot = async (req, res) => {
 exports.postGetCategoriesSpot = async (req, res) => {
     if (await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
     {
-        if (req.session.uname == await spotutilities.getSpotAuthor(req.params.sid)) {
-            let categories = await category.get(req.params.sid)
-            if (categories == errorcodes.notFound) {
-                res.json({
-                    status: errorcodes.noCategory
-                });
-            } else {
-                res.json({
-                    "categories": categories,
-                    "status": errorcodes.success
-                });
-            }
+        let categories = await category.get(req.params.sid)
+        if (categories == errorcodes.notFound) {
+            res.json({
+                status: errorcodes.noCategory
+            });
         } else {
             res.json({
-                status: errorcodes.notCreatorOfSpot
+                "categories": categories,
+                "status": errorcodes.success
             });
         }
     } else {
@@ -308,16 +302,21 @@ exports.postGetTopSpots = async (req, res) => {
 exports.postGetSpot = async (req, res) => {
     //send spotdata to client
     let spotdata = await getspot(req.params.sid);
-    if (spotdata == errorcodes.notFound) {
-        res.json({
-            status: errorcodes.noSpotImage
-        });
-    } else {
+    if (spotdata != errorcodes.notFound && spotdata != undefined) {
         spotdata["status"] = errorcodes.success;
         spotdata["views"] = await views(req.params.sid); //add views count to spotdata
         res.json(
             spotdata
-        );
+            );
+    } else if (spotdata == errorcodes.notFound){
+        res.json({
+            status: errorcodes.noSpotImage
+        });
     }
+        else {
+            res.json({
+                status: "Unregistered: " + spotdata
+            });
+        }
 
 }

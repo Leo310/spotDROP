@@ -10,10 +10,16 @@ const getuser = require("./getuser");
 const errorcodes = require("../../errorcodes");
 
 exports.postLogin = async (req, res) => {
-    const logined = await login(req.body.nameemail, req.body.password, req.session); //need to invert with not because return zero when succesful and errorcode when unsuccesful
-    res.json({
-        status: logined
-    });
+    if (!req.session.uname) {
+        const logined = await login(req.body.nameemail, req.body.password, req.session); //need to invert with not because return zero when succesful and errorcode when unsuccesful
+        res.json({
+            status: logined
+        });
+    } else {
+        res.json({
+            status: errorcodes.alreadyLogedIn
+        });
+    }
 }
 
 exports.postRegister = async (req, res) => {
@@ -30,16 +36,27 @@ exports.postLogout = (req, res) => {
     });
 }
 
-exports.postGetUser = async (req,res) => {
-    const user = await getuser(req.params.username);
-    if(user == errorcodes.notFound)
-    {
-        res.json({
-            status: user
-        });
+exports.postGetUser = async (req, res) => {
+    if (req.body.getpp) {
+        if (await profilepicture.get(req.params.username)) //checks if there is an image on server
+        {
+            res.sendFile(path.join(__dirname, "..", "..", "uploads", "profilepictures", req.params.username + ".png"));
+        } else {
+            res.json({
+                status: errorcodes.noSpotImage
+            });
+        }
     } else {
-        res.json(user);
+        const user = await getuser(req.params.username);
+        if (user == errorcodes.notFound) {
+            res.json({
+                status: user
+            });
+        } else {
+            res.json(user);
+        }
     }
+
 }
 
 exports.postProfile = async (req, res) => {
@@ -49,18 +66,18 @@ exports.postProfile = async (req, res) => {
             status: errorcodes.success,
             username: req.session.uname
         })
-    } 
+    }
     //adds profile picture to user
     else if (req.file && req.file.fieldname == "addpp") {
-        profilepicture.add(req.session);
+        profilepicture.add(req.session.uname);
         res.json({
             status: errorcodes.success
         });
-    } 
+    }
     //deletes profile picture to user
     else if (req.body.deletepp) {
-        if (await profilepicture.get(req.session)) {    //checks if there is an image on server
-            profilepicture.delete(req.session); 
+        if (await profilepicture.get(req.session.uname)) { //checks if there is an image on server
+            profilepicture.delete(req.session.uname);
             res.json({
                 status: errorcodes.success
             });
@@ -68,14 +85,13 @@ exports.postProfile = async (req, res) => {
             res.json({
                 status: errorcodes.noSpotImage
             });
-    } 
+    }
     //sends profile picture to user
     else if (req.body.getpp) {
-        if (await profilepicture.get(req.session)) //checks if there is an image on server
+        if (await profilepicture.get(req.session.uname)) //checks if there is an image on server
         {
             res.sendFile(path.join(__dirname, "..", "..", "uploads", "profilepictures", req.session.uname + ".png"));
-        }
-        else{
+        } else {
             res.json({
                 status: errorcodes.noSpotImage
             });
