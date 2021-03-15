@@ -17,7 +17,6 @@ create table if not exists spot(
     username varchar(15) not null, 
     title varchar(35) not null, 
     description varchar(1000), 
-    cid TINYINT not null, 
     image boolean not null, 
     street varchar(100) not null, 
     housenumber varchar(3) not null, 
@@ -28,6 +27,16 @@ create table if not exists spot(
     primary key (sid), 
     foreign key (username) 
         references user(name) 
+        on delete cascade 
+        on update cascade
+);
+
+create table if not exists categorizes(
+    sid int unsigned not null,
+    name varchar(50) not null,
+    primary key (sid, name),
+    foreign key (sid)
+        references spot(sid)
         on delete cascade 
         on update cascade
 );
@@ -50,6 +59,7 @@ create table if not exists views(
 create table if not exists rates(
     username varchar(15) not null,
     sid int unsigned not null,
+    title varchar(35) not null, 
     stars TINYINT not null,
     text varchar(1000),
     date DATETIME not null,

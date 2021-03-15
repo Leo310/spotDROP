@@ -15,18 +15,17 @@
 <body>
     <script>
         $(document).ready(() => {
-            getUsername()
-                .then((username) => {
-                    document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
-                    const topspotcount = 8;
-                    getTopSpots(topspotcount);
-                });
-
+            getPP();
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('name');
+            const spotcount = 0;
+            document.querySelector("#username").innerHTML = "@" + username;
+            getUserSpots(username, spotcount)
         });
 
-        function getTopSpots(count) {
-            document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
-            fetch("/topspots", {
+
+        function getUserSpots(username, count) {
+            fetch("/getspots/" + username, {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
@@ -42,21 +41,13 @@
                 })
                 .then(content => {
                     if (content[0].status == errorcodes.success) {
+                        document.querySelector("#spotscount").innerHTML = content.length - 1;
                         createSpots(content, content.length - 1);
                     } else
                         console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
-        }
-
-        function showCatDiv() {
-            var x = document.getElementById("filtercat");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
         }
     </script>
     <!-- === navigationsleiste === -->
@@ -72,7 +63,7 @@
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
                 <li><a href="spotcreate">NEW SPOT</a></li>
-                <li><button type="button" id="menubutton" onclick="logout();">SIGN OUT</button></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
 
             </ul>
 
@@ -91,39 +82,33 @@
 
         <!-- === willkommenstext === -->
 
-        <div class="centerdiv">
-            <div class="greeting">
-                <p class="welcomeback" id="welcomeback"></p>
-                <center>
-                    <p id="intro">Great to see you again.
-                        As usually, start searching for Spots right away or share
-                        your favorite Spots with everyone else.</p>
-                </center>
+        <div class="userwrapper">
+
+            <div class="userdata">
+                <div class="userimage">
+                    <img id="profilepicture" src="">
+                </div>
+                <h3>USERNAME</h3>
+                <h2 id="username"></h2>
+                <h3>SPOTS</h3>
+                <h2 id="spotscount">0</h2>
+                <h3>BOARDS</h3>
+                <h2>TODO</h2>
+
+            </div>
+
+            <div class="userspots">
+                <div id="spotsview" class="user-flex-container">
+
+                </div>
+
+
+
             </div>
 
 
 
 
-            <img class="arrowdown" src="resources/img/arrow-down.png">
-
-        </div>
-    </div>
-
-    <div class="overview">
-
-        <h1 id="TopSpots"></h1>
-        <p class="subtext">Alternatively, view all Spots or search through them »</p>
-        <div id="spotsview" class="flex-container">
-
-
-
-        </div>
-
-
-    </div>
-
-
-    </div>
 
 
 </body>

@@ -30,5 +30,8 @@ module.exports = {
     noCount: "No count specified",
     ratingTextInvalid: "The rating text is invalid",
     ratingStarsInvalid: "The rating stars are invalid",
-    noRating: "The spot has no ratings"
+    noRating: "The spot has no ratings",
+    noCategory: "The spot has no categories",
+    noUserSpecified: "No user got specified",
+    noTitleSpecified: "No title specified"
 }

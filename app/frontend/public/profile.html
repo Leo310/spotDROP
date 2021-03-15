@@ -6,19 +6,35 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./categories.js"></script>
     <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
     <script>
-        function getUsername() {
-            fetch("/profile", {
+        $(document).ready(() => {
+            getPP();
+            const spotcount = 0; // 0 equals all spots
+            getUsername()
+                .then(username => {
+                    document.querySelector("#username").innerHTML = "@" + username;
+                    getUserSpots(username, spotcount)
+                });
+        });
+
+        /*const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');*/
+
+        function getUserSpots(username, count) {
+            fetch("/getspots/" + username, {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "getloginedusername": "Get username"
+                        "spotcount": count.toString()
                     })
                 })
                 .then(response => {
@@ -27,51 +43,14 @@
                     return response.json();
                 })
                 .then(content => {
-                    if (content.status == "Success") {
-                        console.log("Succesfully fetched Username");
-                        document.querySelector("#username").innerHTML = "@" + content.username;
+                    if (content[0].status == errorcodes.success) {
+                        document.querySelector("#spotscount").innerHTML = content.length - 1;
+                        createSpots(content, content.length - 1);
                     } else
-                        console.log(content.status);
+                        console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
-        }
-
-        function getPP() {
-            fetch("/profile", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "getpp": "Get Profilepicture"
-                    })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.blob();
-                })
-                .then(image => {
-                    if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
-                        document.querySelector("#profilepicture").src = URL.createObjectURL(image);
-                    else
-                        document.querySelector("#profilepicture").src =
-                        "resources/img/defaultprofile.png"; //default profile picture
-                })
-                .catch(err => console.log(err));
-        }
-        getPP();
-        getUsername();
-    </script>
-
-    <script>
-        async function logout() {
-            const options = {
-                method: 'POST',
-            }
-            const response = await fetch("/logout", options);
-            window.location = response.url;
         }
     </script>
     <!-- === navigationsleiste === -->
@@ -175,101 +154,14 @@
                 <h3>USERNAME</h3>
                 <h2 id="username"></h2>
                 <h3>SPOTS</h3>
-                <h2>420</h2>
+                <h2 id="spotscount">0</h2>
                 <h3>BOARDS</h3>
-                <h2>11</h2>
+                <h2>TODO</h2>
 
             </div>
 
             <div class="userspots">
-                <div class="user-flex-container">
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-                    <div class="user-spot-preview">
-                        <img class="user-previewimg" src="resources/img/skate-park.jpg">
-                        <h2>Skatepark in Mitte</h2>
-
-
-                    </div>
-
-
-
-
+                <div id="spotsview" class="user-flex-container">
 
                 </div>
 

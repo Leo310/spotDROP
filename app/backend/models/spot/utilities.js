@@ -45,7 +45,7 @@ exports.validateImage = (image) => {
 
 exports.validateCategory = (category) => {
     return new Promise((resolve, reject) => {
-        if (category <= Object.keys(categories).length && category > 0 && /^[0-9]+$/.test(category))
+        if (Object.values(categories).includes(category))
             resolve();
         else
             reject(errorcodes.categoryInvalid);

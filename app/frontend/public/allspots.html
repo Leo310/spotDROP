@@ -6,18 +6,78 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
-
+    <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
     <script>
-        async function logout() {
-            const options = {
-                method: 'POST',
+        $(document).ready(() => {
+            const spotcount = 0; // 0 equals all spots
+            getSpots(spotcount);
+        });
+
+        function getSpots(count) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchvalue = urlParams.get('search');
+            document.getElementById("search").value = searchvalue;
+            if (searchvalue) {
+                fetch("/spotswithtitle", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "title": searchvalue,
+                            "spotcount": count.toString()
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content[0].status == errorcodes.success) {
+                            createSpots(content, content.length - 1);
+                        } else
+                            console.log(content[0].status);
+
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                fetch("/spots", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "spotcount": count.toString()
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content[0].status == errorcodes.success) {
+                            createSpots(content, content.length - 1);
+                        } else
+                            console.log(content[0].status);
+
+                    })
+                    .catch(err => console.log(err))
             }
-            const response = await fetch("/logout", options);
-            window.location = response.url;
         }
+
+        function search(count = 0) {
+            const searchvalue = document.getElementById("search").value;
+            window.location = "/allspots?search=" + searchvalue;
+        }
+
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -65,7 +125,7 @@
 
             <input type="text" id="search" placeholder="Search Spot" name="Search">
             <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
-            <img src="resources/img/icons/loupe.png" class="searchicon">
+            <img src="resources/img/icons/loupe.png" class="searchicon" onclick="search()">
 
         </div>
 
@@ -78,25 +138,7 @@
 
         <h1 id="TopSpots">All Spots ever uploaded</h1>
         <p class="subtext">Alternatively, view the Top Spots of The Week »</p>
-        <div class="flex-container">
-            <div class="spot-preview">
-
-                <img class="previewimg" src="resources/img/spotdefault.png">
-
-                <div class="databar">
-                    <h2>Skatepark in Mitte</h2>
-                    <h3>Pappelplatz, 10115 Berlin</h3>
-                    <p class="prating">4.5</p>
-                </div>
-
-                <div class="iconbar">
-                    <img class="actionbarmini1" src="resources/img/icons/view.png">
-                    <p id="viewcount">999</p>
-                    <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                    <img class="actionbarmini3" src="resources/img/icons/save.png">
-                </div>
-
-            </div>
+        <div id="spotsview" class="flex-container">
 
 
         </div>

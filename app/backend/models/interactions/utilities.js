@@ -11,6 +11,14 @@ exports.validateRatingStars = (stars) => {
     })
 }
 
+exports.validateRatingTitle = (title) => {
+    return new Promise((resolve, reject) => {        if (title.length <= 35 && /^[a-zA-Z0-9!.,()\-;:\u00C0-\u017F\s]+$/.test(title))
+            resolve();
+        else
+            reject(errorcodes.titleInvalid);
+    })
+}
+
 exports.validateRatingText = (text) => {
     return new Promise((resolve, reject) => {
         if (text.length <= 1000 && /^[a-zA-Z0-9!.,()\-;:\u00C0-\u017F\s]+$/.test(text))

@@ -6,10 +6,11 @@ const iautilities = require("./utilities")
 const db = require("../../db/db");
 const errorcodes = require("../../errorcodes");
 
-exports.create = (username, sid, stars, text) => {
+exports.create = (username, sid, title, stars, text) => {
     return iautilities.validateRatingStars(stars)
+    .then(() => iautilities.validateRatingTitle(title))
     .then(() => iautilities.validateRatingText(text))
-    .then(() => db.insert("rates", "username, sid, stars, text, date", username, sid, stars, text, utilities.getDate()))
+    .then(() => db.insert("rates", "username, sid, title, stars, text, date", username, sid, title, stars, text, utilities.getDate()))
     .then(() => errorcodes.success)
     .catch(err => {
         console.log(err);
