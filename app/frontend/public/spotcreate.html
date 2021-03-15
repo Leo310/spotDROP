@@ -190,9 +190,10 @@
             <ul>
 
                 <li><a href="home">HOME</a></li>
-                <li><a href="index">SPOTS</a></li>
+                <li><a href="allspots">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
                 <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
 
             </ul>
@@ -261,10 +262,20 @@
                     </tr>
                 </table>
 
-                <label id="infolabel" for="info">DESCRIPTION</label>
-                <textarea id="info" maxlength="1000" class="spotdatainput"
-                    placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
-                    name="titel"></textarea>
+                <table>
+                    <tr>
+                        <td><label class="tl" for="info">DESCRIPTION</label></td>
+
+                    </tr>
+                    <tr>
+                        <td><textarea id="info" maxlength="1000" class="spotdatainput"
+                                placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
+                                name="titel"></textarea></td>
+                    </tr>
+                </table>
+
+
+
 
             </div>
             <div id="selectcat" class="setcategory">

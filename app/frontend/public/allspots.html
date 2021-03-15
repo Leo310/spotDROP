@@ -10,7 +10,15 @@
 </head>
 
 <body>
-
+    <script>
+        async function logout() {
+            const options = {
+                method: 'POST',
+            }
+            const response = await fetch("/logout", options);
+            window.location = response.url;
+        }
+    </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
         <nav class="header-nav">
@@ -22,8 +30,9 @@
                 <li><a href="home">HOME</a></li>
                 <li><a href="allspots">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
-                <li id="profile"><a href="home">PROFILE</a></li>
-                <li><button type="button" id="menubutton" onclick="location.href='login';">SIGN IN</button></li>
+                <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="logout();">SIGN OUT</button></li>
 
             </ul>
 
@@ -40,31 +49,38 @@
                 }
             </script> -->
 
-
         <!-- === willkommenstext === -->
-        <div class="centerdiv">
-            <div class="greeting">
-                <p class="welcomeback">Welcome to spotDrop!</p>
-                <center>
-                    <p id="intro">Nice to see you here. Feel free to use spotDrop for discovering new Spots suitable for any
-                        occasion and for sharing your favorite Spots with everyone else.</p>
-                </center>
-            </div>
 
+        <div class="greeting">
+            <p class="welcomeback" id="welcomeback">View or Search All Spots</p>
+            <center>
+                <p id="intro">In the following, you will see all Spots ever uploaded. Feel free to comb through them or
+                    search the right Spot for your occasion. </p>
+            </center>
+        </div>
 
+        <div class="search">
 
-            <img class="arrowdown" src="resources/img/arrow-down.png">
+            <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
+
+            <input type="text" id="search" placeholder="Search Spot" name="Search">
+            <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
+            <img src="resources/img/icons/loupe.png" class="searchicon">
 
         </div>
+
+        <img class="arrowdown" src="resources/img/arrow-down.png">
+
+
     </div>
 
     <div class="overview">
 
-        <h1 id="TopSpots">Top Spots of The Week</h1>
-        <p class="subtext">Alternatively, view all Spots and search through them »</p>
-
+        <h1 id="TopSpots">All Spots ever uploaded</h1>
+        <p class="subtext">Alternatively, view the Top Spots of The Week »</p>
         <div class="flex-container">
             <div class="spot-preview">
+
                 <img class="previewimg" src="resources/img/spotdefault.png">
 
                 <div class="databar">
@@ -79,13 +95,11 @@
                     <img class="actionbarmini2" src="resources/img/icons/fave.png">
                     <img class="actionbarmini3" src="resources/img/icons/save.png">
                 </div>
+
             </div>
 
 
         </div>
-
-
-    </div>
 
 
     </div>

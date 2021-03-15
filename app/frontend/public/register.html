@@ -13,7 +13,7 @@
 
 <body>
     <script>
-         function register() {
+        function register() {
             const name = document.getElementById("registername").value;
             const email = document.getElementById("registeremail").value;
             const password = document.getElementById("pass1").value;
@@ -36,32 +36,32 @@
                 .then(content => {
                     if (content.status == errorcodes.success) {
                         window.location = "/home";
-                        
+
                     } else
                         document.querySelector("#errorp").innerHTML = content.status;
                 })
                 .catch(err => console.log(err))
         }
-        
+
         window.addEventListener('load', (event) => {
             var input = document.getElementById("pass2");
-        console.log(input)
+            console.log(input)
 
-        input.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                console.log("Log");
-                event.preventDefault();
-                document.getElementById("loginbutton").click();
-            }
-            
-        });
+            input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    console.log("Log");
+                    event.preventDefault();
+                    document.getElementById("loginbutton").click();
+                }
+
+            });
         })
-        
-        
-        
-        
-        
-        function checksubmit(form){
+
+
+
+
+
+        function checksubmit(form) {
             form.preventDefault();
             var pass1 = document.getElementById("pass1").value;
             var pass2 = document.getElementById("pass2").value;
@@ -70,11 +70,10 @@
                 console.log("Your passwords do not match.");
                 return false;
             } else {
-              return true;  
+                return true;
             }
-            
-        }
 
+        }
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -83,14 +82,8 @@
             <a href="/index"><img src="resources/img/logosketchgreenlight.png" alt=spotDROP.de></a>
 
             <ul>
-
-                <li><a href="home">HOME</a></li>
-                <li><a href="index">SPOTS</a></li>
-                <li><a href="index">PROFILE</a></li>
-                <li><a href="index">BOARDS</a></li>
-                <li><a href="index">CONTACT</a></li>
-                <li><button type="button" id="menubutton" onclick="history.back()">CANCEL</button></li>
-
+                <li><button style="color:rgb(126, 192, 149)" type="button" id="menubutton"
+                        onclick="history.back()">BACK</button></li>
             </ul>
 
         </nav>
@@ -98,46 +91,52 @@
 
         <div class="loginwrapper">
             <div class="registeractivelogin">
-                <h1>Welcome back!</h1>
-                <p>If you already have an account, just sign in.</p>
-                <button type="button" id="tosignup" onclick="location.href='login';">SIGN IN</button>
+                <div class="centerdiv">
+                    <h1>Welcome back!</h1>
+                    <p>If you already have an account, just sign in.</p>
+                    <button type="button" id="tosignup" onclick="location.href='login';">SIGN IN</button>
+                </div>
             </div>
+
             <div class="registeractiveregister">
                 <div class="centerdiv">
-                <h1>Create an Account</h1>
-                <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
+                    <h1>Create an Account</h1>
+                    <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
 
-                
 
-                    <input type="text" id="registername" maxlength="15" class="detailinput" placeholder="username" name="name">
-                    <input type="text" id="registeremail" maxlength="254" class="detailinput" placeholder="email" name="email">
+
+                    <input type="text" id="registername" maxlength="15" class="detailinput" placeholder="username"
+                        name="name">
+                    <input type="text" id="registeremail" maxlength="254" class="detailinput" placeholder="email"
+                        name="email">
                     <input type="password" id="pass1" class="detailinput" placeholder="password" name="password">
-                    <input type="password" id="pass2" class="detailinput" placeholder="retype password" name="retypepassword">
-                    
+                    <input type="password" id="pass2" class="detailinput" placeholder="retype password"
+                        name="retypepassword">
+
                     <button onclick="register()" id="loginbutton">SIGN UP</button>
                 </div>
                 <div class="errordiv2">
                     <p class="error" id="errorp"></p>
                 </div>
-                
+
             </div>
-           
+
 
 
         </div>
-        
-
-        
 
 
-    
-    
+
+
+
+
+
     </div>
 
-  
 
 
-   
+
+
 
 
 
