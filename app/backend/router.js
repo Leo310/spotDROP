@@ -23,6 +23,7 @@ router.post("/user/:username", check.username, user.postGetUser);
 
 //spot specific
 router.post("/spots", spot.postGetSpots);
+router.post("/topspots", spot.postGetTopSpots);
 router.post("/spots/create", check.auth, spot.postCreateSpot);
 router.post("/spots/:sid",check.spotid, interactions.views, spot.postGetSpot);
 router.post("/spots/:sid/addcategories",check.spotid, spot.postAddCategorySpot);

@@ -7,13 +7,67 @@
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
     <script src="./scripts.js"></script>
+    <script src="./errorcodes.js"></script>
     <script src="./categories.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
     <script>
+        const topspotcount = 8;
+        
+        getTopSpots(topspotcount);
 
+        function getTopSpots(count) {
+            fetch("/topspots", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "spotcount": count
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content[0].status == errorcodes.success) {
+                        createTopSpots(content, count);
+                    } else
+                        console.log(content.status);
 
+                })
+                .catch(err => console.log(err))
+        }
+
+        function createTopSpots(spots, count) {
+            document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
+            $(document).ready(() => { 
+                for(let i = 1; i <= count; i++) //index 0 is status code
+                {
+                    $("#topspotss").append(
+                        $('<div>', {"class": "spot-preview"}).append(
+                            $('<img>', {"class":"previewimg", "src":"resources/img/spotdefault.png"}),
+                            $('<div>', {"class":"databar"}).append(
+                                $('<h2>', {"text": spots[i].title}),
+                                $('<h3>', {"text": spots[i].street + ", " + spots[i].zip + " " + spots[i].city}),
+                                $('<p>' ,{"class":"prating", "text":"4.5"})
+                            ),
+                            $('<div>', {"class":"iconbar"}).append(
+                                $('<img>', {"class":"actionbarmini1", "src":"resources/img/icons/view.png"}),
+                                $('<p>', {"id":"viewcount", "text":spots[i].views}),
+                                $('<img>', {"class":"actionbarmini2", "src":"resources/img/icons/fave.png"}),
+                                $('<img>', {"class":"actionbarmini3", "src":"resources/img/icons/save.png"})
+                            )    
+                        )
+                    );
+                }
+            })
+        }
+        
         function getUsername() {
             fetch("/profile", {
                     method: "post",
@@ -50,29 +104,6 @@
             }
         }
 
-
-        window.addEventListener('load', (event) => {
-
-            var div = document.getElementById('searchcheckboxes');
-
-            for (var i = 0; i < Object.keys(categories).length; i++) {
-
-
-
-                var checkbox = document.createElement('input');
-                checkbox.type = "checkbox";
-                checkbox.name = "name" + Object.keys(categories)[i];
-                checkbox.value = "value";
-                checkbox.id = "id" + i;
-                div.appendChild(checkbox);
-
-                var newlabel = document.createElement("label");
-                newlabel.setAttribute("for", "id" + i);
-                newlabel.innerHTML = Object.keys(categories)[i];
-                div.appendChild(newlabel);
-
-            }
-        });
         getUsername();
     </script>
     <!-- === navigationsleiste === -->
@@ -127,25 +158,10 @@
 
     <div class="overview">
 
-        <h1 id="TopSpots">Top Spots of The Week</h1>
+        <h1 id="TopSpots"></h1>
         <p class="subtext">Alternatively, view all Spots or search through them »</p>
-        <div class="flex-container">
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/spotdefault.png">
-
-                <div class="databar">
-                    <h2>Skatepark in Mitte</h2>
-                    <h3>Pappelplatz, 10115 Berlin</h3>
-                    <p class="prating">4.5</p>
-                </div>
-
-                <div class="iconbar">
-                    <img class="actionbarmini1" src="resources/img/icons/view.png">
-                    <p id="viewcount">999</p>
-                    <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                    <img class="actionbarmini3" src="resources/img/icons/save.png">
-                </div>
-            </div>
+        <div id="topspotss" class="flex-container">
+            
 
 
         </div>

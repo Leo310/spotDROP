@@ -2,6 +2,9 @@
 
 const path = require("path");
 
+const compare = require('3');
+const sortMap = require("sort-map");
+
 const errorcodes = require("../../errorcodes");
 const getspot = require("./getspot");
 const getspots = require("./getspots");
@@ -11,7 +14,6 @@ const image = require("./image");
 const views = require("./getspotviews");
 const category = require("./category");
 const spotutilities = require("./utilities");
-const { categoryInvalid } = require("../../errorcodes");
 
 exports.postCreateSpot = async (req, res) => {
     const body = req.body;
@@ -26,19 +28,22 @@ exports.postGetCategoriesSpot = async (req, res) => {
     {
         if (req.session.uname == await spotutilities.getSpotAuthor(req.params.sid)) {
             let categories = await category.get(req.params.sid)
-            if(categories == errorcodes.notFound){
+            if (categories == errorcodes.notFound) {
                 res.json({
                     status: errorcodes.noCategory
                 });
             } else {
-                res.json({"categories": categories, "status": errorcodes.success});
+                res.json({
+                    "categories": categories,
+                    "status": errorcodes.success
+                });
             }
         } else {
             res.json({
                 status: errorcodes.notCreatorOfSpot
             });
         }
-    }else {
+    } else {
         res.json({
             status: errorcodes.noSpotImage
         });
@@ -61,12 +66,12 @@ exports.postAddCategorySpot = async (req, res) => {
                 status: errorcodes.notCreatorOfSpot
             });
         }
-    }else {
+    } else {
         res.json({
             status: errorcodes.noSpotImage
         });
     }
-    
+
 }
 
 
@@ -165,6 +170,54 @@ exports.postGetSpots = async (req, res) => {
                 }
 
                 res.json(spotsdata);
+            }
+        } else {
+            res.json({
+                status: errorcodes.countInvalid
+            });
+        }
+    } else {
+        res.json({
+            status: errorcodes.noCount
+        });
+    }
+}
+
+exports.postGetTopSpots = async (req, res) => {
+    if (req.body.spotcount) {
+        if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
+        {
+            const spotsdata = await getspots();
+            if (spotsdata == errorcodes.notFound) {
+                res.json({
+                    status: errorcodes.noSpotImage
+                });
+            } else {
+                let spotcount = req.body.spotcount;
+                if (spotcount == 0 || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                    spotcount = spotsdata.length;
+
+                let topviews = new Map();
+                for (let i = 0; i < spotsdata.length; i++) {
+                    topviews.set(spotsdata[i]["sid"], await views(spotsdata[i]["sid"]));
+                }
+
+                const topviewssorted = sortMap(topviews, ([k1, v1], [k2, v2]) => compare(v2, v1))
+                let sortedspotsdata = [];
+                for (let j = 0; j < spotcount; j++) {
+                    for (let i = 0; i < spotsdata.length; i++) {
+                        const sid = Array.from(topviewssorted.keys())[j]
+                        if (spotsdata[i]["sid"]== sid) {
+                            spotsdata[i]["status"] = errorcodes.success;
+                            spotsdata[i]["views"] = topviewssorted.get(sid); //add views count to spotdata
+                            sortedspotsdata.push(spotsdata[i]);
+                            break;
+                        }
+                    }
+                }
+                sortedspotsdata.unshift({"status": errorcodes.success}); //first element statuscode
+                
+                res.json(sortedspotsdata);
             }
         } else {
             res.json({

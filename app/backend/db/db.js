@@ -11,6 +11,16 @@ const pool = mysql.createPool({
     database: "spotdrop"
 });
 
+exports.customQuery = (query) => {
+    pool.query(query, (error, results, fields) => {
+        if (error) {
+            reject("Unregistered " + error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
+        } else {
+            resolve(results);
+        }
+    });
+}
+
 exports.insert = (table, rows, ...values) => {
     return new Promise((resolve, reject) => {
         let queryvalues = []; //values to string for query

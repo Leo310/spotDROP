@@ -9,6 +9,7 @@
     <script src="./errorcodes.js"></script>
     <script src="./categories.js"></script>
     <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
@@ -22,17 +23,17 @@
                 x.style.display = "block";
             }
         }
+        $(document).ready(() => {
+            createSpotCategories();
+        })
 
-
-        window.addEventListener('load', (event) => {
-
+        function createSpotCategories() {
             var div = document.getElementById('checkboxes');
 
             for (var i = 0; i < Object.keys(categories).length; i++) {
                 var checkbox = document.createElement('input');
                 checkbox.type = "checkbox";
                 checkbox.name = "name" + Object.keys(categories)[i];
-                checkbox.value = "value";
                 checkbox.id = "checkboxid" + i;
                 div.appendChild(checkbox);
 
@@ -42,7 +43,7 @@
                 div.appendChild(newlabel);
 
             }
-        });
+        }
 
         function createSpot() {
             const title = document.getElementById("title").value;
@@ -88,15 +89,15 @@
                 .catch(err => console.log(err))
         }
 
-        function addCategories(sid){
+        function addCategories(sid) {
             let checkedcategories = []
             for (var i = 0; i < Object.keys(categories).length; i++) {
-                const checkbox = document.getElementById("checkboxid"+i);
-                if(checkbox.checked){
+                const checkbox = document.getElementById("checkboxid" + i);
+                if (checkbox.checked) {
                     checkedcategories.push(Object.values(categories)[i]);
                 }
             }
-            fetch("/spots/" + sid+ "/addcategories", {
+            fetch("/spots/" + sid + "/addcategories", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
@@ -126,7 +127,7 @@
 
                 let formData = new FormData();
                 formData.append("addimage", image);
-                fetch("/spots/" +sid+"/image" , {
+                fetch("/spots/" + sid + "/image", {
                         method: "post",
                         body: formData
                     })
@@ -149,8 +150,8 @@
             }
         }
 
-        function getImage(sid){
-            fetch("/spots/" +sid +"/image", {
+        function getImage(sid) {
+            fetch("/spots/" + sid + "/image", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
@@ -168,12 +169,11 @@
                     if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
                     {
                         document.querySelector("#spotimage").src = URL.createObjectURL(image);
-                        document.querySelector("#spotimage").style.opacity = 1.0;  
-                    }
-                    else
-                    {
-                        document.querySelector("#spotimage").src = "resources/img/spotdefault.png"; //default profile picture
-                        document.querySelector("#spotimage").style.opacity = 0.5;  
+                        document.querySelector("#spotimage").style.opacity = 1.0;
+                    } else {
+                        document.querySelector("#spotimage").src =
+                        "resources/img/spotdefault.png"; //default profile picture
+                        document.querySelector("#spotimage").style.opacity = 0.5;
                     }
                 })
                 .catch(err => console.log(err));
