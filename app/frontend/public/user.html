@@ -15,12 +15,17 @@
 <body>
     <script>
         $(document).ready(() => {
-            const spotcount = 0; // 0 equals all spots
-            getSpots(spotcount);
+            getPP();
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('name');
+            const spotcount = 0;
+            document.querySelector("#username").innerHTML = "@" + username;
+            getUserSpots(username, spotcount)
         });
 
-        function getSpots(count) {
-            fetch("/spots", {
+
+        function getUserSpots(username, count) {
+            fetch("/getspots/" + username, {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
@@ -36,14 +41,14 @@
                 })
                 .then(content => {
                     if (content[0].status == errorcodes.success) {
-                        createSpots(content, content.length-1);
+                        document.querySelector("#spotscount").innerHTML = content.length - 1;
+                        createSpots(content, content.length - 1);
                     } else
                         console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
         }
-
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -58,7 +63,7 @@
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="profile">PROFILE</a></li>
                 <li><a href="spotcreate">NEW SPOT</a></li>
-                <li><button type="button" id="menubutton" onclick="logout();">SIGN OUT</button></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
 
             </ul>
 
@@ -77,40 +82,33 @@
 
         <!-- === willkommenstext === -->
 
-        <div class="greeting">
-            <p class="welcomeback" id="welcomeback">View or Search All Spots</p>
-            <center>
-                <p id="intro">In the following, you will see all Spots ever uploaded. Feel free to comb through them or
-                    search the right Spot for your occasion. </p>
-            </center>
-        </div>
+        <div class="userwrapper">
 
-        <div class="search">
+            <div class="userdata">
+                <div class="userimage">
+                    <img id="profilepicture" src="">
+                </div>
+                <h3>USERNAME</h3>
+                <h2 id="username"></h2>
+                <h3>SPOTS</h3>
+                <h2 id="spotscount">0</h2>
+                <h3>BOARDS</h3>
+                <h2>TODO</h2>
 
-            <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
+            </div>
 
-            <input type="text" id="search" placeholder="Search Spot" name="Search">
-            <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
-            <img src="resources/img/icons/loupe.png" class="searchicon">
+            <div class="userspots">
+                <div id="spotsview" class="user-flex-container">
 
-        </div>
-
-        <img class="arrowdown" src="resources/img/arrow-down.png">
-
-
-    </div>
-
-    <div class="overview">
-
-        <h1 id="TopSpots">All Spots ever uploaded</h1>
-        <p class="subtext">Alternatively, view the Top Spots of The Week »</p>
-        <div id="spotsview" class="flex-container">
+                </div>
 
 
-        </div>
+
+            </div>
 
 
-    </div>
+
+
 
 
 </body>

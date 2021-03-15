@@ -19,7 +19,10 @@ exports.spotid = (req, res, next) => {
 
 exports.username = async (req, res, next) => {
     try {
-        await userutilities.validateUsername(req.params.username);
+        if(req.params.username)
+            await userutilities.validateUsername(req.params.username);
+        else if(req.query.username)
+            await userutilities.validateUsername(req.query.username);
         next();
     }catch {
         res.json({status: errorcodes.usernameInvalid});

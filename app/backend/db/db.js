@@ -62,7 +62,7 @@ exports.get = (table, rows, where, value, where2, value2) => {
         if (where2 && value2) {
 
             pool.query(`select ${rows} from ${table} where ${where}='${value}' and ${where2}='${value2}';`, (error, results, fields) => {
-                if (results[0] === undefined) //couldnt find a column with given entry
+                if (results === undefined) //couldnt find a column with given entry
                 {
                     reject(errorcodes.notFound);
                 } else if (error) {
@@ -74,7 +74,7 @@ exports.get = (table, rows, where, value, where2, value2) => {
 
         } else if (where && value) {
             pool.query(`select ${rows} from ${table} where ${where}='${value}';`, (error, results, fields) => {
-                if (results[0] === undefined) //couldnt find a column with given entry
+                if (results === undefined) //couldnt find a column with given entry
                 {
                     reject(errorcodes.notFound);
                 } else if (error) {

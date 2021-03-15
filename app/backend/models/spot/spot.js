@@ -149,37 +149,73 @@ exports.postDeleteSpot = async (req, res) => {
         });
     }
 }
+exports.postGetUserSpots  = async (req, res) => {
+    if(req.params.username || req.query.username){
+        if (req.body.spotcount) {
+            if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
+            {
+                const spotsdata = await getspots.user(req.params.username || req.query.username);
+                if (spotsdata == errorcodes.notFound) {
+                    res.json({
+                        status: errorcodes.noSpotImage
+                    });
+                } else {
+                    let spotcount = req.body.spotcount;
+                    if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                        spotcount = spotsdata.length;
+    
+                    for (let i = 0; i < spotcount; i++) {
+                        spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
+                    }
+                    spotsdata.unshift({ status: errorcodes.success});
+                    res.json(spotsdata);
+                }
+            } else {
+                res.json([{     //need [] because on client we use fetched[0].status and not fetched.statuss because we are sending an array
+                    status: errorcodes.countInvalid
+                }]);
+            }
+        } else {
+            res.json([{
+                status: errorcodes.noCount
+            }]);
+        }
+    } else {
+        res.json([{
+            status: errorcodes.noUserSpecified
+        }]);
+    }
+}
 
 exports.postGetSpots = async (req, res) => {
     if (req.body.spotcount) {
         if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
         {
-            const spotsdata = await getspots();
+            const spotsdata = await getspots.all();
             if (spotsdata == errorcodes.notFound) {
                 res.json({
                     status: errorcodes.noSpotImage
                 });
             } else {
                 let spotcount = req.body.spotcount;
-                if (spotcount == 0 || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
                     spotcount = spotsdata.length;
 
                 for (let i = 0; i < spotcount; i++) {
-                    spotsdata[i]["status"] = errorcodes.success;
-                    spotsdata[i]["views"] = await views(req.params.sid); //add views count to spotdata
+                    spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
                 }
-
+                spotsdata.unshift({ status: errorcodes.success});
                 res.json(spotsdata);
             }
         } else {
-            res.json({
+            res.json([{
                 status: errorcodes.countInvalid
-            });
+            }]);
         }
     } else {
-        res.json({
+        res.json([{
             status: errorcodes.noCount
-        });
+        }]);
     }
 }
 
@@ -187,14 +223,14 @@ exports.postGetTopSpots = async (req, res) => {
     if (req.body.spotcount) {
         if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
         {
-            const spotsdata = await getspots();
+            const spotsdata = await getspots.all();
             if (spotsdata == errorcodes.notFound) {
                 res.json({
                     status: errorcodes.noSpotImage
                 });
             } else {
                 let spotcount = req.body.spotcount;
-                if (spotcount == 0 || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
                     spotcount = spotsdata.length;
 
                 let topviews = new Map();
@@ -220,14 +256,14 @@ exports.postGetTopSpots = async (req, res) => {
                 res.json(sortedspotsdata);
             }
         } else {
-            res.json({
+            res.json([{
                 status: errorcodes.countInvalid
-            });
+            }]);
         }
     } else {
-        res.json({
+        res.json([{
             status: errorcodes.noCount
-        });
+        }]);
     }
 }
 

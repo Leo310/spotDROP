@@ -6,26 +6,33 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
-    <script src="./scripts.js"></script>
-    <script src="./errorcodes.js"></script>
     <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
     <script>
-        const topspotcount = 8;
-        
-        getTopSpots(topspotcount);
+        $(document).ready(() => {
+            getUsername()
+                .then((username) => {
+                    document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
+                    const topspotcount = 8;
+                    getTopSpots(topspotcount);
+                });
+
+        });
 
         function getTopSpots(count) {
+            document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
             fetch("/topspots", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "spotcount": count
+                        "spotcount": count.toString()
                     })
                 })
                 .then(response => {
@@ -35,61 +42,9 @@
                 })
                 .then(content => {
                     if (content[0].status == errorcodes.success) {
-                        createTopSpots(content, count);
+                        createSpots(content, content.length - 1);
                     } else
-                        console.log(content.status);
-
-                })
-                .catch(err => console.log(err))
-        }
-
-        function createTopSpots(spots, count) {
-            document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
-            $(document).ready(() => { 
-                for(let i = 1; i <= count; i++) //index 0 is status code
-                {
-                    $("#topspotss").append(
-                        $('<div>', {"class": "spot-preview"}).append(
-                            $('<img>', {"class":"previewimg", "src":"resources/img/spotdefault.png"}),
-                            $('<div>', {"class":"databar"}).append(
-                                $('<h2>', {"text": spots[i].title}),
-                                $('<h3>', {"text": spots[i].street + ", " + spots[i].zip + " " + spots[i].city}),
-                                $('<p>' ,{"class":"prating", "text":"4.5"})
-                            ),
-                            $('<div>', {"class":"iconbar"}).append(
-                                $('<img>', {"class":"actionbarmini1", "src":"resources/img/icons/view.png"}),
-                                $('<p>', {"id":"viewcount", "text":spots[i].views}),
-                                $('<img>', {"class":"actionbarmini2", "src":"resources/img/icons/fave.png"}),
-                                $('<img>', {"class":"actionbarmini3", "src":"resources/img/icons/save.png"})
-                            )    
-                        )
-                    );
-                }
-            })
-        }
-        
-        function getUsername() {
-            fetch("/profile", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "getloginedusername": "Get username"
-                    })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(content => {
-                    if (content.status == "Success") {
-                        console.log("Succesfully fetched Username");
-                        document.querySelector("#welcomeback").innerHTML = "Welcome back, " + content.username +
-                        ".";
-                    } else
-                        console.log(content.status);
+                        console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
@@ -103,8 +58,6 @@
                 x.style.display = "block";
             }
         }
-
-        getUsername();
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -160,8 +113,8 @@
 
         <h1 id="TopSpots"></h1>
         <p class="subtext">Alternatively, view all Spots or search through them »</p>
-        <div id="topspotss" class="flex-container">
-            
+        <div id="spotsview" class="flex-container">
+
 
 
         </div>
