@@ -262,6 +262,67 @@ body {
 
 }
 
+.userspots {
+        position: relative;
+        float: left;
+        width: 65%;
+        height: 70vh;
+        
+        padding: 5px;
+        margin-left: 5%;   
+        overflow:scroll;
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 1);
+        -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+}
+.user-flex-container {
+    display: flex;
+    width: 95%;
+    height:100%;   
+    margin-top: 15px; 
+    margin-left: auto;
+    margin-right: auto;
+
+    flex-flow: row wrap;
+
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: flex-start;
+   
+}
+
+
+.user-spot-preview {
+    width: 30%;
+    background-color:rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.user-previewimg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.user-spot-preview>h2 {
+
+    position: relative;
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+    font-family: "ProximaNova";
+    font-weight: 700;
+    font-size: 1rem;
+    
+    color: #6c6c6c;
+}
 
 
 
@@ -611,15 +672,15 @@ body {
      
      bottom: 0;
      margin-bottom: 0; */
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.2)
+    
+    
 }
 
 .userdata {
     position: relative;
     float: left;
     width: 30%;
-    height: 500px;
+    height: 60vh;
     text-align: center;
     padding: 5px;
 
