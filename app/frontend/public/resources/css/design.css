@@ -412,6 +412,8 @@ body {
 
 .fullscreen {
     height: 100vh;
+   
+    
 }
 
 .center {
@@ -557,6 +559,20 @@ body {
     margin-left: auto;
     margin-right: auto;
     z-index: 1;
+
+}
+
+.arrowdown2 {
+  
+
+    position: absolute;
+    left: 50%;
+    bottom:10%;
+    transform: translate(-50%,10%);
+    height: 50px;
+    width: 50px;
+   
+    z-index: 2;
 
 }
 
@@ -862,7 +878,36 @@ h3 {
 
     background-color: rgba(255, 255, 255, 0.2);
     z-index: 2;
+    
 
+}
+
+.viewspotwrapper {
+    position: relative;
+    
+    display: flex;
+    width: 90%;
+    min-height: 75vh;
+
+
+    left: 50%;
+    margin-top: 10vh;
+    border-radius: 20px;
+
+    transform: translateX(-50%);
+
+    /* position: absolute;
+    left: 50%;
+    right:50%;
+    transform: translate(-50%, -50%);
+     
+     bottom: 0;
+     margin-bottom: 0; */
+
+    background-color: #ffffff;
+    
+    overflow: scroll;
+   
 }
 
 .spotcreatewrapper h2,
@@ -876,12 +921,38 @@ h3 {
     position: relative;
 
     float: left;
+    margin: 0;
     margin-top: 0;
     width: 40%;
 
     border-radius: 20px 0 0 20px;
     background-color: white;
     z-index: 2;
+    overflow: scroll;
+}
+
+.userpictureviewspot {
+    position: relative;
+    float: left;
+    margin:0;
+   
+    height: 50px;
+    border-radius: 50%;
+}
+.viewspotdata{
+    position: relative;
+    float: left;
+    
+    margin-top: 0;
+    width: 40%;
+
+    border-radius: 20px 0 0 20px;
+    background-color: white;
+    
+    overflow-y: scroll;
+    height: 70vh;
+    
+    
 }
 
 .spotdata label {
@@ -895,6 +966,30 @@ h3 {
     margin-left: 5px;
 }
 
+.viewspotdata label {
+    display: block;
+
+    margin-bottom: 2px;
+    font-weight: 700;
+    color: #c0c0c0;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-left: 5px;
+}
+
+#viewallcats {
+    margin-bottom: 0;
+    font-family: "ProximaNova";
+    font-weight: 700;
+    color: #c0c0c0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-left: 5px;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
 .spotdata h6 {
     position: relative;
     padding:0;
@@ -902,7 +997,19 @@ h3 {
     font-weight: 700;
     color: #6C6C6C;
     font-size: 25px;
-    letter-spacing: 1px;
+    
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.viewspotdata h6 {
+    position: relative;
+    padding:0;
+    margin: 0;
+    font-weight: 700;
+    color: #6C6C6C;
+    font-size: 17px;
+    
     margin-bottom: 15px;
     margin-left: 5px;
 }
@@ -917,7 +1024,10 @@ table {
 td {
     padding: 0;
     margin: 0;
-   word-break: break-all;
+   word-wrap:break-word;
+   
+   
+   
 
 }
 
@@ -971,8 +1081,8 @@ tr {
 
 #info {
     height: 15vh;
-    width: 78%;
-    margin-left: 5px;
+    
+    
     resize: none;
     overflow: scroll;
 }
@@ -980,7 +1090,7 @@ tr {
 #description {
     position: relative;
     max-width: 93%;
-    max-height: 100px;
+    max-height: 15vh;
     padding: 0;
     padding-right: 20px;
     margin: 0;
@@ -991,9 +1101,25 @@ tr {
     color: #6c6c6c;
     line-height: 1.2em;
     overflow-y: scroll;
-
-
 }
+
+#description2 {
+    position: relative;
+    max-width: 100%;
+    max-height: 25vh;
+    padding: 0;
+    padding-right: 10px;
+    margin: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: justify;
+    font-weight: 700;
+    font-size:17px;
+    color: #6c6c6c;
+    line-height: 1.3em;
+    overflow-y: scroll;
+}
+
 
 
 
@@ -1006,7 +1132,8 @@ tr {
     margin-right: auto;
     margin-bottom: 20px;
     font-weight: 700px;
-    font-size: 3em;
+    font-size: 40px;
+    padding: 0;
 
 
     background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
@@ -1038,9 +1165,19 @@ tr {
     width: 60%;
     background-color: transparent;
     z-index: 2;
-
-
 }
+
+.viewspotright {
+    position: relative;
+    float: left;
+    width: 60%;
+    background-color: transparent;
+    height: 75vh;
+    
+}
+
+
+
 
 .fullsizeimage {
     height: 100%;
@@ -1052,6 +1189,7 @@ tr {
     border-radius: 0 20px 20px 0;
     opacity: 0.5;
     object-fit: cover; 
+    z-index:1;
 
     /* border-width: 3px;
     border-style: solid;
@@ -1184,8 +1322,6 @@ tr {
     border-radius: 0 20px 20px 0;
 }
 
-
-
 .checkboxes {
     position: relative;
     
@@ -1242,6 +1378,189 @@ tr {
     background-color: rgb(126, 192, 149);
 }
 
+.comments {
+    position: absolute;
+    
+    top: 80vh;  
+    width: 100%;
+    min-height: 50vh;
+    border-radius: 20px;
+    background-color: transparent;
+    
+    
+}
+
+.comments h1 {
+
+    position: relative;
+    display: table;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5vh;
+    font-weight: 700px;
+    font-size: 40px;
+    padding: 0;
+
+
+    background-image: linear-gradient(210deg, rgb(126, 192, 149), rgb(40, 51, 69));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+
+
+.commentflex {
+    display: flex;
+    width: 100%;
+    margin-top: 25px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+
+    flex-flow: column wrap;
+
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+
+.commentdiv {
+   
+    width: 90%;
+    
+    background-color: white; 
+    
+    border-radius: 20px;
+    padding: 20px;
+    margin: 30px;
+   
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+ 
+
+}
+
+
+.commentdiv h2 {
+
+    position: relative;
+    margin-left: 2vw;
+    margin-top: 15px;
+ 
+    margin-bottom: 10px;
+    font-weight: 700px;
+    font-size: 25px;
+    color: rgb(126, 192, 149);
+    padding: 0;
+
+}
+
+.commentdiv p {
+
+    position: relative;
+    margin-left: 2vw;
+    margin-top: 5px;
+ 
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #6c6c6c;
+    padding: 0;
+    max-width: 95%;
+    line-height: 1.5em;
+    text-align: justify;
+
+}
+
+.commentdiv1 p {
+
+    position: absolute;
+    left: 50%;
+    top: 80%;
+ 
+    transform: translateX(-50%);
+    margin:0;
+    font-weight: 600;
+    font-size: 13   px;
+    color: rgb(126, 192, 149);
+    padding: 0;
+    max-width: 95%;
+    line-height: 1.5em;
+    word-wrap:break-word;
+    
+
+}
+
+.commentdiv1 {
+    position: relative;
+    float: left;
+    width: 10%;
+    min-height:150px;
+    
+  
+}
+
+.commentdiv1 img {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 75px;
+    border-radius: 50%;
+
+    padding: 0;
+    border: none;
+}
+
+.commentdiv1>h3 {
+    
+    text-align: center;
+    font-size: 13px;
+    margin: 0;
+
+
+}
+
+.commentdiv2 {
+    position: relative;
+    float: left;
+    min-height: 150px;
+    width: 80%;
+   
+    
+}
+
+.commentdiv3 {
+    position: relative;
+    float: left;
+    min-height: 150px;
+    width: 10%;
+    
+    
+}
+
+.commentdiv3 p {
+
+    position: absolute;
+    left: 50%;
+    top: 15px;
+ 
+    transform: translateX(-50%);
+    margin:0;
+    font-weight: 700;
+    font-size: 25px;
+    color: #6c6c6c;
+    padding: 0;
+    max-width: 95%;
+    line-height: 1.5em;
+    
+}
 
 
 /* === === === === === === === button === === === === === === ===  */
