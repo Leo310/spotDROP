@@ -89,6 +89,11 @@ function redirectSpotView(sid)
     window.location = "/spot?sid=" + sid;
 }
 
+function redirectUserView(name)
+{
+    window.location = "/user?name=" + name;
+}
+
 function createSpots(spots, count) {
     for(let i = 1; i <= count; i++) //index 0 is status code
     {
