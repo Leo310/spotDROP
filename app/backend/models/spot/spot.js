@@ -219,6 +219,44 @@ exports.postGetSpots = async (req, res) => {
     }
 }
 
+exports.postGetSpotsWithTitle = async (req, res) => {
+    if(req.body.title) {
+        if (req.body.spotcount) {
+            if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
+            {
+                const spotsdata = await getspots.withtitel(req.body.title);
+                if (spotsdata == errorcodes.notFound) {
+                    res.json({
+                        status: errorcodes.noSpotImage
+                    });
+                } else {
+                    let spotcount = req.body.spotcount;
+                    if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                        spotcount = spotsdata.length;
+    
+                    for (let i = 0; i < spotcount; i++) {
+                        spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
+                    }
+                    spotsdata.unshift({ status: errorcodes.success});
+                    res.json(spotsdata);
+                }
+            } else {
+                res.json([{
+                    status: errorcodes.countInvalid
+                }]);
+            }
+        } else {
+            res.json([{
+                status: errorcodes.noCount
+            }]);
+        }  
+    }else {
+        res.json([{
+            status: errorcodes.noTitleSpecified
+        }]);
+    } 
+}
+
 exports.postGetTopSpots = async (req, res) => {
     if (req.body.spotcount) {
         if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers

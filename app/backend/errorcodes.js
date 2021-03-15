@@ -32,5 +32,6 @@ module.exports = {
     ratingStarsInvalid: "The rating stars are invalid",
     noRating: "The spot has no ratings",
     noCategory: "The spot has no categories",
-    noUserSpecified: "No user got specified"
+    noUserSpecified: "No user got specified",
+    noTitleSpecified: "No title specified"
 }

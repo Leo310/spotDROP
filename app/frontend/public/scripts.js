@@ -38,7 +38,6 @@ function getImage(sid, id) {
 function createSpots(spots, count) {
     for(let i = 1; i <= count; i++) //index 0 is status code
     {
-        console.log(spots[i]);
         $("#spotsview").append(
             $('<div>', {"class": "spot-preview"}).append(
                 $('<img>', {"class":"previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
@@ -55,7 +54,6 @@ function createSpots(spots, count) {
                 )    
             )
         );
-        console.log(spots[i].sid);
         getImage(spots[i].sid, i);
     }
 }

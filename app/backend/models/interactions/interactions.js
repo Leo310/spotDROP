@@ -24,7 +24,7 @@ exports.views = async (req, res, next) => {
 exports.postRateSpot = async (req, res) => {
     if (await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
     {
-        const rated = await rating.create(req.session.uname, req.params.sid, req.body.stars, req.body.text);
+        const rated = await rating.create(req.session.uname, req.params.sid, req.body.title ,req.body.stars, req.body.text);
         res.json({
             status: rated
         });
@@ -70,13 +70,13 @@ exports.postGetSpotRatings = async (req, res) => {
                 res.json(ratingsdata);
             }
         } else {
-            res.json({
+            res.json([{
                 status: errorcodes.countInvalid
-            });
+            }]);
         }
     } else {
-        res.json({
+        res.json([{
             status: errorcodes.noCount
-        });
+        }]);
     }
 }

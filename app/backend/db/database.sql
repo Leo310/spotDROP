@@ -59,6 +59,7 @@ create table if not exists views(
 create table if not exists rates(
     username varchar(15) not null,
     sid int unsigned not null,
+    title varchar(35) not null, 
     stars TINYINT not null,
     text varchar(1000),
     date DATETIME not null,

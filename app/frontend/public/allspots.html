@@ -20,28 +20,62 @@
         });
 
         function getSpots(count) {
-            fetch("/spots", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "spotcount": count.toString()
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchvalue = urlParams.get('search');
+            document.getElementById("search").value = searchvalue;
+            if (searchvalue) {
+                fetch("/spotswithtitle", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "title": searchvalue,
+                            "spotcount": count.toString()
+                        })
                     })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(content => {
-                    if (content[0].status == errorcodes.success) {
-                        createSpots(content, content.length-1);
-                    } else
-                        console.log(content[0].status);
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content[0].status == errorcodes.success) {
+                            createSpots(content, content.length - 1);
+                        } else
+                            console.log(content[0].status);
 
-                })
-                .catch(err => console.log(err))
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                fetch("/spots", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "spotcount": count.toString()
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content[0].status == errorcodes.success) {
+                            createSpots(content, content.length - 1);
+                        } else
+                            console.log(content[0].status);
+
+                    })
+                    .catch(err => console.log(err))
+            }
+        }
+
+        function search(count = 0) {
+            const searchvalue = document.getElementById("search").value;
+            window.location = "/allspots?search=" + searchvalue;
         }
 
     </script>
@@ -91,7 +125,7 @@
 
             <input type="text" id="search" placeholder="Search Spot" name="Search">
             <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
-            <img src="resources/img/icons/loupe.png" class="searchicon">
+            <img src="resources/img/icons/loupe.png" class="searchicon" onclick="search()">
 
         </div>
 

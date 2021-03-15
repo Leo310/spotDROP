@@ -25,6 +25,7 @@ router.post("/getspots/:username",check.username, spot.postGetUserSpots);
 //spot specific
 router.post("/spots", spot.postGetSpots);
 router.post("/topspots", spot.postGetTopSpots);
+router.post("/spotswithtitle", spot.postGetSpotsWithTitle);
 router.post("/spots/create", check.auth, spot.postCreateSpot);
 router.post("/spot/:sid",check.spotid, interactions.views, spot.postGetSpot);
 router.post("/spots/:sid/addcategories",check.spotid, spot.postAddCategorySpot);
