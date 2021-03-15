@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
-    <script src="./categories.js"></script>
+
 </head>
 
 <body>
@@ -19,65 +19,7 @@
             window.location = response.url;
         }
 
-        function getUsername() {
-            fetch("/profile", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "getloginedusername": "Get username"
-                    })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(content => {
-                    if (content.status == "Success") {
-                        console.log("Succesfully fetched Username");
-                        document.querySelector("#welcomeback").innerHTML = "Welcome back, " + content.username +".";
-                    } else
-                        console.log(content.status);
-
-                })
-                .catch(err => console.log(err))
-        }
-
-        function showCatDiv() {
-            var x = document.getElementById("filtercat");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
-        }
-
-
-        window.addEventListener('load', (event) => {
-            
-        var div = document.getElementById('searchcheckboxes');
-        
-        for (var i = 0; i < Object.keys(categories).length; i++) {
-
-           
-
-            var checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
-            checkbox.name = "name" + Object.keys(categories)[i];
-            checkbox.value = "value";
-            checkbox.id = "id" + i;
-            div.appendChild(checkbox);
-
-            var newlabel = document.createElement("label");
-            newlabel.setAttribute("for","id" + i);
-            newlabel.innerHTML = Object.keys(categories)[i];
-            div.appendChild(newlabel);    
-
-        }
-        });
-        getUsername();
+    
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -112,11 +54,9 @@
         <!-- === willkommenstext === -->
 
         <div class="greeting">
-            <p class="welcomeback" id="welcomeback"></p>
+            <p class="welcomeback" id="welcomeback">View or Search All Spots</p>
             <center>
-                <p id="intro">Great to see you again.
-                    Start searching for Spots right away or share
-                    your favorite Spots with everyone else.</p>
+                <p id="intro">In the following, you will see all Spots ever uploaded. Feel free to comb through them or search the right Spot for your occasion. </p>
             </center>
         </div>
 
@@ -128,18 +68,7 @@
             <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
             <img src="resources/img/icons/loupe.png" class="searchicon">
  
-        </div>  
-
-            <div id="filtercat" class="filtercat">
-                
-
-                <div id="searchcheckboxes" class="searchcheckboxes">
-                    
-                </div>
-
-            </div>
-
-        
+        </div> 
 
         <img class="arrowdown" src="resources/img/arrow-down.png">
 
@@ -148,8 +77,8 @@
 
     <div class="overview">
 
-        <h1 id="TopSpots">Top Spots of The Week</h1>
-        <p class="subtext">Alternatively, view all Spots and search through them</p>
+        <h1 id="TopSpots">All Spots ever uploaded</h1>
+        <p class="subtext">Alternatively, view the Top Spots of The Week</p>
         <div class="flex-container">
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/skate-park.jpg">

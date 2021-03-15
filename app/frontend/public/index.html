@@ -20,7 +20,7 @@
             <ul>
 
                 <li><a href="home">HOME</a></li>
-                <li><a href="index">SPOTS</a></li>
+                <li><a href="allspots">SPOTS</a></li>
                 <li><a href="index">BOARDS</a></li>
                 <li id="profile"><a href="home">PROFILE</a></li>
                 <li><button type="button" id="menubutton" onclick="location.href='login';">SIGN IN</button></li>
@@ -56,21 +56,11 @@
             <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
 
             <input type="text" id="search" placeholder="Search Spot" name="Search">
-            <select placeholder="Category" name="Category">
-                <option value="0">Category</option>
-                <option value="searchall">Search All</option>
-                <option value="belebt">Belebt</option>
-                <option value="ruhig">Ruhig</option>
-                <option value="wassernah">Wassernah</option>
-                <option value="bank">Bank</option>
-                <option value="parkour">Parkour</option>
-                <option value="skating">Skating</option>
-                <option value="fotografie">Fotografie</option>
-            </select>
-
-
-        </div>
-
+            <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
+            <img src="resources/img/icons/loupe.png" class="searchicon">
+ 
+        </div> 
+        
         <img class="arrowdown" src="resources/img/arrow-down.png">
 
 

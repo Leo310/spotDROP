@@ -57,7 +57,7 @@ body {
 
     font-family: "ProximaNova";
     font-weight: 600;
-
+    z-index: 1;
 }
 
 *:focus {
@@ -284,7 +284,6 @@ body {
 /* === === === === === === ===  individual divs  === === === === === === === */
 
 
-
 .greeting {
     position: relative;
     margin-top: 15vh;
@@ -296,6 +295,34 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10vh;
+    
+
+    /* position: absolute;
+    left: 50%;
+    right:50%;
+    transform: translate(-50%, -50%);
+     
+     bottom: 0;
+     margin-bottom: 0; */
+    width: 75%;
+    padding: 5px;
+
+    border-radius: 15px;
+
+    background-color: rgba(255, 255, 255, 1);
+
+}
+
+
+
+
+.filtercat {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    z-index: 3;
+    display: none;
 
     /* position: absolute;
     left: 50%;
@@ -317,19 +344,71 @@ body {
 
 }
 
-#searchicon {
-
-    height: 30px;
-    width: auto;
-    display: inline-block;
-    left: 5%;
-    margin-top: 25px;
-    margin-bottom: 25px;
+.filtercatbutton {
+    
+    height:50px;
+    padding: 12px 24px;
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 2%;
+    position: relative;
+    
+  
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+    background-color: transparent;
+    
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: rgba(128, 128, 128, 0.5);
+    font-family: "ProximaNova";
+    font-weight: 500;
+    font-size: 16px;
+    
 
 }
 
+.searchcheckboxes {
+    position: relative;
+    
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    
+    height: 100%;
+    
+    
+
+}
+
+.searchcheckboxes>input {
+    display: inline-block;
+    
 
 
+
+}
+
+.searchcheckboxes>label {
+    display: inline-block;
+    margin: 0;
+    margin-left: 5px;
+    margin-right: 10px;
+     margin-bottom:10px;
+    
+    
+
+    font-weight: 600;
+    color: #c0c0c0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+   
+
+}
 .arrowdown {
     margin-top: 20vh;
     display: flex;
@@ -339,6 +418,7 @@ body {
     width: 50px;
     margin-left: auto;
     margin-right: auto;
+    z-index: 1;
 
 }
 
@@ -712,7 +792,7 @@ tr {
     margin-bottom: 20px;
 
     position: relative;
-
+    color: #6c6c6c;
     font-size: 16px;
     font-family: "ProximaNova";
     font-weight: 500;
@@ -1120,10 +1200,11 @@ tr {
 }
 
 #search {
-    width: 60%;
+    width: 72%;
     height: 50px;
     padding: 12px 24px;
-
+    margin-left: 4%;
+    float:left;
     margin-top: 20px;
     margin-bottom: 20px;
     position: relative;
@@ -1132,11 +1213,21 @@ tr {
     font-family: "ProximaNova";
     font-weight: 500;
 
+    color:#6c6c6c;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
 }
 
+.searchicon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 4%;
+    
+    height: 40px;
+    float: right;
+}
 
 select {
     -moz-appearance: none;
@@ -1178,7 +1269,7 @@ select::-ms-expand {
     margin-top: 20px;
 
     position: relative;
-
+    color:#6c6c6c;
     font-size: 16px;
     font-family: "ProximaNova";
     font-weight: 500;
@@ -1197,7 +1288,7 @@ select::-ms-expand {
     height: 50px;
     padding: 12px 24px;
 
-
+    color:#6c6c6c;
 
     position: relative;
 
