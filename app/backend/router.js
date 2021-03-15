@@ -25,6 +25,8 @@ router.post("/user/:username", check.username, user.postGetUser);
 router.post("/spots", spot.postGetSpots);
 router.post("/spots/create", check.auth, spot.postCreateSpot);
 router.post("/spots/:sid",check.spotid, interactions.views, spot.postGetSpot);
+router.post("/spots/:sid/addcategories",check.spotid, spot.postAddCategorySpot);
+router.post("/spots/:sid/getcategories",check.spotid, spot.postGetCategoriesSpot);
 router.post("/spots/:sid/ratings", check.spotid, interactions.postGetSpotRatings);
 router.post("/spots/:sid/rate", check.spotid, check.auth, interactions.postRateSpot);
 router.post("/spots/:sid/delrating", check.spotid, check.auth, interactions.postDelRateSpot);

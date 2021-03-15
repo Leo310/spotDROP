@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
     <script src="./errorcodes.js"></script>
     <script src="./categories.js"></script>
+    <script src="./scripts.js"></script>
+
 </head>
 
 <body>
@@ -23,37 +25,49 @@
 
 
         window.addEventListener('load', (event) => {
-            
-        var div = document.getElementById('checkboxes');
-        
-        for (var i = 0; i < Object.keys(categories).length; i++) {
 
-           
+            var div = document.getElementById('checkboxes');
 
-            var checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
-            checkbox.name = "name" + Object.keys(categories)[i];
-            checkbox.value = "value";
-            checkbox.id = "id" + i;
-            div.appendChild(checkbox);
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "checkboxid" + i;
+                div.appendChild(checkbox);
 
-            var newlabel = document.createElement("label");
-            newlabel.setAttribute("for","id" + i);
-            newlabel.innerHTML = Object.keys(categories)[i];
-            div.appendChild(newlabel);    
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for", "checkboxid" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);
 
-        }
+            }
         });
-    </script>
-    <!-- <script>
-        function getUsername() {
-            fetch("/profile", {
+
+        function createSpot() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("info").value;
+            const categoryid = 1; //document.getElementById("title").value;
+            const street = document.getElementById("street").value;
+            const housenumber = document.getElementById("number").value;
+            const zip = document.getElementById("zip").value;
+            const city = document.getElementById("city").value;
+
+            let spotid = 0;
+
+            fetch("/spots/create", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "getusername": "Get username"
+                        "title": title,
+                        "description": description,
+                        "categoryid": categoryid,
+                        "street": street,
+                        "housenumber": housenumber,
+                        "zip": zip,
+                        "city": city
                     })
                 })
                 .then(response => {
@@ -63,8 +77,10 @@
                 })
                 .then(content => {
                     if (content.status == "Success") {
-                        console.log("Succesfully fetched Username");
-                        document.querySelector("#username").innerHTML = "@" + content.username;
+                        console.log("Succesfully created Spot");
+                        spotid = content.sid;
+                        addCategories(spotid);
+                        addImage(spotid);
                     } else
                         console.log(content.status);
 
@@ -72,14 +88,75 @@
                 .catch(err => console.log(err))
         }
 
-        function getPP() {
-            fetch("/profile", {
+        function addCategories(sid){
+            let checkedcategories = []
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                const checkbox = document.getElementById("checkboxid"+i);
+                if(checkbox.checked){
+                    checkedcategories.push(Object.values(categories)[i]);
+                }
+            }
+            fetch("/spots/" + sid+ "/addcategories", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "getpp": "Get Profilepicture"
+                        "categories": checkedcategories
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully added Categories");
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function addImage(sid) {
+            image = document.getElementById("uploadimage").files[0];
+            if (image != undefined) {
+
+                let formData = new FormData();
+                formData.append("addimage", image);
+                fetch("/spots/" +sid+"/image" , {
+                        method: "post",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content.status == errorcodes.success) {
+                            console.log("Succesfully uploaded Spotimage");
+                            getImage(sid);
+                        } else {
+                            console.log(content.status);
+                        }
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                console.log("no image selected")
+            }
+        }
+
+        function getImage(sid){
+            fetch("/spots/" +sid +"/image", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getimage": "Get SpotImage"
                     })
                 })
                 .then(response => {
@@ -89,26 +166,19 @@
                 })
                 .then(image => {
                     if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
-                        document.querySelector("#profilepicture").src = URL.createObjectURL(image);
+                    {
+                        document.querySelector("#spotimage").src = URL.createObjectURL(image);
+                        document.querySelector("#spotimage").style.opacity = 1.0;  
+                    }
                     else
-                        document.querySelector("#profilepicture").src =
-                        "resources/img/defaultprofile.png"; //default profile picture
+                    {
+                        document.querySelector("#spotimage").src = "resources/img/spotdefault.png"; //default profile picture
+                        document.querySelector("#spotimage").style.opacity = 0.5;  
+                    }
                 })
                 .catch(err => console.log(err));
         }
-        getPP();
-        getUsername();
     </script>
-
-    <script>
-        async function logout() {
-            const options = {
-                method: 'POST',
-            }
-            const response = await fetch("/logout", options);
-            window.location = response.url;
-        }
-    </script> -->
 
     <!-- === navigationsleiste === -->
 
@@ -158,8 +228,10 @@
 
                     </tr>
                     <tr>
-                        <td><input type="text" id="title" maxlength="35" class="spotdatainput" placeholder='Roof with sunset-view' name="titel"></td>
-                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button></td>
+                        <td><input type="text" id="title" maxlength="35" class="spotdatainput"
+                                placeholder='Roof with sunset-view' name="titel"></td>
+                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button>
+                        </td>
                     </tr>
                 </table>
 
@@ -169,8 +241,8 @@
                         <td style="width:30%"><label class="tl" for="number">NUMBER</label></td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="street" maxlength="100" class="spotdatainput" placeholder='Brunnenstraße'
-                                name="titel"></td>
+                        <td><input type="text" id="street" maxlength="100" class="spotdatainput"
+                                placeholder='Brunnenstraße' name="titel"></td>
                         <td><input type="text" id="number" maxlength="3" class="spotdatainput" placeholder='151''  name="titel"></td>
                     </tr>
                 </table>
@@ -182,8 +254,10 @@
                         <td style="width:30%"><label class="tl" for="zip">ZIP</label></td>
                     </tr>
                     <tr>
-                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder=' Berlin' name="titel"></td>
-                        <td><input type="text" maxlength="5" id="zip" class="spotdatainput" placeholder="10115" name="titel"></td>
+                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder=' Berlin'
+                                name="titel"></td>
+                        <td><input type="text" maxlength="5" id="zip" class="spotdatainput" placeholder="10115"
+                                name="titel"></td>
                     </tr>
                 </table>
 
@@ -194,22 +268,21 @@
 
             </div>
             <div id="selectcat" class="setcategory">
-                
+
 
                 <div id="checkboxes" class="checkboxes">
-                    
+
                 </div>
 
             </div>
             <div class="spotcreateright">
 
                 <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
-                <input class="inputspotimage" type="file" id="fileup" name="file" accept="image/*"
+                <input class="inputspotimage" type="file" id="uploadimage" name="file" accept="image/*"
                     style="display: block;">
-                <label for="fileup">Add an image</label>
-                <input class="deletespotimage" type="button" value="Delete" onclick="deletePP()">
-                <input class="uploadspotimage" type="button" value="Upload" onclick="uploadPP()">
-                
+                <label for="uploadimage">Add an image</label>
+                <input class="uploadspotimage" type="button" value="Upload" onclick="createSpot()">
+
             </div>
 
 
