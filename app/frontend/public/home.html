@@ -111,39 +111,22 @@
 
         <!-- === willkommenstext === -->
 
-        <div class="greeting">
-            <p class="welcomeback" id="welcomeback"></p>
-            <center>
-                <p id="intro">Great to see you again.
-                    Start searching for Spots right away or share
-                    your favorite Spots with everyone else.</p>
-            </center>
-        </div>
-
-        <div class="search">
-
-            <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
-
-            <input type="text" id="search" placeholder="Search Spot" name="Search">
-            <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
-            <img src="resources/img/icons/loupe.png" class="searchicon">
- 
-        </div>  
-
-            <div id="filtercat" class="filtercat">
-                
-
-                <div id="searchcheckboxes" class="searchcheckboxes">
-                    
-                </div>
-
+        <div class="centerdiv">
+            <div class="greeting">
+                <p class="welcomeback" id="welcomeback"></p>
+                     <center>
+                        <p id="intro">Great to see you again.
+                                        As usually, start searching for Spots right away or share
+                                        your favorite Spots with everyone else.</p>
+                    </center>
             </div>
+
 
         
 
         <img class="arrowdown" src="resources/img/arrow-down.png">
 
-
+        </div>
     </div>
 
     <div class="overview">
@@ -152,136 +135,24 @@
         <p class="subtext">Alternatively, view all Spots and search through them</p>
         <div class="flex-container">
             <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
+                <img class="previewimg" src="resources/img/spotdefault.png">
                 
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
+                <div class="databar">
+                    <h2>Skatepark in Mitte</h2>
+                    <h3>Pappelplatz, 10115 Berlin</h3>
+                    <p class="prating">4.5</p>
+                </div>
+            
+                <div class="iconbar">
+                    <img class="actionbarmini1" src="resources/img/icons/view.png">
+                    <p id="viewcount">999</p>
+                    <img class="actionbarmini2" src="resources/img/icons/fave.png">
+                    <img class="actionbarmini3" src="resources/img/icons/save.png">
+                </div>
             </div>
 
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
-
-            <div class="spot-preview">
-                <img class="previewimg" src="resources/img/skate-park.jpg">
-                <h2>Skatepark in Mitte</h2>
-                <h3>Pappelplatz, 10115 Berlin </h3>
-                
-                <img class="actionbarmini1" src="resources/img/icons/view.png">
-                <img class="actionbarmini2" src="resources/img/icons/fave.png">
-                <img class="actionbarmini3" src="resources/img/icons/save.png">
-                
-            </div>
+            
+        </div>
             
 
         </div>
