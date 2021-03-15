@@ -36,6 +36,7 @@ function getImage(sid, id) {
 }
 
 function createSpots(spots, count) {
+    console.log(spots)
     for(let i = 1; i <= count; i++) //index 0 is status code
     {
         $("#spotsview").append(

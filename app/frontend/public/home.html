@@ -19,10 +19,26 @@
                 .then((username) => {
                     document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
                     const topspotcount = 8;
+                    createSpots(spot, 2);
                     getTopSpots(topspotcount);
                 });
 
         });
+        const spot = [{},{
+            title: "Radfarhern",
+            description: "Wilder Parkour am alex",
+            street: "Strasse",
+            housenumber: "20",
+            zip: "34121",
+            city: "Berlin"
+        }, {
+            title: "Radfarhern",
+            description: "Wilder Parkour am alex",
+            street: "Strasse",
+            housenumber: "20",
+            zip: "34121",
+            city: "Berlin"
+        }]
 
         function getTopSpots(count) {
             document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";

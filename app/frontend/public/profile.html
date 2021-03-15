@@ -45,13 +45,36 @@
                 .then(content => {
                     if (content[0].status == errorcodes.success) {
                         document.querySelector("#spotscount").innerHTML = content.length - 1;
-                        createSpots(content, content.length - 1);
+                        createProfileSpots(content, content.length - 1);
                     } else
                         console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
         }
+
+        function createProfileSpots(spots, count) {
+    for(let i = 1; i <= count; i++) //index 0 is status code
+    {
+        $("#spotsview").append(
+            $('<div>', {"class": "user-spot-preview"}).append(
+                $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
+                $('<div>', {"class":"user-databar"}).append(
+                    $('<h2>', {"text": spots[i].title}),
+                    $('<p>' ,{"class":"user-prating", "text":"4.5"})
+                ),
+                $('<div>', {"class":"user-iconbar"}).append(
+                    $('<img>', {"class":"user-actionbarmini1", "src":"resources/img/icons/view.png"}),
+                    $('<p>', {"id":"user-viewcount", "text":spots[i].views}),
+                    $('<img>', {"class":"user-actionbarmini2", "src":"resources/img/icons/fave.png"}),
+                    $('<img>', {"class":"user-actionbarmini3", "src":"resources/img/icons/save.png"}),
+                    $('<img>', {"class":"user-actionbarmini4", "src":"resources/img/icons/delete.png"})
+                )    
+            )
+        );
+        getImage(spots[i].sid, i);
+    }
+}
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">

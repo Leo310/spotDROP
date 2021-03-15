@@ -1,3 +1,27 @@
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+
+
+
+
 /* === fonts grab === */
 
 
@@ -76,14 +100,14 @@ body {
     position: relative;
     top: 2rem;
     transition: 0.5s;
-    overflow: auto;
+    overflow: hidden;
 
 }
 
 .header-nav>a>img {
     height: 40px;
     width: auto;
-    margin-top: 0.03rem;
+    margin-top: 0px;
     position: absolute;
     left: 5%;
 
@@ -99,6 +123,7 @@ body {
     position: absolute;
     right: 5%;
     text-align: right;
+    overflow: hidden;
 
 }
 
@@ -170,7 +195,7 @@ body {
     background-color: white;
 
     border-radius: 20px;
-    overflow: visible;
+   
     margin: 30px;
 
     -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
@@ -190,7 +215,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 175%;
+    height: 175px;
     border-radius: 20px 20px 0px 0px;
     object-fit: cover; 
 }
@@ -200,14 +225,14 @@ body {
     position: relative;
     display: inline-block;
     margin: 0;
-    max-width: 75%;
-    word-break: break-all;
+    width: 75%;
+    word-wrap: break-word;
     
 
     font-family: "ProximaNova";
     font-weight: 700;
     font-size: 1.3rem;
-    line-height: 2rem;
+    line-height: 1.5rem;
     color: #6c6c6c;
 }
 
@@ -216,11 +241,13 @@ body {
     display: inline-block;
     margin: 0;
     float: right;
-    right:5px;
+    text-align: right;
+    right:0;
     top: 50%;
     transform: translateY(-50%);
     font-size: 30px;
     font-weight: 600;
+    width:20%;
     color: #c0c0c0;
 
 }
@@ -230,8 +257,8 @@ body {
     position: relative;
     display: inline-block;
     margin: 0;
-    max-width: 75%;
-    word-break: break-all;
+    width: 75%;
+    word-wrap:break-word;
     font-family: "ProximaNova";
     font-weight: 500;
     font-size: 1rem;
@@ -248,21 +275,22 @@ body {
     margin-right: auto;
     margin-top: 10px;
     width: 85%;
-    overflow: auto;
 }
 
 
 .iconbar {
     background-color: transparent;
     position:relative;
+    display: flex;
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15%;
+    margin-top: 10vh;
     margin-bottom: 20px;
 
     width: 85%;
     height: 25px;
+    vertical-align: middle;
     
 }
 /* .actionbarmini {
@@ -276,17 +304,16 @@ body {
 } */
 
 #viewcount {
-    position: relative;
+    position: absolute;
     display: inline-block;
-    float: left;
+    
     padding: 0;
     margin: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 0;
+    left:12%;
     
-    margin-left: 3%;
     font-size:16px;
-    line-height: 16px;
+    line-height: 20px;
     max-width: 30px;
     text-align: left;
     font-weight: 500;
@@ -294,44 +321,37 @@ body {
 }
 
 .actionbarmini1 {
-    position: relative;
-    display: inline-block;
-    float: left;
-    top: 50%;
-    transform: translateY(-50%);
-
-    margin: 0;
-    margin-left: 0%;
+    position: absolute;
+    display: block;
     
-
-    width: 20px;
+    bottom: 1px;
+    left:0;
+   
+    height: 20px;
 
 }
 
 .actionbarmini2 {
-    position: relative;
-    display: inline-block;
-    float: left;
-    top: 50%;
-    transform: translateY(-50%);
+    position: absolute;
+    display:block;
+    
+    bottom:0;
+    right: 12%;
+    
+    
 
-    margin: 0;
-    margin-left: 54%;
-
-    width: 20px;
+    height: 20px;
 
 }
 
 .actionbarmini3 {
-    position: relative;
-    float: left;
-    display: inline-block;
-    top: 50%;
-    transform: translateY(-50%);
+    position: absolute;
+    bottom:0;
+    
+    right: 0;
+    display: block;
 
-    margin: 0;
-    margin-left: 5%;
-    width: 20px;
+    height: 20px;
 
 }
 
@@ -344,7 +364,9 @@ body {
         padding: 5px;
         
         margin-left: 5%;   
-        overflow:scroll;
+        overflow-y:scroll;
+        overflow-x:hidden;
+        
         border-radius: 15px;
         background-color: rgba(255, 255, 255, 1);
         -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
@@ -354,11 +376,14 @@ body {
 .user-flex-container {
     display: flex;
     width: 95%;
-    height:100%;   
+    height:95%;   
     margin-top: 15px; 
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 15px;
+    
+    
+    
 
     flex-flow: row wrap;
 
@@ -370,35 +395,150 @@ body {
 
 
 .user-spot-preview {
-    width: 30%;
-    height: 200px;
-    background-color:rgba(0, 0, 0, 0.03);
+    width: 200px;
+    min-height: 200px;
+    background-color:transparent;
     border-radius: 20px;
-    margin: 10px;
+    margin: 0.5vw;
+
+
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+
      
 }
 
 .user-previewimg {
+
     position: relative;
     top: 0;
     left: 0;
     width: 100%;
+    height: 130px;
     border-radius: 20px 20px 0px 0px;
+    object-fit: cover; 
 }
 
-.user-spot-preview>h2 {
+.user-databar {
+
+    background-color: transparent;
+    position: relative;
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    width: 90%;
+    
+}
+
+.user-databar>h2 {
 
     position: relative;
+    display: inline-block;
     margin: 0;
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-bottom: 10px;
-
+    width: 80%;
+    word-wrap: break-word;
+    
     font-family: "ProximaNova";
     font-weight: 700;
-    font-size: 1rem;
-    
+    font-size: 18px;
+    line-height: 1.5em;
     color: #6c6c6c;
+}
+
+.user-iconbar {
+    background-color:transparent;
+    position:relative;
+    display: flex;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    margin-bottom: 20px;
+
+    width: 90%;
+    height: 25px;
+    vertical-align: middle;
+    
+}
+
+.user-actionbarmini1 {
+    position: absolute;
+    display: block;
+    
+    bottom: 1px;
+    left:0;
+   
+    height: 18px;
+
+}
+
+#user-viewcount {
+    position: absolute;
+    display: inline-block;
+    
+    padding: 0;
+    margin: 0;
+    bottom: 0.5px;
+    left:15%;
+    
+    font-size:16px;
+    line-height: 20px;
+    max-width: 30px;
+    text-align: left;
+    font-weight: 500;
+    color: #c0c0c0;
+}
+
+.user-actionbarmini2 {
+    position: absolute;
+    display:block;
+    
+    bottom:0;
+    right: 15%;
+    
+    
+
+    height: 18px;
+
+}
+
+.user-actionbarmini3 {
+    position: absolute;
+    bottom:0;
+    
+    right: 0%;
+    display: block;
+
+    height: 18px;
+}
+
+.user-actionbarmini4 {
+    position: absolute;
+    bottom:0;
+    
+    right: 31%;
+    display: block;
+
+    height: 18px;
+
+}
+
+.user-prating {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    float: right;
+    right:0;
+    text-align:right;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 600;
+    width:15%;
+    color: #c0c0c0;
+
 }
 
 
@@ -1224,6 +1364,7 @@ tr {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -70%);
+    z-index: 3;
 }
 
 .inputspotimage {
@@ -1274,6 +1415,7 @@ tr {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -70%);
+    z-index:3;
 }
 
 .deletespotimage {
@@ -1385,10 +1527,34 @@ tr {
     width: 100%;
     min-height: 50vh;
     border-radius: 20px;
-    background-color: transparent;
+    background-color: red;;
     
     
 }
+
+#commentpopup {
+    position: relative;
+    float: left;
+    margin-top: 3vh;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    line-height:18px;
+    font-size: 18px;
+    color: rgb(126, 192, 149);
+
+    padding: 5px 5px 5px 10px;
+    border: none;
+    background-color: transparent;
+}
+
+#commentpopup:hover {
+
+;
+    background-color: transparent;
+}
+
 
 .comments h1 {
 
@@ -1414,7 +1580,7 @@ tr {
 .commentflex {
     display: flex;
     width: 100%;
-    margin-top: 25px;
+    margin:0;
     
     margin-left: auto;
     margin-right: auto;
@@ -1437,6 +1603,7 @@ tr {
     border-radius: 20px;
     padding: 20px;
     margin: 30px;
+    margin-top: 0;
    
     -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
