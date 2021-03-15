@@ -937,6 +937,8 @@ h3 {
     margin:0;
    
     height: 50px;
+    width: 50px;
+    object-fit: cover;
     border-radius: 50%;
 }
 .viewspotdata{
@@ -955,6 +957,13 @@ h3 {
     
 }
 
+#susername {
+    font-weight: 700;
+    color: #c0c0c0;  
+    float: left;  
+    margin-left: 5%;
+}
+
 .spotdata label {
     display: block;
 
@@ -965,6 +974,8 @@ h3 {
     letter-spacing: 1px;
     margin-left: 5px;
 }
+
+
 
 .viewspotdata label {
     display: block;
@@ -1224,6 +1235,7 @@ tr {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -70%);
+    z-index: 2;
 }
 
 .inputspotimage {
@@ -1270,7 +1282,7 @@ tr {
     color: #ffffff;
 
 
-
+    z-index: 2;
     top: 70%;
     left: 50%;
     transform: translate(-50%, -70%);

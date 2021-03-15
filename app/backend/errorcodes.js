@@ -33,5 +33,6 @@ module.exports = {
     noRating: "The spot has no ratings",
     noCategory: "The spot has no categories",
     noUserSpecified: "No user got specified",
-    noTitleSpecified: "No title specified"
+    noTitleSpecified: "No title specified",
+    alreadyLogedIn: "You are already loged in"
 }

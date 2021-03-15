@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
     <script src="./scripts.js"></script>
 </head>
 
@@ -41,7 +43,6 @@
 
         window.addEventListener('load', (event) => {
             var input = document.getElementById("passwordinput");
-            console.log(input)
 
             input.addEventListener("keyup", function (event) {
                 if (event.keyCode === 13) {

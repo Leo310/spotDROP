@@ -6,20 +6,26 @@ const path = require("path");
 const db = require("../../db/db");
 
 
-exports.add = (session) => {
-    fs.renameSync(path.join(__dirname, "..", "..", "uploads", "tmp", "profilepictures", session.uname + ".png"), path.join(__dirname, "..", "..", "uploads", "profilepictures", session.uname + ".png")); //from tmp to athorized
-    db.update("user", "name", session.uname, "profilepicture", 1)
+exports.add = (username) => {
+    fs.renameSync(path.join(__dirname, "..", "..", "uploads", "tmp", "profilepictures", username + ".png"), path.join(__dirname, "..", "..", "uploads", "profilepictures", username + ".png")); //from tmp to athorized
+    db.update("user", "name", username, "profilepicture", 1)
     .catch(err => console.log(err));
 }
 
-exports.delete = (session) => {
-    fs.rmSync(path.join(__dirname, "..", "..", "uploads", "profilepictures", session.uname + ".png"));
-    db.update("user", "name", session.uname, "profilepicture", 0)
+exports.delete = (username) => {
+    fs.rmSync(path.join(__dirname, "..", "..", "uploads", "profilepictures", username + ".png"));
+    db.update("user", "name", username, "profilepicture", 0)
     .catch(err => console.log(err));
 }
 
-exports.get = (session) => {
-    return db.get("user", "name, profilepicture", "name", session.uname)
+exports.get = (username) => {
+    return db.get("user", "name, profilepicture", "name", username)
+    .then(results => {return results[0].profilepicture;})
+    .catch(err => console.log(err));
+}
+
+exports.getUser = (username) => {
+    return db.get("user", "name, profilepicture", "name", username)
     .then(results => {return results[0].profilepicture;})
     .catch(err => console.log(err));
 }

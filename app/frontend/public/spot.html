@@ -8,75 +8,47 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
     <script src="./errorcodes.js"></script>
     <script src="./categories.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
-    
-    <!-- <script>
-        function getUsername() {
-            fetch("/profile", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "getusername": "Get username"
-                    })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(content => {
-                    if (content.status == "Success") {
-                        console.log("Succesfully fetched Username");
-                        document.querySelector("#username").innerHTML = "@" + content.username;
-                    } else
-                        console.log(content.status);
-
-                })
-                .catch(err => console.log(err))
-        }
-
-        function getPP() {
-            fetch("/profile", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "getpp": "Get Profilepicture"
-                    })
-                })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error('Network response was not ok');
-                    return response.blob();
-                })
-                .then(image => {
-                    if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
-                        document.querySelector("#profilepicture").src = URL.createObjectURL(image);
-                    else
-                        document.querySelector("#profilepicture").src =
-                        "resources/img/defaultprofile.png"; //default profile picture
-                })
-                .catch(err => console.log(err));
-        }
-        getPP();
-        getUsername();
-    </script>
-
     <script>
-        async function logout() {
-            const options = {
-                method: 'POST',
-            }
-            const response = await fetch("/logout", options);
-            window.location = response.url;
-        }
-    </script> -->
+        $(document).ready(async () =>  {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sid = urlParams.get('sid');
+            const spot = await getSpot(sid);  
+            document.getElementById("susername").innerHTML = "@" + spot.username;
+            console.log(spot.status);
 
+            const spotPicture = await getImage(sid, "spotimage");
+
+            const profilePicture = await getUserPP(spot.username);
+            document.getElementById("suserprofile").src = profilePicture;
+
+            const ratings = await getRatings(sid); 
+            console.log(ratings.status);
+            //TODO
+
+            const categories = await getCategories(sid);
+            console.log(categories.status);
+            if(spot.status == errorcodes.success)
+            {
+                document.getElementById("stitle").innerHTML = spot.title;
+                document.getElementById("sstreet").innerHTML = spot.street;
+                document.getElementById("shousenumber").innerHTML = spot.housenumber;
+                document.getElementById("scity").innerHTML = spot.city;
+                document.getElementById("szip").innerHTML = spot.zip;
+                document.getElementById("description2").innerHTML = spot.description;
+                let categoriesString = "";
+                for(let i = 0; i < categories.categories.length; i++)
+                    categoriesString += categories.categories[i].charAt(0).toUpperCase() + categories.categories[i].slice(1) + ", ";
+                 document.getElementById("scategories").innerHTML = categoriesString.substring(0, categoriesString.length - 2); //removes last comma
+            } else {
+                console.log(spot.status);
+            }
+        });
+    </script>
     <!-- === navigationsleiste === -->
 
     
@@ -117,11 +89,13 @@
                 <table style="margin-top: 5vh">                                                 <!-- ja, Tabellen für Layout sind unschön, aber flexcontainer oder grid hätte in dem Moment zu lange gedauert-->
                     <tr>
                         <td><label class="tl" for="title">TITLE</label></td>
-                        <td style="width:35%" rowspan="2"><img class="userpictureviewspot" src="resources/img/defaultprofile.png"></td>
+                        <td style="width:35%" rowspan="2"><img class="userpictureviewspot" id="suserprofile" src="">
+                        <p id="susername"></p>
+                        </td>
                     </tr>
                     <tr colspan="2">
                         <td>
-                            <h6>Bank am Mauerpark</h6>
+                            <h6 id="stitle"></h6>
                         </td>
                 
                     </tr>
@@ -133,7 +107,7 @@
                         
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align:justify;"><h6>Skating, Ruhig, Wassernah</h6></td>
+                        <td colspan="2" style="text-align:justify;"><h6 id="scategories"></h6></td>
                     </tr>
                 </table>
 
@@ -149,10 +123,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <h6>Mauerparkstraße</h6>
+                            <h6 id="sstreet"></h6>
                         </td>
                         <td>
-                            <h6>420</h6>
+                            <h6 id="shousenumber"></h6>
                         </td>
                     </tr>
                 </table>
@@ -165,10 +139,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <h6>Berlin</h6>
+                            <h6 id="scity"></h6>
                         </td>
                         <td>
-                            <h6>10439</h6>
+                            <h6 id="szip"></h6>
                         </td>
                     </tr>
                 </table>
@@ -180,18 +154,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <p id="description2">Great roof for hanging with friends and viewing the sunset. Located on
-                                top of rear building, no keys needed :) Great roof for hanging with friends and viewing
-                                the sunset. Located on top of rear building, no keys needed :) Great roof for hanging
-                                with friends and viewing the sunset. Located on top of rear building, no keys needed
-                                :) Great roof for hanging with friends and viewing the sunset. Located on top of rear
-                                building, no keys needed :)Great roof for hanging
-                                with friends and viewing the sunset. Located on top of rear building, no keys needed
-                                :) Great roof for hanging with friends and viewing the sunset. Located on top of rear
-                                building, no keys needed :) Great roof for hanging
-                                with friends and viewing the sunset. Located on top of rear building, no keys needed
-                                :) Great roof for hanging with friends and viewing the sunset. Located on top of rear
-                                building, no keys needed :) </p>
+                            <p id="description2"></p>
                         </td>
 
                     </tr>
@@ -202,7 +165,7 @@
 
 
             <div class="viewspotright">
-                <img class="fullsizeimage" id="spotimage" src="resources/img/skate-park.jpg">
+                <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
                 <img src="resources/img/arrow-down.png" class="arrowdown2">
           
             </div> 

@@ -82,6 +82,7 @@
                         spotid = content.sid;
                         addCategories(spotid);
                         addImage(spotid);
+                        window.location = "/spot?sid="+spotid;
                     } else
                         console.log(content.status);
 
