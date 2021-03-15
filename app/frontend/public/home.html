@@ -37,7 +37,8 @@
                 .then(content => {
                     if (content.status == "Success") {
                         console.log("Succesfully fetched Username");
-                        document.querySelector("#welcomeback").innerHTML = "Welcome back, " + content.username +".";
+                        document.querySelector("#welcomeback").innerHTML = "Welcome back, " + content.username +
+                        ".";
                     } else
                         console.log(content.status);
 
@@ -56,26 +57,26 @@
 
 
         window.addEventListener('load', (event) => {
-            
-        var div = document.getElementById('searchcheckboxes');
-        
-        for (var i = 0; i < Object.keys(categories).length; i++) {
 
-           
+            var div = document.getElementById('searchcheckboxes');
 
-            var checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
-            checkbox.name = "name" + Object.keys(categories)[i];
-            checkbox.value = "value";
-            checkbox.id = "id" + i;
-            div.appendChild(checkbox);
+            for (var i = 0; i < Object.keys(categories).length; i++) {
 
-            var newlabel = document.createElement("label");
-            newlabel.setAttribute("for","id" + i);
-            newlabel.innerHTML = Object.keys(categories)[i];
-            div.appendChild(newlabel);    
 
-        }
+
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "id" + i;
+                div.appendChild(checkbox);
+
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for", "id" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);
+
+            }
         });
         getUsername();
     </script>
@@ -114,17 +115,17 @@
         <div class="centerdiv">
             <div class="greeting">
                 <p class="welcomeback" id="welcomeback"></p>
-                     <center>
-                        <p id="intro">Great to see you again.
-                                        As usually, start searching for Spots right away or share
-                                        your favorite Spots with everyone else.</p>
-                    </center>
+                <center>
+                    <p id="intro">Great to see you again.
+                        As usually, start searching for Spots right away or share
+                        your favorite Spots with everyone else.</p>
+                </center>
             </div>
 
 
-        
 
-        <img class="arrowdown" src="resources/img/arrow-down.png">
+
+            <img class="arrowdown" src="resources/img/arrow-down.png">
 
         </div>
     </div>
@@ -132,17 +133,17 @@
     <div class="overview">
 
         <h1 id="TopSpots">Top Spots of The Week</h1>
-        <p class="subtext">Alternatively, view all Spots and search through them</p>
+        <p class="subtext">Alternatively, view all Spots or search through them »</p>
         <div class="flex-container">
             <div class="spot-preview">
                 <img class="previewimg" src="resources/img/spotdefault.png">
-                
+
                 <div class="databar">
                     <h2>Skatepark in Mitte</h2>
                     <h3>Pappelplatz, 10115 Berlin</h3>
                     <p class="prating">4.5</p>
                 </div>
-            
+
                 <div class="iconbar">
                     <img class="actionbarmini1" src="resources/img/icons/view.png">
                     <p id="viewcount">999</p>
@@ -151,11 +152,11 @@
                 </div>
             </div>
 
-            
-        </div>
-            
 
         </div>
+
+
+    </div>
 
 
     </div>

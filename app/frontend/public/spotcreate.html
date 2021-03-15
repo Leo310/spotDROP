@@ -23,26 +23,26 @@
 
 
         window.addEventListener('load', (event) => {
-            
-        var div = document.getElementById('checkboxes');
-        
-        for (var i = 0; i < Object.keys(categories).length; i++) {
 
-           
+            var div = document.getElementById('checkboxes');
 
-            var checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
-            checkbox.name = "name" + Object.keys(categories)[i];
-            checkbox.value = "value";
-            checkbox.id = "id" + i;
-            div.appendChild(checkbox);
+            for (var i = 0; i < Object.keys(categories).length; i++) {
 
-            var newlabel = document.createElement("label");
-            newlabel.setAttribute("for","id" + i);
-            newlabel.innerHTML = Object.keys(categories)[i];
-            div.appendChild(newlabel);    
 
-        }
+
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "id" + i;
+                div.appendChild(checkbox);
+
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for", "id" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);
+
+            }
         });
     </script>
     <!-- <script>
@@ -159,8 +159,10 @@
 
                     </tr>
                     <tr>
-                        <td><input type="text" id="title" maxlength="35" class="spotdatainput" placeholder='Roof with sunset-view' name="titel"></td>
-                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button></td>
+                        <td><input type="text" id="title" maxlength="35" class="spotdatainput"
+                                placeholder='Roof with sunset-view' name="titel"></td>
+                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button>
+                        </td>
                     </tr>
                 </table>
 
@@ -170,8 +172,8 @@
                         <td style="width:30%"><label class="tl" for="number">NUMBER</label></td>
                     </tr>
                     <tr>
-                        <td><input type="text" id="street" maxlength="100" class="spotdatainput" placeholder='Brunnenstraße'
-                                name="titel"></td>
+                        <td><input type="text" id="street" maxlength="100" class="spotdatainput"
+                                placeholder='Brunnenstraße' name="titel"></td>
                         <td><input type="text" id="number" maxlength="3" class="spotdatainput" placeholder='151''  name="titel"></td>
                     </tr>
                 </table>
@@ -183,8 +185,10 @@
                         <td style="width:30%"><label class="tl" for="zip">ZIP</label></td>
                     </tr>
                     <tr>
-                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder=' Berlin' name="titel"></td>
-                        <td><input type="text" maxlength="5" id="zip" class="spotdatainput" placeholder="10115" name="titel"></td>
+                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder=' Berlin'
+                                name="titel"></td>
+                        <td><input type="text" maxlength="5" id="zip" class="spotdatainput" placeholder="10115"
+                                name="titel"></td>
                     </tr>
                 </table>
 
@@ -195,21 +199,21 @@
                     </tr>
                     <tr>
                         <td><textarea id="info" maxlength="1000" class="spotdatainput"
-                    placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
-                    name="titel"></textarea></td>
-      
+                                placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
+                                name="titel"></textarea></td>
+
                     </tr>
                 </table>
 
-                
-    
+
+
 
             </div>
             <div id="selectcat" class="setcategory">
-                
+
 
                 <div id="checkboxes" class="checkboxes">
-                    
+
                 </div>
 
             </div>
@@ -221,7 +225,7 @@
                 <label for="fileup">Add an image</label>
                 <input class="deletespotimage" type="button" value="Delete" onclick="deletePP()">
                 <input class="uploadspotimage" type="button" value="Upload" onclick="uploadPP()">
-                
+
             </div>
 
 

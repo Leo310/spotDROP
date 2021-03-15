@@ -23,26 +23,26 @@
 
 
         window.addEventListener('load', (event) => {
-            
-        var div = document.getElementById('checkboxes');
-        
-        for (var i = 0; i < Object.keys(categories).length; i++) {
 
-           
+            var div = document.getElementById('checkboxes');
 
-            var checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
-            checkbox.name = "name" + Object.keys(categories)[i];
-            checkbox.value = "value";
-            checkbox.id = "id" + i;
-            div.appendChild(checkbox);
+            for (var i = 0; i < Object.keys(categories).length; i++) {
 
-            var newlabel = document.createElement("label");
-            newlabel.setAttribute("for","id" + i);
-            newlabel.innerHTML = Object.keys(categories)[i];
-            div.appendChild(newlabel);    
 
-        }
+
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "id" + i;
+                div.appendChild(checkbox);
+
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for", "id" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);
+
+            }
         });
     </script>
     <!-- <script>
@@ -153,8 +153,10 @@
 
                     </tr>
                     <tr>
-                        <td><h6>Bank am Mauerpark</h6></td>
-                        
+                        <td>
+                            <h6>Bank am Mauerpark</h6>
+                        </td>
+
                     </tr>
                 </table>
 
@@ -164,20 +166,28 @@
                         <td style="width:30%"><label class="tl" for="number">NUMBER</label></td>
                     </tr>
                     <tr>
-                        <td><h6>Mauerparkstraße</h6></td>
-                        <td><h6>420</h6></td>
+                        <td>
+                            <h6>Mauerparkstraße</h6>
+                        </td>
+                        <td>
+                            <h6>420</h6>
+                        </td>
                     </tr>
                 </table>
-                
-               
+
+
                 <table>
                     <tr>
                         <td><label class="tl" for="city">CITY</label></td>
                         <td style="width:30%"><label class="tl" for="zip">ZIP</label></td>
                     </tr>
                     <tr>
-                        <td><h6>Berlin</h6></td>
-                        <td><h6>10439</h6></td>
+                        <td>
+                            <h6>Berlin</h6>
+                        </td>
+                        <td>
+                            <h6>10439</h6>
+                        </td>
                     </tr>
                 </table>
 
@@ -187,19 +197,26 @@
 
                     </tr>
                     <tr>
-                        <td><p id="description">Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :) Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)</p></td>
-                        
+                        <td>
+                            <p id="description">Great roof for hanging with friends and viewing the sunset. Located on
+                                top of rear building, no keys needed :) Great roof for hanging with friends and viewing
+                                the sunset. Located on top of rear building, no keys needed :)Great roof for hanging
+                                with friends and viewing the sunset. Located on top of rear building, no keys needed
+                                :)Great roof for hanging with friends and viewing the sunset. Located on top of rear
+                                building, no keys needed :)</p>
+                        </td>
+
                     </tr>
                 </table>
-                
-                
+
+
 
             </div>
             <div id="selectcat" class="setcategory">
-                
+
 
                 <div id="checkboxes" class="checkboxes">
-                    
+
                 </div>
 
             </div>
@@ -207,7 +224,7 @@
 
                 <img class="fullsizeimage" id="spotimage" src="resources/img/skate-park.jpg">
 
-                
+
             </div>
 
 

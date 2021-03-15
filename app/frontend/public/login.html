@@ -41,18 +41,17 @@
 
         window.addEventListener('load', (event) => {
             var input = document.getElementById("passwordinput");
-        console.log(input)
+            console.log(input)
 
-        input.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                console.log("Log");
-                event.preventDefault();
-                document.getElementById("loginbutton").click();
-            }
-            
-        });
+            input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    console.log("Log");
+                    event.preventDefault();
+                    document.getElementById("loginbutton").click();
+                }
+
+            });
         })
-        
     </script>
 
     <!-- === navigationsleiste === -->
@@ -63,7 +62,8 @@
 
             <ul>
 
-                <li><button style="color:rgb(126, 192, 149)"type="button" id="menubutton" onclick="history.back()">BACK</button></li>
+                <li><button style="color:rgb(126, 192, 149)" type="button" id="menubutton"
+                        onclick="history.back()">BACK</button></li>
 
             </ul>
 
@@ -71,46 +71,48 @@
 
 
         <div class="loginwrapper">
-            
+
             <div class="loginactivelogin">
                 <div class="centerdiv">
                     <h1>Sign in to spotDROP</h1>
-                <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
-                
-                        <input type="text" id="nameinput" maxlength="254" class="detailinput" placeholder="username or email" name="nameemail">
-                        <input type="password" id="passwordinput" class="detailinput" placeholder="password" name="password">
-                        <p class="forgotpass">Forgot your password?</p>
-                        <button onclick="login()" id="loginbutton">SIGN IN</button>
-                        
+                    <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
+
+                    <input type="text" id="nameinput" maxlength="254" class="detailinput"
+                        placeholder="username or email" name="nameemail">
+                    <input type="password" id="passwordinput" class="detailinput" placeholder="password"
+                        name="password">
+                    <p class="forgotpass">Forgot your password?</p>
+                    <button onclick="login()" id="loginbutton">SIGN IN</button>
+
                 </div>
                 <div class="errordiv">
-                        <p class="error" id="errorp"></p>
+                    <p class="error" id="errorp"></p>
                 </div>
             </div>
-        
+
             <div class="loginactiveregister">
                 <div class="centerdiv">
-                <h1>New here?</h1>
-                <p>Enter your details and easily create a free account.</p>
-                <button type="button" id="tosignup" onclick="location.href='register';">SIGN UP</button>
+                    <h1>New here?</h1>
+                    <p>Enter your details and easily create a free account.</p>
+                    <button type="button" id="tosignup" onclick="location.href='register';">SIGN UP</button>
                 </div>
             </div>
 
 
         </div>
-        
-
-        
 
 
-    
-    
+
+
+
+
+
     </div>
 
-  
 
 
-   
+
+
 
 
 

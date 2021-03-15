@@ -18,8 +18,6 @@
             const response = await fetch("/logout", options);
             window.location = response.url;
         }
-
-    
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -56,7 +54,8 @@
         <div class="greeting">
             <p class="welcomeback" id="welcomeback">View or Search All Spots</p>
             <center>
-                <p id="intro">In the following, you will see all Spots ever uploaded. Feel free to comb through them or search the right Spot for your occasion. </p>
+                <p id="intro">In the following, you will see all Spots ever uploaded. Feel free to comb through them or
+                    search the right Spot for your occasion. </p>
             </center>
         </div>
 
@@ -67,8 +66,8 @@
             <input type="text" id="search" placeholder="Search Spot" name="Search">
             <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
             <img src="resources/img/icons/loupe.png" class="searchicon">
- 
-        </div> 
+
+        </div>
 
         <img class="arrowdown" src="resources/img/arrow-down.png">
 
@@ -78,27 +77,27 @@
     <div class="overview">
 
         <h1 id="TopSpots">All Spots ever uploaded</h1>
-        <p class="subtext">Alternatively, view the Top Spots of The Week</p>
+        <p class="subtext">Alternatively, view the Top Spots of The Week »</p>
         <div class="flex-container">
             <div class="spot-preview">
-                
+
                 <img class="previewimg" src="resources/img/spotdefault.png">
-                
+
                 <div class="databar">
                     <h2>Skatepark in Mitte</h2>
                     <h3>Pappelplatz, 10115 Berlin</h3>
                     <p class="prating">4.5</p>
                 </div>
-            
+
                 <div class="iconbar">
                     <img class="actionbarmini1" src="resources/img/icons/view.png">
                     <p id="viewcount">999</p>
                     <img class="actionbarmini2" src="resources/img/icons/fave.png">
                     <img class="actionbarmini3" src="resources/img/icons/save.png">
                 </div>
-                
+
             </div>
-            
+
 
         </div>
 
