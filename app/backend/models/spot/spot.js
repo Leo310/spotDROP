@@ -222,7 +222,7 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
     if (req.body.spotcount) {
         if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
         {
-            if (req.body.categories) {
+            if (req.body.categories && req.body.categories.length != 0) {
                 try {
                     for (let i = 0; i < req.body.categories.length; i++)
                         await spotutilities.validateCategory(req.body.categories[i]);
