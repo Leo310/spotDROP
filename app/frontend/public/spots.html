@@ -68,7 +68,9 @@
             const searchvalue = urlParams.get('search');
             document.getElementById("search").value = searchvalue;
             const categoriesvalues = urlParams.get('categories');
-            let spotcategories = categoriesvalues.split('/');
+            let spotcategories = [];
+            if(categoriesvalues)
+                spotcategories = categoriesvalues.split('/');   //can only split when object not null
             spotcategories = spotcategories.filter((el)=> { return el != ""});//need to filter last because split produces "" element at the end
 
             
