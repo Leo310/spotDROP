@@ -73,7 +73,7 @@
         async function createRatings(ratings, count) {
             for(let i = 1; i <= count; i++) //index 0 is status code
             {
-            $("#listrating").prepend(
+            $("#listrating").append(
                 $('<div>', {"class": "commentdiv"}).append(
                     $('<div>', {"class":"commentdiv1"}).append(
                         $('<img>', {"id":"profilepictures", "src": await getUserPP(ratings[i].username)}),
@@ -90,7 +90,9 @@
             );
         }
     }
-        function showCommentDiv() {
+        async function showCommentDiv() {
+            getPP();
+            document.getElementById("namerating").innerHTML = await getUsername();
             var x = document.getElementById("createcommentsdiv");
             if (x.style.display === "flex") {
                  x.style.display = "none";
@@ -227,8 +229,8 @@
             <span><button type="button" id="commentpopup" onclick="showCommentDiv()">+ add comment</button></span>
             <div class="makecomment" id="createcommentsdiv">
                 <div class="makecommentdiv1">
-                    <img src="resources/img/defaultprofile.png">
-                    <p>username<p>
+                    <img id="profilepicture" src="resources/img/defaultprofile.png">
+                    <p id="namerating">username<p>
                 </div>
 
                 <div class="makecommentdiv2">

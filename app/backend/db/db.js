@@ -12,13 +12,13 @@ const pool = mysql.createPool({
 });
 
 exports.customQuery = (query) => {
-    pool.query(query, (error, results, fields) => {
+    return new Promise((resolve, reject) => pool.query(query, (error, results, fields) => {
         if (error) {
             reject("Unregistered " + error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
         } else {
             resolve(results);
         }
-    });
+    }));
 }
 
 exports.insert = (table, rows, ...values) => {

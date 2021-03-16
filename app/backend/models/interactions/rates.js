@@ -37,7 +37,7 @@ exports.get = (username, sid) => {
 }
 
 exports.getRatings = (sid) => {
-    return db.get("rates", "*", "sid", sid)
+    return db.customQuery("select * from rates where sid=" + sid + " order by date desc")
     .then(results => results)
     .catch(err => {
         console.log(err);

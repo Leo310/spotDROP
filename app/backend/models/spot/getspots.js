@@ -3,7 +3,7 @@
 const db = require("../../db/db");
 
 exports.all = () => {
-    return db.get("spot", "*")
+    return db.customQuery("select * from spot order by date desc")
     .then(results => results)
     .catch(err => {
         console.log(err);
@@ -12,7 +12,7 @@ exports.all = () => {
 }
 
 exports.user = (username) => {
-    return db.get("spot", "*", "username", username)
+    return db.customQuery("select * from spot where username='" + username + "' order by date desc")
     .then(results => results)
     .catch(err => {
         console.log(err);
@@ -22,7 +22,7 @@ exports.user = (username) => {
 
 //compares title from input and database
 exports.withtitel = (titel) => {
-    return db.get("spot", "*")
+    return db.customQuery("select * from spot order by date desc")
     .then(results => {
         let spotswithtitle = [];
         for(let i = 0; i < results.length; i++){
