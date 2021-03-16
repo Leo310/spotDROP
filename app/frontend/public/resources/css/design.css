@@ -144,15 +144,6 @@ body {
 
 
 
-
-/* === === === === === === ===  farben === === === === === === === */
-
-:root {
-    --nav-color: #ffffff;
-    /* var(--bg-color) */
-
-}
-
 /* === === === === === === ===  spot flex grid system === === === === === === === */
 
 .flex-container {
@@ -549,8 +540,39 @@ body {
 
 
 .greeting {
+    width: 90vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+
+.greeting2 {
     position: relative;
     margin-top: 15vh;
+
+}
+
+.homeuserprofile {
+    height: 150px;
+    width: 150px;
+
+    margin: 0;
+    object-fit:cover;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5vh;
+    display:none;
+   
+
+    border-radius: 50%;
+    border: none;
+
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -765,6 +787,7 @@ body {
     padding: 10px;
     width: 100%;
     position: relative;
+    margin:0;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -1008,8 +1031,8 @@ z-index: 3;
 
 
 .userimage>img {
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
     margin-top: 5px;
     position: relative;
@@ -1458,7 +1481,7 @@ tr {
     position: relative;
     background-color: transparent;
     border: none;
-    
+    padding: 0;
     
     text-align: center;
     text-decoration: none;
@@ -2017,7 +2040,7 @@ tr {
     font-size: 13px;
     letter-spacing: 1px;
     color: #ffffff;
-
+    margin: 0;
     margin-top: 5%;
 
 }
@@ -2309,8 +2332,9 @@ select::-ms-expand {
     font-size: 60px;
     font-weight: 700;
     color: #ffffff;
+    margin:0;
     margin-bottom: 20px;
-
+    
     text-align: center;
 }
 

@@ -18,10 +18,14 @@
             const logedin = await isLogined();
             console.log(logedin);
             if (logedin.status == errorcodes.success) {
+                getPP()
+                
+                document.getElementById("showprofile").style.display = "inline-block";
                 document.getElementById("showprofile").style.display = "inline-block";
                 document.getElementById("shownewspot").style.display = "inline-block";
                 document.getElementById("menubutton").innerHTML = "SIGN OUT";
                 document.getElementById("menubutton").onclick = ()=>{logout()};
+                document.getElementById("profilepicture").style.display = "block";
                 getUsername()
                 .then((username) => {
                     document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
@@ -98,22 +102,25 @@
 
         <!-- === willkommenstext === -->
 
-        <div class="centerdiv">
-            <div class="greeting">
+        <div class="greeting">
+            
+                <img class="homeuserprofile" id="profilepicture" src="resources/img/defaultprofile.png" style="display: none;">
                 <p class="welcomeback" id="welcomeback">Welcome to spotDROP,</p>
                 <center>
                     <p id="intro">Great to see you again.
                         As usually, start searching for Spots right away or share
                         your favorite Spots with everyone else.</p>
                 </center>
-            </div>
-
-
-
-
-            <img class="arrowdown" src="resources/img/arrow-down.png">
+            
 
         </div>
+
+
+           
+
+        
+        <img class="arrowdown2" src="resources/img/arrow-down.png">
+        
         
     </div>
 
