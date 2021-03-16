@@ -68,6 +68,16 @@ exports.postAddCategorySpot = async (req, res) => {
 
 }
 
+exports.postGetSpotImage = async (req, res) => {
+    //you can only fetch image and spotdata independently from server for now
+    const imageonserver = await image.get(req.params.sid);
+    if (errorcodes.notFound != imageonserver && imageonserver != 0) //checks if there is an image on server
+        res.sendFile(path.join(__dirname, "..", "..", "uploads", "spotimages", req.params.sid + ".png"));
+    else
+        res.json({
+            status: errorcodes.noSpotImage
+        });
+}
 
 exports.postSpotImage = async (req, res) => {
     if (await getspot(req.params.sid) != errorcodes.notFound) //verifies that a spot with this id exists
@@ -84,15 +94,6 @@ exports.postSpotImage = async (req, res) => {
                     status: errorcodes.notCreatorOfSpot
                 });
             }
-        } //you can only fetch image and spotdata independently from server for now
-        else if (req.body.getimage) {
-            const imageonserver = await image.get(req.params.sid);
-            if (errorcodes.notFound != imageonserver && imageonserver != 0) //checks if there is an image on server
-                res.sendFile(path.join(__dirname, "..", "..", "uploads", "spotimages", req.params.sid + ".png"));
-            else
-                res.json({
-                    status: errorcodes.noSpotImage
-                });
         }
         //deletes image from spot
         else if (req.body.deleteimage) {
@@ -143,8 +144,8 @@ exports.postDeleteSpot = async (req, res) => {
         });
     }
 }
-exports.postGetUserSpots  = async (req, res) => {
-    if(req.params.username || req.query.username){
+exports.postGetUserSpots = async (req, res) => {
+    if (req.params.username || req.query.username) {
         if (req.body.spotcount) {
             if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
             {
@@ -157,15 +158,17 @@ exports.postGetUserSpots  = async (req, res) => {
                     let spotcount = req.body.spotcount;
                     if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
                         spotcount = spotsdata.length;
-    
+
                     for (let i = 0; i < spotcount; i++) {
                         spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
                     }
-                    spotsdata.unshift({ status: errorcodes.success});
+                    spotsdata.unshift({
+                        status: errorcodes.success
+                    });
                     res.json(spotsdata);
                 }
             } else {
-                res.json([{     //need [] because on client we use fetched[0].status and not fetched.statuss because we are sending an array
+                res.json([{ //need [] because on client we use fetched[0].status and not fetched.statuss because we are sending an array
                     status: errorcodes.countInvalid
                 }]);
             }
@@ -198,7 +201,9 @@ exports.postGetSpots = async (req, res) => {
                 for (let i = 0; i < spotcount; i++) {
                     spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
                 }
-                spotsdata.unshift({ status: errorcodes.success});
+                spotsdata.unshift({
+                    status: errorcodes.success
+                });
                 res.json(spotsdata);
             }
         } else {
@@ -214,7 +219,7 @@ exports.postGetSpots = async (req, res) => {
 }
 
 exports.postGetSpotsWithTitle = async (req, res) => {
-    if(req.body.title) {
+    if (req.body.title) {
         if (req.body.spotcount) {
             if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
             {
@@ -227,11 +232,13 @@ exports.postGetSpotsWithTitle = async (req, res) => {
                     let spotcount = req.body.spotcount;
                     if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
                         spotcount = spotsdata.length;
-    
+
                     for (let i = 0; i < spotcount; i++) {
                         spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
                     }
-                    spotsdata.unshift({ status: errorcodes.success});
+                    spotsdata.unshift({
+                        status: errorcodes.success
+                    });
                     res.json(spotsdata);
                 }
             } else {
@@ -243,12 +250,12 @@ exports.postGetSpotsWithTitle = async (req, res) => {
             res.json([{
                 status: errorcodes.noCount
             }]);
-        }  
-    }else {
+        }
+    } else {
         res.json([{
             status: errorcodes.noTitleSpecified
         }]);
-    } 
+    }
 }
 
 exports.postGetTopSpots = async (req, res) => {
@@ -275,7 +282,7 @@ exports.postGetTopSpots = async (req, res) => {
                 for (let j = 0; j < spotcount; j++) {
                     for (let i = 0; i < spotsdata.length; i++) {
                         const sid = Array.from(topviewssorted.keys())[j]
-                        if (spotsdata[i]["sid"]== sid) {
+                        if (spotsdata[i]["sid"] == sid) {
                             spotsdata[i]["status"] = errorcodes.success;
                             spotsdata[i]["views"] = topviewssorted.get(sid); //add views count to spotdata
                             sortedspotsdata.push(spotsdata[i]);
@@ -283,8 +290,10 @@ exports.postGetTopSpots = async (req, res) => {
                         }
                     }
                 }
-                sortedspotsdata.unshift({"status": errorcodes.success}); //first element statuscode
-                
+                sortedspotsdata.unshift({
+                    "status": errorcodes.success
+                }); //first element statuscode
+
                 res.json(sortedspotsdata);
             }
         } else {
@@ -307,16 +316,15 @@ exports.postGetSpot = async (req, res) => {
         spotdata["views"] = await views(req.params.sid); //add views count to spotdata
         res.json(
             spotdata
-            );
-    } else if (spotdata == errorcodes.notFound){
+        );
+    } else if (spotdata == errorcodes.notFound) {
         res.json({
             status: errorcodes.noSpotImage
         });
+    } else {
+        res.json({
+            status: "Unregistered: " + spotdata
+        });
     }
-        else {
-            res.json({
-                status: "Unregistered: " + spotdata
-            });
-        }
 
 }

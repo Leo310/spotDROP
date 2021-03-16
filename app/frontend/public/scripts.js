@@ -4,7 +4,7 @@ async function logout() {
         method: 'POST',
     }
     const response = await fetch("/logout", options);
-    window.location = "/index";
+    window.location = "/home";
 }
 
 function getCategories(sid) {
@@ -23,7 +23,7 @@ function getCategories(sid) {
 }
 
 function getImage(sid, id) {
-    fetch("/spots/" + sid + "/image", {
+    fetch("/spots/" + sid + "/getimage", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -38,6 +38,7 @@ function getImage(sid, id) {
             return response.blob();
         })
         .then(image => {
+            console.log(image);
             if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
             {
                 document.querySelector("#"+ id).src = URL.createObjectURL(image);
@@ -47,6 +48,30 @@ function getImage(sid, id) {
             }
         })
         .catch(err => console.log(err));
+}
+
+function rateSpot(sid, title, stars, text)
+{
+    return fetch("/spots/" + sid + "/rate", {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "title": title,
+            "stars": stars.toString(),
+            "text": text
+        })
+    })
+    .then(response => {
+        if (!response.ok)
+            throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(status => {
+        return status;
+    })
+    .catch(err => console.log(err));
 }
 
 function getRatings(sid, count = 0) {
@@ -166,6 +191,30 @@ function getUsername() {
                 return content.status;
             }
 
+        })
+        .catch(err =>{
+            console.log(err);
+            return err;
+        })
+}
+
+function isLogined() {
+    return fetch("/profile", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "getloginedusername": "Get username"
+            })
+        })
+        .then(response => {
+            if (!response.ok)
+                throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(content => {
+            return content;
         })
         .catch(err =>{
             console.log(err);

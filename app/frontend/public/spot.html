@@ -15,6 +15,14 @@
 <body>
     <script>
         $(document).ready(async () =>  {
+            const logedin = await isLogined();
+            console.log(logedin);
+            if (logedin.status == errorcodes.success) {
+                document.getElementById("showprofile").style.display = "inline-block";
+                document.getElementById("shownewspot").style.display = "inline-block";
+                document.getElementById("menubutton").innerHTML = "SIGN OUT";
+                document.getElementById("menubutton").onclick = ()=>{logout()};
+            }
             const urlParams = new URLSearchParams(window.location.search);
             const sid = urlParams.get('sid');
             const spot = await getSpot(sid);  
@@ -28,8 +36,10 @@
             document.getElementById("suserprofile").addEventListener("click", () => redirectUserView(spot.username)); // need to call in anonymus function or the user would get redirected immediatly
 
             const ratings = await getRatings(sid); 
-            console.log(ratings.status);
-            //TODO
+            console.log(ratings);
+            if(ratings[0].status == errorcodes.success){
+                createRatings(ratings, ratings.length-1);
+            }
 
             const categories = await getCategories(sid);
             console.log(categories.status);
@@ -41,30 +51,55 @@
                 document.getElementById("scity").innerHTML = spot.city;
                 document.getElementById("szip").innerHTML = spot.zip;
                 document.getElementById("description2").innerHTML = spot.description;
-                let categoriesString = "";
-                for(let i = 0; i < categories.categories.length; i++)
-                    categoriesString += categories.categories[i].charAt(0).toUpperCase() + categories.categories[i].slice(1) + ", ";
-                 document.getElementById("scategories").innerHTML = categoriesString.substring(0, categoriesString.length - 2); //removes last comma
+                if(categories.categories){
+                    let categoriesString = "";
+                    for(let i = 0; i < categories.categories.length; i++)
+                        categoriesString += categories.categories[i].charAt(0).toUpperCase() + categories.categories[i].slice(1) + ", ";
+                     document.getElementById("scategories").innerHTML = categoriesString.substring(0, categoriesString.length - 2); //removes last comma
+                }
             } else {
                 console.log(spot.status);
             }
+            
+
         });
+
+        function createRatings(ratings, count) {
+            console.log("asdf");
+            for(let i = 1; i <= count; i++) //index 0 is status code
+            {
+            $("#listrating").append(
+                $('<div>', {"class": "commentdiv"}).append(
+                    $('<div>', {"class":"commentdiv1"}).append(
+                        $('<img>', {"src":"resources/img/defaultprofile.png"}),
+                        $('<p>' ,{"text":ratings[i].username})
+                    ),
+                    $('<div>', {"class":"commentdiv2"}).append(
+                        $('<h2>', {"text":ratings[i].title}),
+                        $('<p>' ,{"text":"Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)"})
+                    ),
+                    $('<div>', {"class":"commentdiv3"}).append(
+                        $('<p>' ,{"text":ratings[i].stars})
+                    ) 
+                )
+            );
+        }
+    }
     </script>
     <!-- === navigationsleiste === -->
 
     
         <nav class="header-nav">
 
-            <a href="/index"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
 
             <ul>
 
                 <li><a href="home">HOME</a></li>
                 <li><a href="spots">SPOTS</a></li>
-                <li><a href="index">BOARDS</a></li>
-                <li id="profile"><a href="profile">PROFILE</a></li>
-                <li><a href="spotcreate">NEW SPOT</a></li>
-                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
+                <li id="profile"><a href="profile" id="showprofile" style="display: none;">PROFILE</a></li>
+                <li><a href="spotcreate" id="shownewspot" style="display: none;">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="window.location = '/login'">SIGN IN</button></li>
 
             </ul>
 
@@ -176,73 +211,8 @@
             <h1>Comments</h1>
 
             <span><button type="button" id="commentpopup" onclick="showCommentDiv()">+ add comment</button></span>
-            <div class="commentflex">
+            <div id="listrating" class="commentflex">
 
-                <div class="commentdiv">
-                    <div class="commentdiv1">
-                        <img src="resources/img/defaultprofile.png">
-                        <p>username<p>
-                    </div>
-
-                    <div class="commentdiv2">
-                        <h2>Titel</h2>
-                        <p>Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)</p>
-                    </div>
-
-                    <div class="commentdiv3">
-                        <p>4.5</p>
-                    </div>
-
-                </div>
-
-                <div class="commentdiv">
-                    <div class="commentdiv1">
-                        <img src="resources/img/defaultprofile.png">
-                        <p>username<p>
-                    </div>
-
-                    <div class="commentdiv2">
-                        <h2>Titel</h2>
-                        <p>Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)</p>
-                    </div>
-
-                    <div class="commentdiv3">
-                        <p>4.5</p>
-                    </div>
-
-                </div>
-
-                <div class="commentdiv">
-                    <div class="commentdiv1">
-                        <img src="resources/img/defaultprofile.png">
-                        <p>username<p>
-                    </div>
-
-                    <div class="commentdiv2">
-                        <h2>Titel</h2>
-                        <p>Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)</p>
-                    </div>
-
-                    <div class="commentdiv3">
-                        <p>4.5</p>
-                    </div>
-
-                </div>
-
-                <div class="commentdiv">
-                    <div class="commentdiv1">
-                        <img src="resources/img/defaultprofile.png">
-                        <p>username<p>
-                    </div>
-
-                    <div class="commentdiv2">
-                        <h2>Titel</h2>
-                        <p>Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)</p>
-                    </div>
-
-                    <div class="commentdiv3">
-                        <p>4.5</p>
-                    </div>
 
                 </div>
 

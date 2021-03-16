@@ -14,31 +14,23 @@
 
 <body>
     <script>
-        $(document).ready(() => {
-            getUsername()
+        $(document).ready(async () => {
+            const logedin = await isLogined();
+            console.log(logedin);
+            if (logedin.status == errorcodes.success) {
+                document.getElementById("showprofile").style.display = "inline-block";
+                document.getElementById("shownewspot").style.display = "inline-block";
+                document.getElementById("menubutton").innerHTML = "SIGN OUT";
+                document.getElementById("menubutton").onclick = ()=>{logout()};
+                getUsername()
                 .then((username) => {
                     document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
-                    const topspotcount = 8;
-                    createSpots(spot, 2);
-                    getTopSpots(topspotcount);
                 });
-
+            }
+            const topspotcount = 8;
+            getTopSpots(topspotcount);
+            
         });
-        const spot = [{},{
-            title: "Radfarhern",
-            description: "Wilder Parkour am alex",
-            street: "Strasse",
-            housenumber: "20",
-            zip: "34121",
-            city: "Berlin"
-        }, {
-            title: "Radfarhern",
-            description: "Wilder Parkour am alex",
-            street: "Strasse",
-            housenumber: "20",
-            zip: "34121",
-            city: "Berlin"
-        }]
 
         function getTopSpots(count) {
             document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
@@ -79,16 +71,15 @@
     <div class="fullscreen">
         <nav class="header-nav">
 
-            <a href="/index"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
 
             <ul>
 
                 <li><a href="home">HOME</a></li>
                 <li><a href="spots">SPOTS</a></li>
-                <li><a href="index">BOARDS</a></li>
-                <li id="profile"><a href="profile">PROFILE</a></li>
-                <li><a href="spotcreate">NEW SPOT</a></li>
-                <li><button type="button" id="menubutton" onclick="logout();">SIGN OUT</button></li>
+                <li id="profile"><a href="profile" id="showprofile" style="display: none;">PROFILE</a></li>
+                <li><a href="spotcreate" id="shownewspot" style="display: none;">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="window.location = '/login'">SIGN IN</button></li>
 
             </ul>
 
@@ -109,7 +100,7 @@
 
         <div class="centerdiv">
             <div class="greeting">
-                <p class="welcomeback" id="welcomeback"></p>
+                <p class="welcomeback" id="welcomeback">Welcome to spotDROP,</p>
                 <center>
                     <p id="intro">Great to see you again.
                         As usually, start searching for Spots right away or share

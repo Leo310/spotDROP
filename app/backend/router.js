@@ -34,6 +34,7 @@ router.post("/spots/:sid/ratings", check.spotid, interactions.postGetSpotRatings
 router.post("/spots/:sid/rate", check.spotid, check.auth, interactions.postRateSpot);
 router.post("/spots/:sid/delrating", check.spotid, check.auth, interactions.postDelRateSpot);
 router.post("/spots/:sid/delete", check.spotid, check.auth, spot.postDeleteSpot);
+router.post("/spots/:sid/getimage", check.spotid, spot.postGetSpotImage);
 router.post("/spots/:sid/image", check.spotid, check.auth, fileuploaded.single('addimage'), spot.postSpotImage);
 
 module.exports = router;

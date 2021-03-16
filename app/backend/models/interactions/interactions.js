@@ -63,10 +63,7 @@ exports.postGetSpotRatings = async (req, res) => {
                 if (ratingcount == 0 || ratingcount > ratingsdata.length) //if ratingcount equals 0 than client wants to fetch all spots
                     ratingcount = ratingsdata.length;
 
-                for (let i = 0; i < ratingcount; i++) {
-                    ratingsdata[i]["status"] = errorcodes.success;
-                }
-
+                ratingsdata.unshift({"status": errorcodes.success});
                 res.json(ratingsdata);
             }
         } else {
