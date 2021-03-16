@@ -231,8 +231,11 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
                         status: errorcodes.categoryInvalid
                     });
                 }
-
-                let spotsdata = await getspots.withtitel(req.body.title);
+                let spotsdata;
+                if (req.body.title && req.body.title.length > 0) {
+                    spotsdata = await getspots.withtitel(req.body.title);
+                } else
+                    spotsdata = await getspots.all();
                 let spotcategories = new Map();
                 if (spotsdata.lenght == 0) {
                     const allspotsdata = await getspots.all();
@@ -265,10 +268,8 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
                     spotcategories.forEach((value, key) => {
                         for (let j = 0; j < req.body.categories.length; j++) {
                             if (value.includes(req.body.categories[j])) {
-                                for(let i = 0; i < spotsdata.length; i++)
-                                {
-                                    if(spotsdata[i]["sid"]==key)
-                                    {
+                                for (let i = 0; i < spotsdata.length; i++) {
+                                    if (spotsdata[i]["sid"] == key) {
                                         result.push(spotsdata[i]);
                                         break;
                                     }
@@ -277,27 +278,35 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
                             }
                         }
                     })
+                    result.unshift({"status": errorcodes.success});
                     res.json(result);
                 }
 
             } else {
-                const spotsdata = await getspots.withtitel(req.body.title);
-                if (spotsdata == errorcodes.notFound) {
-                    res.json({
-                        status: errorcodes.noSpotImage
-                    });
-                } else {
-                    let spotcount = req.body.spotcount;
-                    if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
-                        spotcount = spotsdata.length;
+                if (req.body.title && req.body.title.length > 0) {
+                    const spotsdata = await getspots.withtitel(req.body.title);
+                    if (spotsdata == errorcodes.notFound) {
+                        res.json({
+                            status: errorcodes.noSpotImage
+                        });
+                    } else {
+                        let spotcount = req.body.spotcount;
+                        if (spotcount === "0" || spotcount > spotsdata.length) //if spotcount equals 0 than client wants to fetch all spots
+                            spotcount = spotsdata.length;
 
-                    for (let i = 0; i < spotcount; i++) {
-                        spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
+                        for (let i = 0; i < spotcount; i++) {
+                            spotsdata[i]["views"] = await views(spotsdata[i]["sid"]); //add views count to spotdata
+                        }
+                        spotsdata.unshift({
+                            status: errorcodes.success
+                        });
+                        res.json(spotsdata);
+
                     }
-                    spotsdata.unshift({
-                        status: errorcodes.success
-                    });
-                    res.json(spotsdata);
+                } else {
+                    res.json([{
+                        status: errorcodes.noTitleSpecified
+                    }]);
                 }
             }
         } else {

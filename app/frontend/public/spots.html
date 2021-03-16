@@ -31,7 +31,8 @@
             const urlParams = new URLSearchParams(window.location.search);
             const searchvalue = urlParams.get('search');
             document.getElementById("search").value = searchvalue;
-            if (searchvalue) {
+            const spotcategories = [categories.ruhig];
+            if (searchvalue || spotcategories.length > 0) { //specific search
                 fetch("/spotswithtitle", {
                         method: "post",
                         headers: {
@@ -39,6 +40,7 @@
                         },
                         body: JSON.stringify({
                             "title": searchvalue,
+                            "categories": spotcategories,
                             "spotcount": count.toString()
                         })
                     })
@@ -55,7 +57,7 @@
 
                     })
                     .catch(err => console.log(err))
-            } else {
+            } else { //fetches all spots
                 fetch("/spots", {
                         method: "post",
                         headers: {

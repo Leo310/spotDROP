@@ -222,7 +222,6 @@ function isLogined() {
         })
 }
 
-
 function getPP() { //gets profile picture
     fetch("/profile", {
             method: "post",
