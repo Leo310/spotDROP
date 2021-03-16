@@ -25,6 +25,7 @@
                 document.getElementById("menubutton").innerHTML = "SIGN OUT";
                 document.getElementById("menubutton").onclick = ()=>{logout()};
                 document.getElementById("profilepicture").style.display = "block";
+                document.getElementById("intro").innerHTML = "Great to see you again. As usually, start searching for Spots right away or share your favorite Spots with everyone else.";
                 getUsername()
                 .then((username) => {
                     document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
@@ -106,12 +107,11 @@
                 <img class="homeuserprofile" id="profilepicture" src="resources/img/defaultprofile.png" style="display: none;">
                 <p class="welcomeback" id="welcomeback">Welcome to spotDROP.</p>
                 <center>
-                    <p id="intro">Great to see you again.
-                        As usually, start searching for Spots right away or share
-                        your favorite Spots with everyone else.</p>
-                </center>
-            
+                    <p id="intro">Nice to see you here. Feel free to use spotDrop to discover new Spots suitable for any occasion and to share your favorite Spots with everyone else.</p>
 
+                        
+                </center>
+    
         </div>
 
 

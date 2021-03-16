@@ -71,6 +71,7 @@ body {
     outline: none !important
 }
 
+
 ::-webkit-scrollbar
 {
   width: 0px;  /* for vertical scrollbars */
@@ -87,6 +88,11 @@ body {
 {
     border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+}
+
+
+button {
+cursor: pointer;
 }
 
 
@@ -194,11 +200,12 @@ body {
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 
     transition: all 0.3s ease 0s;
-
+    
 }
 
 .spot-preview:hover {
     transform: translateY(-20px);
+    cursor: pointer;
 }
 
 .previewimg {
@@ -229,7 +236,6 @@ body {
 
 .prating {
     position: absolute;
-    display: inline-block;
     margin: 0;
     float: right;
     text-align: right;
@@ -264,7 +270,7 @@ body {
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: 15px;
     width: 85%;
 }
 
@@ -276,7 +282,7 @@ body {
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10vh;
+    margin-top: 12vh;
     margin-bottom: 20px;
 
     width: 85%;
@@ -378,7 +384,7 @@ body {
 
     flex-flow: row wrap;
 
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
    
@@ -391,13 +397,24 @@ body {
     background-color:transparent;
     border-radius: 20px;
     margin: 0.5vw;
+    margin-bottom: 2vh;
 
-
-    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(126, 192, 149, 0.05);
     -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
 
+    transition: all 0.3s ease 0s;
+ 
+
      
+}
+
+.user-spot-preview:hover{
+
+    transform: translateY(-10px);
+    cursor: pointer;
+
+
 }
 
 .user-previewimg {
@@ -518,7 +535,6 @@ body {
 
 .user-prating {
     position: absolute;
-    display: inline-block;
     margin: 0;
     float: right;
     right:0;
@@ -598,6 +614,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10vh;
+    display: flex;
     
 
     /* position: absolute;
@@ -610,7 +627,7 @@ body {
     width: 75%;
     padding: 5px;
 
-    border-radius: 15px;
+    
 
     background-color: rgba(255, 255, 255, 1);
     z-index:2;
@@ -624,7 +641,7 @@ body {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1vh;
+    
     z-index: 4;
     display: none;
 
@@ -636,13 +653,13 @@ body {
      bottom: 0;
      margin-bottom: 0; */
 
-
+    overflow-x: scroll;
 
     width: 75%;
     text-align: center;
     padding: 5px;
 
-    border-radius: 15px;
+    border-radius: 0 0 15px 15px;
 
     background-color: rgba(255, 255, 255, 1);
 
@@ -650,14 +667,18 @@ body {
 
 .filtercatbutton {
     
+    width: 160px;
     height:50px;
     padding: 12px 24px;
     
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: 2%;
-    position: relative;
     
+    position: relative;
+    float: right;
+    margin-left: 2%;
+    
+   
   
     font-size: 16px;
     font-family: "ProximaNova";
@@ -772,8 +793,8 @@ body {
 .loginwrapper {
     position: fixed;
     display: flex;
-    width: 55%;
-    min-height: 60%;
+    width: 65%;
+    min-height: 70%;
 
 
     left: 50%;
@@ -931,7 +952,7 @@ body {
 .userwrapper {
     position: fixed;
     display: flex;
-    width: 75%;
+    width: 85%;
     min-height: 100%;
     left: 50%;
     margin-top: 10vh;
@@ -977,7 +998,7 @@ h3 {
 
 .userdetails>h3 {
     margin-top: 5px;
-    margin-left: 10px;
+    
     color: #b0b0b0;
     font-weight: 700;
     font-size: 13px;
@@ -987,9 +1008,10 @@ h3 {
 
 .userdetails>h2 {
     width: 100%;
+    word-break: break-all;
     text-align: left;
     margin-top: 5px;
-    margin-left: 10px;
+    
     
     color: rgb(126, 192, 149);
     font-weight: 700;
@@ -1003,8 +1025,9 @@ h3 {
     background-color: transparent;
     
     width: 40%;
-    margin-top: 20px;
+    margin-top: 5vh;
     margin-left: 5%;
+    margin-right: 5%;
     margin-bottom: 20px;
     z-index: 3;
 }
@@ -1014,8 +1037,8 @@ h3 {
     float: left;
     background-color: transparent;;
     
-    width: 45%;
-    margin-top: 20px;
+    width: 40%;
+    margin-top: 5vh;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 20px;
@@ -1042,6 +1065,7 @@ text-underline-offset: 2px;
 margin-left: auto;
 margin-right: auto;
 z-index: 3;
+cursor: pointer;
 
 }
 
@@ -1252,9 +1276,9 @@ h3 {
     margin: 0;
     font-weight: 700;
     color: #6C6C6C;
-    font-size: 17px;
+    font-size: 1.3rem;
     
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     margin-left: 5px;
 }
 
@@ -1433,7 +1457,7 @@ tr {
     padding: 0;
     position: relative;
 
-    border-radius: =;
+    
     
     object-fit: cover; 
     z-index:1;
@@ -1489,7 +1513,7 @@ tr {
     
 
     background-color:transparent;
-    width: 100px;
+    width: 100%;
     height: 100px;
     z-index: 4;
 }
@@ -1502,7 +1526,7 @@ tr {
     
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: block;
     font-family: "ProximaNova";
     font-weight: 600;
     font-size: 13px;
@@ -1516,6 +1540,7 @@ tr {
     margin-right: auto;
     margin-top: 1vh;
     z-index: 4;
+    cursor: pointer;
 }
 
 .profileuploadbutton1 {
@@ -1649,7 +1674,7 @@ tr {
 }
 
 .checkboxes>input {
-    display: inline-block;
+    
 
     float: left;
 
@@ -1697,7 +1722,7 @@ tr {
 .comments {
     position: absolute;
     
-    top: 80vh;  
+    top: 85vh;  
     width: 100%;
     min-height: 50vh;
     border-radius: 20px;
@@ -1737,8 +1762,8 @@ tr {
     position: relative;
     display: table;
     margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 4vw;
+    
     margin-bottom: 5vh;
     font-weight: 700px;
     font-size: 40px;
@@ -1803,13 +1828,28 @@ tr {
 
     position: relative;
     margin-left: 2vw;
-    margin-top: 15px;
+    margin-top: 5px;
  
-    margin-bottom: 10px;
-    font-weight: 700px;
+    margin-bottom: 5px;
+    font-weight: 700;
     font-size: 25px;
     color: rgb(126, 192, 149);
     padding: 0;
+
+}
+
+.commentdiv h4 {
+
+    position: relative;
+    margin-left: 2vw;
+    margin-top: 5px;
+ 
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #c0c0c0;
+    padding: 0;
+    text-transform: uppercase;
 
 }
 
@@ -1834,7 +1874,7 @@ tr {
 
     position: absolute;
     left: 50%;
-    top: 80%;
+    top: 70%;
  
     transform: translateX(-50%);
     margin:0;
@@ -1858,7 +1898,7 @@ tr {
     transform: translateX(-50%);
     margin:0;
     font-weight: 600;
-    font-size: 13   px;
+    font-size: 13px;
     color: rgb(126, 192, 149);
     padding: 0;
     max-width: 95%;
@@ -1888,9 +1928,9 @@ tr {
 .commentdiv1 img {
     position: absolute;
     margin: 0;
-    top: 50%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     height: 75px;
     width: 75px;
     object-fit: cover;
@@ -1929,6 +1969,8 @@ tr {
     width: 80%;  
 }
 
+
+
 .makecommentdiv2 {
     position: relative;
     float: left;
@@ -1958,7 +2000,7 @@ tr {
 
     position: absolute;
     left: 50%;
-    top: 15px;
+    top: 20px;
  
     transform: translateX(-50%);
     margin:0;
@@ -2135,15 +2177,15 @@ tr {
 }
 
 #search {
-    width: 72%;
+    width: 70%;
     height: 50px;
     padding: 12px 24px;
     margin-left: 4%;
-    float:left;
+    float: left;
     margin-top: 20px;
     margin-bottom: 20px;
     position: relative;
-    display: inline-block;
+    
     font-size: 16px;
     font-family: "ProximaNova";
     font-weight: 500;
@@ -2155,13 +2197,15 @@ tr {
 }
 
 .searchicon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 4%;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2%;
+    margin-right: 3%;
     
     height: 40px;
     float: right;
+    
 }
 
 select {
@@ -2266,7 +2310,7 @@ select::-ms-expand {
 }
 
 #commentrating {
-    display: inline-block; 
+    
     float: right;
     width: 12%;
     height: 45px;
@@ -2366,7 +2410,7 @@ select::-ms-expand {
 
     display: inline-block;
     margin: 0px;
-    width: 50%;
+    width: 55%;
 
 }
 
@@ -2397,8 +2441,8 @@ select::-ms-expand {
 }
 
 .errordiv2 {
-    bottom: inherit;
-    top: 6vh;
+    bottom: 1%;
+    
 }
 
 

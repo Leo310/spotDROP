@@ -56,10 +56,13 @@
 
         function showCatDiv() {
             var x = document.getElementById("filtercat");
+            var y = document.getElementById("searchdiv");
             if (x.style.display === "block") {
                 x.style.display = "none";
+                y.style.borderRadius = "15px";
             } else {
                 x.style.display = "block";
+                y.style.borderRadius = "15px 15px 0px 0px";
             }
         }
 
@@ -186,7 +189,7 @@
             </center>
         </div>
 
-        <div class="search">
+        <div class="search" id="searchdiv" style="border-radius: 15px;">
 
             <!-- <img id="searchicon" src="resources/img/loupe.png" alt="Search"> -->
 
@@ -205,7 +208,7 @@
 
         </div>
 
-        <img class="arrowdownalt" src="resources/img/arrow-down.png">
+        <img class="arrowdown2" src="resources/img/arrow-down.png">
 
 
     </div>
