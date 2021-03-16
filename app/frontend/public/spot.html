@@ -18,6 +18,7 @@
             const logedin = await isLogined();
             console.log(logedin);
             if (logedin.status == errorcodes.success) {
+                document.getElementById("commentpopup").style.display = "table-cell";
                 document.getElementById("showprofile").style.display = "inline-block";
                 document.getElementById("shownewspot").style.display = "inline-block";
                 document.getElementById("menubutton").innerHTML = "SIGN OUT";
@@ -76,11 +77,11 @@
             $("#listrating").append(
                 $('<div>', {"class": "commentdiv"}).append(
                     $('<div>', {"class":"commentdiv1"}).append(
-                        $('<img>', {"id":"profilepictures", "src": await getUserPP(ratings[i].username)}),
+                        $('<img>', {"id":"profilepictures", "onclick":"redirectUserView('"+ratings[i].username+"')", "src": await getUserPP(ratings[i].username)}),
                         $('<p>' ,{"text":ratings[i].username})
                     ),
                     $('<div>', {"class":"commentdiv2"}).append(
-                        $('<h4>', {"text":ratings[i].title}),
+                        $('<h4>', {"text":ratings[i].date.replace("T", " ").substring(0, 19)}),
                         $('<h2>', {"text":ratings[i].title}),
                         $('<p>' ,{"text":ratings[i].text})
                     ),
@@ -227,7 +228,7 @@
             
             <h1>Comments</h1>
             
-            <span><button type="button" id="commentpopup" onclick="showCommentDiv()">+ add comment</button></span>
+            <span><button type="button" id="commentpopup" style="display: none;" onclick="showCommentDiv()">+ add comment</button></span>
             <div class="makecomment" id="createcommentsdiv">
                 <div class="makecommentdiv1">
                     <img id="profilepicture" src="resources/img/defaultprofile.png">
