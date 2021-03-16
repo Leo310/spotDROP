@@ -72,7 +72,9 @@ exports.postGetSpotImage = async (req, res) => {
     //you can only fetch image and spotdata independently from server for now
     const imageonserver = await image.get(req.params.sid);
     if (errorcodes.notFound != imageonserver && imageonserver != 0) //checks if there is an image on server
+    {
         res.sendFile(path.join(__dirname, "..", "..", "uploads", "spotimages", req.params.sid + ".png"));
+    }
     else
         res.json({
             status: errorcodes.noSpotImage

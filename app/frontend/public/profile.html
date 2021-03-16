@@ -65,29 +65,33 @@
                 })
                 .catch(err => console.log(err))
         }
-
+        function delHandler(event, sid){
+            event.stopPropagation()
+            deleteSpot(sid);
+            window.location.reload();
+        }
         function createProfileSpots(spots, count) {
-    for(let i = 1; i <= count; i++) //index 0 is status code
-    {
-        $("#spotsview").append(
-            $('<div>', {"class": "user-spot-preview","onclick":"redirectSpotView("+ spots[i].sid+")"}).append(
-                $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
-                $('<div>', {"class":"user-databar"}).append(
-                    $('<h2>', {"text": spots[i].title}),
-                    $('<p>' ,{"class":"user-prating", "text":"4.5"})
-                ),
-                $('<div>', {"class":"user-iconbar"}).append(
-                    $('<img>', {"class":"user-actionbarmini1", "src":"resources/img/icons/view.png"}),
-                    $('<p>', {"id":"user-viewcount", "text":spots[i].views}),
-                    $('<img>', {"class":"user-actionbarmini2", "src":"resources/img/icons/fave.png"}),
-                    $('<img>', {"class":"user-actionbarmini3", "src":"resources/img/icons/save.png"}),
-                    $('<img>', {"class":"user-actionbarmini4", "src":"resources/img/icons/delete.png"})
-                )    
-            )
-        );
-        getImage(spots[i].sid, i);
-    }
-}
+        	for(let i = 1; i <= count; i++) //index 0 is status code
+        	{
+        	    $("#spotsview").append(
+        	        $('<div>', {"class": "user-spot-preview","onclick":"redirectSpotView("+ spots[i].sid+")"}).append(
+        	            $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
+        	            $('<div>', {"class":"user-databar"}).append(
+        	                $('<h2>', {"text": spots[i].title}),
+        	                $('<p>' ,{"class":"user-prating", "text":"4.5"})
+        	            ),
+        	            $('<div>', {"class":"user-iconbar"}).append(
+        	                $('<img>', {"class":"user-actionbarmini1", "src":"resources/img/icons/view.png"}),
+        	                $('<p>', {"id":"user-viewcount", "text":spots[i].views}),
+        	                $('<img>', {"class":"user-actionbarmini2", "src":"resources/img/icons/fave.png"}),
+        	                $('<img>', {"class":"user-actionbarmini3", "src":"resources/img/icons/save.png"}),
+                            $('<img>', {"class":"user-actionbarmini4", "onclick":"delHandler(event, "+ spots[i].sid+")", "src":"resources/img/icons/delete.png"})
+        	            )    
+        	        )
+        	    );
+        	    getImage(spots[i].sid, "spotpreviewimg" + i);
+        	}
+        }
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -187,7 +191,7 @@
                     <button class="profileuploadbutton1" value="Upload" onclick="showEditDiv()">Edit</button>
                     
                     <div id="changeimagediv">
-                        <input type="file" class="inputspotimage" id="fileup" name="file" accept="image/*">
+                        <input type="file" class="inputspotimage" id="fileup" name="file" onchange="document.getElementById('profilepicture').src = window.URL.createObjectURL(this.files[0])">
                         <label for="fileup">Add an image</label>
                         <input type="button" class="profileuploadbutton2" value="Delete" onclick="deletePP()">
                         <input type="button" class="profileuploadbutton3" value="Apply Changes" onclick="uploadPP()">

@@ -144,7 +144,7 @@ exports.delete = (table, where1, value1, where2, value2) => {
                 }
             });
         } else {
-            pool.query(`delete from ${table} where ${where}='${value}';`, (error, results, fields) => {
+            pool.query(`delete from ${table} where ${where1}='${value1}';`, (error, results, fields) => {
                 if (error) {
                     reject(error.sqlMessage); //unregistered errors (not documentaded in errorcodes.js)
                 } else {

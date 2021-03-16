@@ -285,7 +285,7 @@
             <div class="spotcreateright">
 
                 <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
-                <input class="inputspotimage" type="file" id="uploadimage" name="file" accept="image/*"
+                <input class="inputspotimage" type="file" id="uploadimage" name="file" onchange="document.getElementById('spotimage').src = window.URL.createObjectURL(this.files[0])" accept="image/*"
                     style="display: block;">
                 <label for="uploadimage">Add an image</label>
                 <input class="uploadspotimage" type="button" value="Share Spot" onclick="createSpot()">

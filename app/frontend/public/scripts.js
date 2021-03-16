@@ -109,6 +109,20 @@ function getSpot(sid)
     .catch(err => console.log(err));
 }
 
+function deleteSpot(sid)
+{
+    return fetch("/spots/" + sid + "/delete", {
+        method: "post"
+    })
+    .then(response => {
+        if (!response.ok)
+            throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(content => {console.log(content); return content;})
+    .catch(err => {console.log(err); return err;});
+}
+
 function redirectSpotView(sid)
 {
     window.location = "/spot?sid=" + sid;
