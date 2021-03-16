@@ -71,6 +71,23 @@ body {
     outline: none !important
 }
 
+::-webkit-scrollbar
+{
+  width: 0px;  /* for vertical scrollbars */
+  height: 8px; /* for horizontal scrollbars */
+ 
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.0);
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
 
 
 /* === === === === === === === navigation === === === === === === === */
@@ -1104,7 +1121,7 @@ z-index: 3;
 
     left: 50%;
     margin-top: 10vh;
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px;
 
     transform: translateX(-50%);
 
@@ -1416,7 +1433,7 @@ tr {
     padding: 0;
     position: relative;
 
-    border-radius: 0 20px 20px 0;
+    border-radius: =;
     
     object-fit: cover; 
     z-index:1;
@@ -1875,6 +1892,8 @@ tr {
     left: 50%;
     transform: translate(-50%, -50%);
     height: 75px;
+    width: 75px;
+    object-fit: cover;
     border-radius: 50%;
 
     padding: 0;

@@ -55,9 +55,9 @@ exports.postGetSpotRatings = async (req, res) => {
         {
             const ratingsdata = await rating.getRatings(req.params.sid);
             if (ratingsdata == errorcodes.notFound) {
-                res.json({
+                res.json([{
                     status: errorcodes.noRating
-                });
+                }]);
             } else {
                 let ratingcount = req.body.ratingcount;
                 if (ratingcount == 0 || ratingcount > ratingsdata.length) //if ratingcount equals 0 than client wants to fetch all spots

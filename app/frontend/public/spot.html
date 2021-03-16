@@ -60,23 +60,28 @@
             } else {
                 console.log(spot.status);
             }
-            
-
         });
-
-        function createRatings(ratings, count) {
-            console.log("asdf");
+        function addRating(){
+                const urlParams = new URLSearchParams(window.location.search);
+                const sid = urlParams.get('sid');;
+                const title = document.getElementById("commenttitle").value;
+                const stars = document.getElementById("commentrating").value;
+                const text = document.getElementById("commenttext").value;
+                rateSpot(sid, title, stars, text);
+                window.location.reload();
+            }
+        async function createRatings(ratings, count) {
             for(let i = 1; i <= count; i++) //index 0 is status code
             {
-            $("#listrating").append(
+            $("#listrating").prepend(
                 $('<div>', {"class": "commentdiv"}).append(
                     $('<div>', {"class":"commentdiv1"}).append(
-                        $('<img>', {"src":"resources/img/defaultprofile.png"}),
+                        $('<img>', {"id":"profilepictures", "src": await getUserPP(ratings[i].username)}),
                         $('<p>' ,{"text":ratings[i].username})
                     ),
                     $('<div>', {"class":"commentdiv2"}).append(
                         $('<h2>', {"text":ratings[i].title}),
-                        $('<p>' ,{"text":"Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :) Bin dort fast jeden Tag, vielen Dank fürs teilen :)"})
+                        $('<p>' ,{"text":ratings[i].text})
                     ),
                     $('<div>', {"class":"commentdiv3"}).append(
                         $('<p>' ,{"text":ratings[i].stars})
@@ -220,8 +225,6 @@
             <h1>Comments</h1>
             
             <span><button type="button" id="commentpopup" onclick="showCommentDiv()">+ add comment</button></span>
-            <div id="listrating" class="commentflex">
-            
             <div class="makecomment" id="createcommentsdiv">
                 <div class="makecommentdiv1">
                     <img src="resources/img/defaultprofile.png">
@@ -236,13 +239,15 @@
                     name="titel" required>
 
                     <textarea type="text" maxlength="1000" id="commenttext"  placeholder='Your Text'></textarea>
-                    <button onclick="" id="sendcomment">publish</button>
+                    <button onclick="addRating()" id="sendcomment">publish</button>
                 </div>
 
             </div>
+            <div id="listrating" class="commentflex">
+            
 
 
-                </div>
+            </div>
 
 
 

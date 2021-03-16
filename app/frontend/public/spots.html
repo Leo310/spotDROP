@@ -16,39 +16,43 @@
     <script>
         $(document).ready(async () => {
             const spotcount = 0; // 0 equals all spots
+            var div = document.getElementById('searchcheckboxes');
+            
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+    
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "checkboxid" + i;
+                div.appendChild(checkbox);
+    
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for","checkboxid" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);    
+    
+            }
             getSpots(spotcount);
             const logedin = await isLogined();
-            console.log(logedin);
+            //console.log(logedin);
             if(logedin.status == errorcodes.success){
                 document.getElementById("showprofile").style.display = "inline-block";
                 document.getElementById("shownewspot").style.display = "inline-block";
                 document.getElementById("menubutton").innerHTML = "SIGN OUT";
                 document.getElementById("menubutton").onclick = ()=>{logout()};
             }
-        });
 
-        window.addEventListener('load', (event) => {
-            
-            var div = document.getElementById('searchcheckboxes');
-            
-            for (var i = 0; i < Object.keys(categories).length; i++) {
-    
-               
-    
-                var checkbox = document.createElement('input');
-                checkbox.type = "checkbox";
-                checkbox.name = "name" + Object.keys(categories)[i];
-                checkbox.value = "value";
-                checkbox.id = "id" + i;
-                div.appendChild(checkbox);
-    
-                var newlabel = document.createElement("label");
-                newlabel.setAttribute("for","id" + i);
-                newlabel.innerHTML = Object.keys(categories)[i];
-                div.appendChild(newlabel);    
-    
-            }
+            //Search by hitting enter key
+            var input = document.getElementById("search");
+            input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("beginsearch").click();
+                }
+
             });
+        });
 
         function showCatDiv() {
             var x = document.getElementById("filtercat");
@@ -63,7 +67,17 @@
             const urlParams = new URLSearchParams(window.location.search);
             const searchvalue = urlParams.get('search');
             document.getElementById("search").value = searchvalue;
-            const spotcategories = [categories.ruhig];
+            const categoriesvalues = urlParams.get('categories');
+            let spotcategories = categoriesvalues.split('/');
+            spotcategories = spotcategories.filter((el)=> { return el != ""});//need to filter last because split produces "" element at the end
+
+            
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                if (spotcategories.includes(document.getElementById("checkboxid" + i).name)) {
+                    document.getElementById("checkboxid" + i).checked = true;
+                }
+            }
+            
             if (searchvalue || spotcategories.length > 0) { //specific search
                 fetch("/spotswithtitle", {
                         method: "post",
@@ -116,8 +130,18 @@
         }
 
         function search(count = 0) {
+            let checkedcategories = []
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                const checkbox = document.getElementById("checkboxid" + i);
+                if (checkbox.checked) {
+                    checkedcategories.push(Object.values(categories)[i]);
+                }
+            }
+            let stringcategories = "";
+            for(let i = 0; i < checkedcategories.length; i++)
+                stringcategories += checkedcategories[i] + "/";
             const searchvalue = document.getElementById("search").value;
-            window.location = "/spots?search=" + searchvalue;
+            window.location = "/spots?search=" + searchvalue + "&categories=" + stringcategories;
         }
 
     </script>
@@ -166,7 +190,7 @@
 
             <input type="text" id="search" placeholder="Search Spot" name="Search">
             <button class="filtercatbutton" onclick="showCatDiv()" name="filtercat">by Category</button>
-            <img src="resources/img/icons/loupe.png" class="searchicon" onclick="search()">
+            <img src="resources/img/icons/loupe.png" class="searchicon" id="beginsearch"onclick="search()">
 
         </div>
 

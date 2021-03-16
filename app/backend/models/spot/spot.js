@@ -227,9 +227,9 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
                     for (let i = 0; i < req.body.categories.length; i++)
                         await spotutilities.validateCategory(req.body.categories[i]);
                 } catch (err) {
-                    res.json({
+                    res.json([{
                         status: errorcodes.categoryInvalid
-                    });
+                    }]);
                 }
                 let spotsdata;
                 if (req.body.title && req.body.title.length > 0) {
@@ -259,9 +259,9 @@ exports.postGetSpotsWithTitle = async (req, res) => { //OR category
                     }
                 }
                 if (spotcategories.size == 0) {
-                    res.json({
+                    res.json([{
                         status: errorcodes.notFound
-                    });
+                    }]);
                 } else {
 
                     let result = [];
