@@ -3,18 +3,23 @@
 const router = require("express").Router();
 
 const fileserver = require("./fileserver");
-const fileuploaded = require("./middlewares/fileuploads");
+const fileuploaded = require("./middlewares/fileuploads"); //gets called on routes where files need to get uploaded
 
-const check = require("./middlewares/check");
-const user = require("./models/user/user");
+//middleware to check basic things like authentification and validation before passing to model 
+const check = require("./middlewares/check"); 
+
+//redirects routes to those models, they implemented the whole logic
+const user = require("./models/user/user"); 
 const spot = require("./models/spot/spot");
 const interactions = require("./models/interactions/interactions");
 
+//serves all files/all get request
 router.get("*", (res, req) => { //on get request always serve html files
     fileserver(res, req);
 });
 
-//user specific
+//serves data/all post request
+//user specific routes
 router.post("/login", user.postLogin);
 router.post("/register", user.postRegister);
 router.post("/logout", check.auth, user.postLogout);
@@ -22,7 +27,7 @@ router.post("/profile", check.auth, fileuploaded.single('addpp'), user.postProfi
 router.post("/user/:username", check.username, user.postGetUser);
 router.post("/getspots/:username",check.username, spot.postGetUserSpots);
 
-//spot specific
+//spot specific routes
 router.post("/spots", spot.postGetSpots);
 router.post("/topspots", spot.postGetTopSpots);
 router.post("/spotswithtitle", spot.postGetSpotsWithTitle);

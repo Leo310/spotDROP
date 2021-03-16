@@ -1,6 +1,9 @@
 'use strict';
 const fs = require("fs").promises;
 
+//Not really used TODO for future
+
+
 const reset = function (callback) {
     fs.writeFile("./srvlog.txt", "").then(callback())
         .catch(err => console.error(err))

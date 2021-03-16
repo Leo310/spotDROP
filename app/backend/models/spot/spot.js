@@ -1,5 +1,8 @@
 'use strict';
 
+//MAIN PAGE
+
+
 const path = require("path");
 
 const compare = require('3');

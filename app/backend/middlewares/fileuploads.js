@@ -1,6 +1,10 @@
 const multer = require("multer");
 
-const path = require("path");
+const path = require("path"); //enables cross platform paths
+
+//handles file uploads
+//stores all uploaded files in uploads directory
+//unvalidated files are in tmp, validadet images get stored under uploads/profilepictures and uploads/spotimages
 
 const fileStorage = multer.diskStorage({
     destination: function(req,file,cb) {

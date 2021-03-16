@@ -3,6 +3,9 @@
 const mysql = require("mysql");
 const errorcodes = require("../errorcodes");
 
+//mysql driver
+
+//handles mysql connection
 const pool = mysql.createPool({
     connectionLimit: 10,
     user: process.env.MYSQL_USER,

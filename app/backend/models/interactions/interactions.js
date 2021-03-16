@@ -1,5 +1,8 @@
 'use strict';
 
+//MAIN PAGE
+
+
 const errorcodes = require("../../errorcodes");
 const views = require("./views");
 const rating = require("./rates");

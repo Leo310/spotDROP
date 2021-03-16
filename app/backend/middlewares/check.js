@@ -3,6 +3,10 @@
 const errorcodes = require("../errorcodes");
 const userutilities = require("../models/user/utilities");
 
+
+//handles authentification and validation before data gets passed to models
+
+
 exports.auth = (req, res, next) => {
     if(!req.session.uname)
         res.json({status: errorcodes.notLogedIn});

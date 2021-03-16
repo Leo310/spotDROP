@@ -1,5 +1,7 @@
 'use strict';
 
+//MAIN PAGE
+
 const path = require("path");
 
 const login = require("./login");
@@ -12,7 +14,7 @@ const errorcodes = require("../../errorcodes");
 exports.postLogin = async (req, res) => {
     if (!req.session.uname) {
         const logined = await login(req.body.nameemail, req.body.password, req.session); //need to invert with not because return zero when succesful and errorcode when unsuccesful
-        res.json({
+        res.json({ //sends json back to client
             status: logined
         });
     } else {
