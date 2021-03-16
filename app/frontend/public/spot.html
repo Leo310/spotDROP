@@ -85,6 +85,14 @@
             );
         }
     }
+        function showCommentDiv() {
+            var x = document.getElementById("createcommentsdiv");
+            if (x.style.display === "flex") {
+                 x.style.display = "none";
+            } else {
+              x.style.display = "flex";
+            }
+        }
     </script>
     <!-- === navigationsleiste === -->
 
@@ -208,10 +216,30 @@
         
         
         <div class="comments">
+            
             <h1>Comments</h1>
-
+            
             <span><button type="button" id="commentpopup" onclick="showCommentDiv()">+ add comment</button></span>
             <div id="listrating" class="commentflex">
+            
+            <div class="makecomment" id="createcommentsdiv">
+                <div class="makecommentdiv1">
+                    <img src="resources/img/defaultprofile.png">
+                    <p>username<p>
+                </div>
+
+                <div class="makecommentdiv2">
+                    <input type="text" maxlength="50" id="commenttitle"  placeholder='Title of Comment'
+                                name="titel" required>
+
+                    <input type="number" min="0" max="5" step=".1" id="commentrating"  placeholder='4.5'
+                    name="titel" required>
+
+                    <textarea type="text" maxlength="1000" id="commenttext"  placeholder='Your Text'></textarea>
+                    <button onclick="" id="sendcomment">publish</button>
+                </div>
+
+            </div>
 
 
                 </div>

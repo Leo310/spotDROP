@@ -51,13 +51,36 @@
                 .then(content => {
                     if (content[0].status == errorcodes.success) {
                         document.querySelector("#spotscount").innerHTML = content.length - 1;
-                        createSpots(content, content.length - 1);
+                        createUserSpots(content, content.length - 1);
                     } else
                         console.log(content[0].status);
 
                 })
                 .catch(err => console.log(err))
         }
+
+        function createUserSpots(spots, count) {
+    console.log(spots)
+    for(let i = 1; i <= count; i++) //index 0 is status code
+    {
+        $("#spotsview").append(
+            $('<div>', {"class": "user-spot-preview", "onclick":"redirectSpotView("+ spots[i].sid+")"}).append(
+                $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
+                $('<div>', {"class":"user-databar"}).append(
+                    $('<h2>', {"text": spots[i].title}),
+                    $('<p>' ,{"class":"user-prating", "text":"4.5"})
+                ),
+                $('<div>', {"class":"user-iconbar"}).append(
+                    $('<img>', {"class":"user-actionbarmini1", "src":"resources/img/icons/view.png"}),
+                    $('<p>', {"id":"user-viewcount", "text":spots[i].views}),
+                    $('<img>', {"class":"user-actionbarmini2", "src":"resources/img/icons/fave.png"}),
+                    $('<img>', {"class":"user-actionbarmini3", "src":"resources/img/icons/save.png"})
+                )    
+            )
+        );
+        getImage(spots[i].sid, "spotpreviewimg"+i);
+    }
+}
     </script>
     <!-- === navigationsleiste === -->
     <div class="fullscreen">
@@ -95,15 +118,21 @@
             <div class="userdata">
                 <div class="userimage">
                     <img id="profilepicture" src="">
+                    
+
+
+                    
                 </div>
+                
+                <div class="userdetails">
                 <h3>USERNAME</h3>
                 <h2 id="username"></h2>
                 <h3>SPOTS</h3>
                 <h2 id="spotscount">0</h2>
-                <h3>BOARDS</h3>
-                <h2>TODO</h2>
+                </div>
 
             </div>
+
 
             <div class="userspots">
                 <div id="spotsview" class="user-flex-container">
@@ -112,7 +141,7 @@
 
 
 
-            </div>
+        </div>
 
 
 

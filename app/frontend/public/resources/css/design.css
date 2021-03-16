@@ -1,22 +1,5 @@
-::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
-}
 
-#style-1::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
-}
 
-#style-1::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #555;
-}
 
 
 
@@ -387,7 +370,7 @@ body {
 
     flex-flow: row wrap;
 
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
    
@@ -402,9 +385,9 @@ body {
     margin: 0.5vw;
 
 
-    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.05);
 
      
 }
@@ -552,6 +535,7 @@ body {
 
 .fullscreen {
     height: 100vh;
+    z-index:2;
    
     
 }
@@ -590,6 +574,7 @@ body {
     border-radius: 15px;
 
     background-color: rgba(255, 255, 255, 1);
+    z-index:2;
 
 }
 
@@ -601,7 +586,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 1vh;
-    z-index: 3;
+    z-index: 4;
     display: none;
 
     /* position: absolute;
@@ -696,6 +681,21 @@ body {
     position: relative;
     height: 50px;
     width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+
+}
+
+.arrowdownalt {
+    margin-top: 20vh;
+    display: flex;
+    height: 50px;
+    width: 50px;
+    left:50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 10vh;
     margin-left: auto;
     margin-right: auto;
     z-index: 1;
@@ -913,7 +913,10 @@ body {
     position: relative;
     float: left;
     width: 30%;
-    height: 65vh;
+    height: 50vh;
+    margin-top: 12vh;
+    
+    
     text-align: center;
     padding: 5px;
     overflow: hidden;
@@ -924,24 +927,30 @@ body {
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
 }
 
-.userdata>h2,
+.userdetails>h2,
 h3 {
     float: left;
     clear: both;
-    margin: 0;
+    margin:0;
+   
 }
 
-.userdata>h3 {
-    margin-top: 20px;
-    margin-left: 25px;
+.userdetails>h3 {
+    margin-top: 5px;
+    margin-left: 10px;
     color: #b0b0b0;
     font-weight: 700;
     font-size: 13px;
+    width:100%;
+    text-align: left;
 }
 
-.userdata>h2 {
+.userdetails>h2 {
+    width: 100%;
+    text-align: left;
     margin-top: 5px;
-    margin-left: 25px;
+    margin-left: 10px;
+    
     color: rgb(126, 192, 149);
     font-weight: 700;
     font-size: 25px;
@@ -952,21 +961,61 @@ h3 {
     position: relative;
     float: left;
     background-color: transparent;
-    height: 150px;
-    width: 110px;
+    
+    width: 40%;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 5%;
     margin-bottom: 20px;
+    z-index: 3;
 }
 
+.userdetails {
+    position: relative;
+    float: left;
+    background-color: transparent;;
+    
+    width: 45%;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 20px;
+    z-index: 3;
+}
+
+.userimage label {
+
+position: relative;
+background-color: transparent;
+border: none;
+
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-family: "ProximaNova";
+font-weight: 600;
+font-size: 13px;
+letter-spacing: 1px;
+color: rgb(126, 192, 149);
+text-decoration: underline;
+text-underline-offset: 2px;
+
+margin-left: auto;
+margin-right: auto;
+z-index: 3;
+
+}
+
+
+
 .userimage>img {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     border-radius: 50%;
     margin-top: 5px;
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    object-fit: cover;
 
     /* border-width: 3px;
     border-style: solid;
@@ -985,7 +1034,7 @@ h3 {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-
+    z-index: 3;
     /* border-width: 3px;
     border-style: solid;
     border-collapse: separate;
@@ -1046,7 +1095,9 @@ h3 {
 
     background-color: #ffffff;
     
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index:1;
    
 }
 
@@ -1068,7 +1119,8 @@ h3 {
     border-radius: 20px 0 0 20px;
     background-color: white;
     z-index: 2;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .userpictureviewspot {
@@ -1092,6 +1144,7 @@ h3 {
     background-color: white;
     
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 70vh;
     
     
@@ -1235,7 +1288,8 @@ tr {
     
     
     resize: none;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #description {
@@ -1252,6 +1306,7 @@ tr {
     color: #6c6c6c;
     line-height: 1.2em;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #description2 {
@@ -1269,6 +1324,7 @@ tr {
     color: #6c6c6c;
     line-height: 1.3em;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 
@@ -1338,7 +1394,7 @@ tr {
     position: relative;
 
     border-radius: 0 20px 20px 0;
-    opacity: 0.5;
+    
     object-fit: cover; 
     z-index:1;
 
@@ -1359,8 +1415,8 @@ tr {
     border: none;
     border-radius: 20px;
     
-    width: 100PX;
-    padding: 12px 0px 12px 0px;
+  
+    padding: 12px 24px 12px 24px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -1377,6 +1433,73 @@ tr {
     transform: translate(-50%, -70%);
     z-index: 3;
 }
+
+
+
+
+#changeimagediv {
+    position: relative;
+    display: none;
+   
+    margin: 0;
+    margin-top: 4vh;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+
+    background-color:transparent;
+    width: 100px;
+    height: 100px;
+    z-index: 4;
+}
+
+.profileuploadbutton1, .profileuploadbutton2, .profileuploadbutton3 {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: rgb(126, 192, 149);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    z-index: 4;
+}
+
+.profileuploadbutton1 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+}
+
+.profileuploadbutton2{
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+}
+
+.profileuploadbutton3 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    text-decoration: none;
+    
+}
+
+
 
 .inputspotimage {
 	width: 0.1px;
@@ -1422,7 +1545,7 @@ tr {
     color: #ffffff;
 
 
-    z-index: 2;
+ 
     top: 70%;
     left: 50%;
     transform: translate(-50%, -70%);
@@ -1538,33 +1661,35 @@ tr {
     width: 100%;
     min-height: 50vh;
     border-radius: 20px;
-    background-color: red;;
+    background-color: transparent;
     
     
 }
 
 #commentpopup {
     position: relative;
+    display:table-cell;
     float: left;
     margin-top: 3vh;
-    margin-left: 50px;
-    margin-bottom: 30px;
+    margin-left: 6vw;
+    margin-bottom: 4vh;
     font-family: "ProximaNova";
     font-weight: 600;
     line-height:18px;
     font-size: 18px;
     color: rgb(126, 192, 149);
 
-    padding: 5px 5px 5px 10px;
+    
     border: none;
     background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 5px
 }
 
-#commentpopup:hover {
-
-
+/* #commentpopup:hover {
+    border-bottom: solid 2px rgb(126, 192, 149);
     background-color: transparent;
-}
+} */
 
 
 .comments h1 {
@@ -1605,7 +1730,7 @@ tr {
 
 }
 
-.commentdiv {
+.commentdiv, .makecomment{
    
     width: 90%;
     
@@ -1615,12 +1740,22 @@ tr {
     padding: 20px;
     margin: 30px;
     margin-top: 0;
+    
    
     -webkit-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.1);
  
+}
 
+.makecomment {
+    background-color: transparent;
+    display: none;
+    z-index: 5;
+   
+    
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -1674,12 +1809,39 @@ tr {
 
 }
 
+.makecommentdiv1 p {
+
+    position: absolute;
+    left: 50%;
+    top: 60%;
+ 
+    transform: translateX(-50%);
+    margin:0;
+    font-weight: 600;
+    font-size: 13   px;
+    color: rgb(126, 192, 149);
+    padding: 0;
+    max-width: 95%;
+    line-height: 1.5em;
+    word-wrap:break-word;
+    
+
+}
+
 .commentdiv1 {
     position: relative;
     float: left;
     width: 10%;
-    min-height:150px;
-    
+    min-height:150px;   
+  
+}
+
+.makecommentdiv1 {
+    position: relative;
+    float: left;
+    width: 10%;
+    min-height:150px;  
+   
   
 }
 
@@ -1689,6 +1851,19 @@ tr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    height: 75px;
+    border-radius: 50%;
+
+    padding: 0;
+    border: none;
+}
+
+.makecommentdiv1 img {
+    position: absolute;
+    margin: 0;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -65%);
     height: 75px;
     border-radius: 50%;
 
@@ -1709,9 +1884,16 @@ tr {
     position: relative;
     float: left;
     min-height: 150px;
-    width: 80%;
-   
-    
+    width: 80%;  
+}
+
+.makecommentdiv2 {
+    position: relative;
+    float: left;
+    margin-top: 2vh;
+    min-height: 150px;
+    width: 80%;  
+    margin-bottom: 2vh;
 }
 
 .commentdiv3 {
@@ -1719,8 +1901,15 @@ tr {
     float: left;
     min-height: 150px;
     width: 10%;
-    
-    
+
+}
+
+.makecommentdiv3 {
+    position: relative;
+    float: left;
+    min-height: 150px;
+    width: 10%;
+
 }
 
 .commentdiv3 p {
@@ -1776,6 +1965,43 @@ tr {
 
 }
 
+#sendcomment {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vh;
+    background-color: rgb(126, 192, 149);
+    border: 1.8px solid rgb(126, 192, 149);
+    border-radius: 20px;
+
+    padding: 8px 16px 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    
+    
+}
+
+#sendcomment:hover {
+    background-color: transparent;
+    border: 1.8px solid rgb(126, 192, 149);
+
+    text-align: center;
+    text-decoration: none;
+   
+    font-family: "ProximaNova";
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #7ec096;
+
+}
+
 
 #loginbutton {
     background-color: rgb(126, 192, 149);
@@ -1793,7 +2019,6 @@ tr {
     color: #ffffff;
 
     margin-top: 5%;
-
 
 }
 
@@ -1951,6 +2176,8 @@ select::-ms-expand {
 }
 
 
+
+
 #detailinput2 {
     width: 25%;
     height: 50px;
@@ -1972,6 +2199,81 @@ select::-ms-expand {
     display: inline-block;
 
 }
+
+#commenttitle {
+        width: 80%;
+        height: 45px;
+        padding: 12px;
+    
+        float: left;
+    
+        position: relative;
+        color:#6c6c6c;
+        font-size: 16px;
+        font-family: "ProximaNova";
+        font-weight: 500;
+    
+        margin-left: 5%;
+        margin-bottom: 1vh;
+        margin-right: 0;
+
+    
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        display: block; 
+}
+
+#commentrating {
+    display: inline-block; 
+    float: right;
+    width: 12%;
+    height: 45px;
+    padding: 12px;
+
+    
+
+    position: relative;
+    color:#6c6c6c;
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+   
+    margin-bottom: 1vh;
+    margin-right: 0;
+
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    
+}
+
+
+#commenttext {
+    width: 95%;
+    height: 15vh;
+    padding: 12px;
+
+    
+    resize: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 3px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+    word-wrap: break-word;
+
+    position: relative;
+    color: #6c6c6c;
+    font-size: 16px;
+    font-family: "ProximaNova";
+    font-weight: 500;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: block;
+}
+
 
 
 

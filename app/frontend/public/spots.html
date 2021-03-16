@@ -27,6 +27,38 @@
             }
         });
 
+        window.addEventListener('load', (event) => {
+            
+            var div = document.getElementById('searchcheckboxes');
+            
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+    
+               
+    
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.value = "value";
+                checkbox.id = "id" + i;
+                div.appendChild(checkbox);
+    
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for","id" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);    
+    
+            }
+            });
+
+        function showCatDiv() {
+            var x = document.getElementById("filtercat");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+
         function getSpots(count) {
             const urlParams = new URLSearchParams(window.location.search);
             const searchvalue = urlParams.get('search');
@@ -138,7 +170,16 @@
 
         </div>
 
-        <img class="arrowdown" src="resources/img/arrow-down.png">
+        <div id="filtercat" class="filtercat">
+                
+
+            <div id="searchcheckboxes" class="searchcheckboxes">
+                
+            </div>
+
+        </div>
+
+        <img class="arrowdownalt" src="resources/img/arrow-down.png">
 
 
     </div>

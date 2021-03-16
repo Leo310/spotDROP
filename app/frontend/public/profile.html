@@ -14,6 +14,9 @@
 
 <body>
     <script>
+
+
+
         $(document).ready(() => {
             getPP();
             const spotcount = 0; // 0 equals all spots
@@ -26,6 +29,16 @@
 
         /*const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');*/
+
+        function showEditDiv() {
+            var x = document.getElementById("changeimagediv");
+            if (x.style.display === "block") {
+                 x.style.display = "none";
+            } else {
+              x.style.display = "block";
+            }
+        }
+
 
         function getUserSpots(username, count) {
             fetch("/getspots/" + username, {
@@ -57,7 +70,7 @@
     for(let i = 1; i <= count; i++) //index 0 is status code
     {
         $("#spotsview").append(
-            $('<div>', {"class": "user-spot-preview"}).append(
+            $('<div>', {"class": "user-spot-preview","onclick":"redirectSpotView("+ spots[i].sid+")"}).append(
                 $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
                 $('<div>', {"class":"user-databar"}).append(
                     $('<h2>', {"text": spots[i].title}),
@@ -169,16 +182,25 @@
                                 .catch(err => console.log(err))
                         }
                     </script>
-                    <input type="file" id="fileup" name="file" accept="image/*" style="display: block;">
-                    <input type="button" value="Upload" onclick="uploadPP()" style="display: block;">
-                    <input type="button" value="Delete" onclick="deletePP()" style="display: block;">
+
+
+                    <button class="profileuploadbutton1" value="Upload" onclick="showEditDiv()">Edit</button>
+                    
+                    <div id="changeimagediv">
+                        <input type="file" class="inputspotimage" id="fileup" name="file" accept="image/*">
+                        <label for="fileup">Add an image</label>
+                        <input type="button" class="profileuploadbutton2" value="Delete" onclick="deletePP()">
+                        <input type="button" class="profileuploadbutton3" value="Save Changes" onclick="uploadPP()">
+                        
+                    </div>
                 </div>
+                
+                <div class="userdetails">
                 <h3>USERNAME</h3>
                 <h2 id="username"></h2>
                 <h3>SPOTS</h3>
                 <h2 id="spotscount">0</h2>
-                <h3>BOARDS</h3>
-                <h2>TODO</h2>
+                </div>
 
             </div>
 
