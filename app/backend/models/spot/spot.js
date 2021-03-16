@@ -218,11 +218,69 @@ exports.postGetSpots = async (req, res) => {
     }
 }
 
-exports.postGetSpotsWithTitle = async (req, res) => {
-    if (req.body.title) {
-        if (req.body.spotcount) {
-            if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
-            {
+exports.postGetSpotsWithTitle = async (req, res) => { //OR category
+    if (req.body.spotcount) {
+        if (/^[0-9]+$/.test(req.body.spotcount)) //accepts only positive numbers
+        {
+            if (req.body.categories) {
+                try {
+                    for (let i = 0; i < req.body.categories.length; i++)
+                        await spotutilities.validateCategory(req.body.categories[i]);
+                } catch (err) {
+                    res.json({
+                        status: errorcodes.categoryInvalid
+                    });
+                }
+
+                let spotsdata = await getspots.withtitel(req.body.title);
+                let spotcategories = new Map();
+                if (spotsdata.lenght == 0) {
+                    const allspotsdata = await getspots.all();
+                    if (allspotsdata[0].status == errorcodes.notFound) {
+                        res.json({
+                            status: errorcodes.noSpotImage
+                        });
+                    } else {
+                        for (let i = 0; i < allspotsdata.length; i++) {
+                            const categories = await category.get(allspotsdata[i]["sid"])
+                            if (categories != errorcodes.notFound)
+                                spotcategories.set(allspotsdata[i]["sid"], categories);
+                        }
+                        spotsdata = allspotsdata;
+                    }
+                } else {
+                    for (let i = 0; i < spotsdata.length; i++) {
+                        const categories = await category.get(spotsdata[i]["sid"])
+                        if (categories != errorcodes.notFound)
+                            spotcategories.set(spotsdata[i]["sid"], categories);
+                    }
+                }
+                if (spotcategories.size == 0) {
+                    res.json({
+                        status: errorcodes.notFound
+                    });
+                } else {
+
+                    let result = [];
+                    spotcategories.forEach((value, key) => {
+                        for (let j = 0; j < req.body.categories.length; j++) {
+                            if (value.includes(req.body.categories[j])) {
+                                for(let i = 0; i < spotsdata.length; i++)
+                                {
+                                    if(spotsdata[i]["sid"]==key)
+                                    {
+                                        result.push(spotsdata[i]);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    })
+                    res.json(result);
+                }
+
+            } else {
                 const spotsdata = await getspots.withtitel(req.body.title);
                 if (spotsdata == errorcodes.notFound) {
                     res.json({
@@ -241,19 +299,15 @@ exports.postGetSpotsWithTitle = async (req, res) => {
                     });
                     res.json(spotsdata);
                 }
-            } else {
-                res.json([{
-                    status: errorcodes.countInvalid
-                }]);
             }
         } else {
             res.json([{
-                status: errorcodes.noCount
+                status: errorcodes.countInvalid
             }]);
         }
     } else {
         res.json([{
-            status: errorcodes.noTitleSpecified
+            status: errorcodes.noCount
         }]);
     }
 }
