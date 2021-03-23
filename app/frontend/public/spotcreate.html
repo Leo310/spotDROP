@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <script>
+        function showCatDiv() {
+            var x = document.getElementById("selectcat");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+        $(document).ready(() => {
+            createSpotCategories();
+        })
+
+        function createSpotCategories() {
+            var div = document.getElementById('checkboxes');
+
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name" + Object.keys(categories)[i];
+                checkbox.id = "checkboxid" + i;
+                div.appendChild(checkbox);
+
+                var newlabel = document.createElement("label");
+                newlabel.setAttribute("for", "checkboxid" + i);
+                newlabel.innerHTML = Object.keys(categories)[i];
+                div.appendChild(newlabel);
+
+            }
+        }
+
+        function createSpot() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("info").value;
+            const categoryid = 1; //document.getElementById("title").value;
+            const street = document.getElementById("street").value;
+            const housenumber = document.getElementById("number").value;
+            const zip = document.getElementById("zip").value;
+            const city = document.getElementById("city").value;
+
+            let spotid = 0;
+
+            fetch("/spots/create", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "title": title,
+                        "description": description,
+                        "categoryid": categoryid,
+                        "street": street,
+                        "housenumber": housenumber,
+                        "zip": zip,
+                        "city": city
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully created Spot");
+                        spotid = content.sid;
+                        addCategories(spotid);
+                        addImage(spotid);
+                        window.location = "/spot?sid="+spotid;
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function addCategories(sid) {
+            let checkedcategories = []
+            for (var i = 0; i < Object.keys(categories).length; i++) {
+                const checkbox = document.getElementById("checkboxid" + i);
+                if (checkbox.checked) {
+                    checkedcategories.push(Object.values(categories)[i]);
+                }
+            }
+            fetch("/spots/" + sid + "/addcategories", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "categories": checkedcategories
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content.status == "Success") {
+                        console.log("Succesfully added Categories");
+                    } else
+                        console.log(content.status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function addImage(sid) {
+            image = document.getElementById("uploadimage").files[0];
+            if (image != undefined) {
+
+                let formData = new FormData();
+                formData.append("addimage", image);
+                fetch("/spots/" + sid + "/image", {
+                        method: "post",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok)
+                            throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(content => {
+                        if (content.status == errorcodes.success) {
+                            console.log("Succesfully uploaded Spotimage");
+                            getImage(sid);
+                        } else {
+                            console.log(content.status);
+                        }
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                console.log("no image selected")
+            }
+        }
+
+        function getImage(sid) {
+            fetch("/spots/" + sid + "/image", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "getimage": "Get SpotImage"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(image => {
+                    if (image.type.startsWith("image")) //if starts with image tahn server send a profile picture 
+                    {
+                        document.querySelector("#spotimage").src = URL.createObjectURL(image);
+                        document.querySelector("#spotimage").style.opacity = 1.0;
+                    } else {
+                        document.querySelector("#spotimage").src =
+                        "resources/img/spotdefault.png"; //default profile picture
+                        document.querySelector("#spotimage").style.opacity = 0.5;
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    </script>
+
+    <!-- === navigationsleiste === -->
+
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="spots">SPOTS</a></li>
+                <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="spotcreatewrapper">
+
+            <div class="spotdata">
+
+                <h1>Share New Spot</h1>
+                
+                <table>
+                    <tr>
+                        <td><label class="tl" for="title">TITLE</label></td>
+
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="title" maxlength="35" class="spotdatainput"
+                                placeholder='Roof with sunset-view' name="titel" required></td>
+                        <td style="width:30%"><button id="catbutton" onclick="showCatDiv()">Select Categories ></button>
+                        </td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="street">STREET</label></td>
+                        <td style="width:30%"><label class="tl" for="number">NUMBER</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="street" maxlength="100" class="spotdatainput"
+                                placeholder='Brunnenstraße' name="titel" required></td>
+                        <td><input type="number" id="number" min="1" max="3" class="spotdatainput" placeholder='151'  name="titel" required></td>
+                    </tr>
+                </table>
+                
+               
+                <table>
+                    <tr>
+                        <td><label class="tl" for="city">CITY</label></td>
+                        <td style="width:30%"><label class="tl" for="zip">ZIP</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" maxlength="50" id="city" class="spotdatainput" placeholder='Berlin'
+                                name="titel" required></td>
+                        <td><input type="number" min="5" max="5" id="zip" class="spotdatainput" placeholder="10115"
+                                name="titel" required></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="info">DESCRIPTION</label></td>
+
+                    </tr>
+                    <tr>
+                        <td><textarea id="info" maxlength="1000" class="spotdatainput"
+                                placeholder="Great roof for hanging with friends and viewing the sunset. Located on top of rear building, no keys needed :)"
+                                name="titel"></textarea></td>
+                    </tr>
+                </table>
+
+
+
+
+            </div>
+            <div id="selectcat" class="setcategory">
+
+
+                <div id="checkboxes" class="checkboxes">
+
+                </div>
+
+            </div>
+            <div class="spotcreateright">
+
+                <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
+                <input class="inputspotimage" type="file" id="uploadimage" name="file" onchange="document.getElementById('spotimage').src = window.URL.createObjectURL(this.files[0])" accept="image/*"
+                    style="display: block;">
+                <label for="uploadimage">Add an image</label>
+                <input class="uploadspotimage" type="button" value="Share Spot" onclick="createSpot()">
+
+            </div>
+
+
+
+
+        </div>
+
+        </div>
+
+
+
+
+</body>
+
+</html>

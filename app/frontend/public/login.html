@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="whitebg">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
+    <script src="./categories.js"></script>
+    <script src="./scripts.js"></script>
+  
+</head>
+
+<body>
+    <script>
+        function login() {
+            const nameemail = document.getElementById("nameinput").value;
+            const password = document.getElementById("passwordinput").value;
+            fetch("/login", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "nameemail": nameemail,
+                        "password": password
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    console.log(content);
+                    if (content.status == errorcodes.success) {
+                        window.location = "/home";
+                    } else
+                        document.querySelector("#errorp").innerHTML = content.status;
+                })
+                .catch(err => console.log(err))
+        }
+
+        window.addEventListener('load', (event) => {
+            var input = document.getElementById("passwordinput");
+
+            input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    console.log("Log");
+                    event.preventDefault();
+                    document.getElementById("loginbutton").click();
+                }
+
+            });
+        })
+    </script>
+
+    <!-- === navigationsleiste === -->
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <a href="/home"><img src="resources/img/logosketchgreenlight.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><button style="color:rgb(126, 192, 149)" type="button" id="menubutton"
+                        onclick="history.back()">BACK</button></li>
+
+            </ul>
+
+        </nav>
+
+
+        <div class="loginwrapper">
+
+            <div class="loginactivelogin">
+                <div class="centerdiv">
+                    <h1>Sign in to spotDROP</h1>
+                    <!-- <p>If you already own an account, you can easily sign in using your email or username:</p> -->
+
+                    <input type="text" id="nameinput" maxlength="254" class="detailinput"
+                        placeholder="username or email" name="nameemail">
+                    <input type="password" id="passwordinput" class="detailinput" placeholder="password"
+                        name="password">
+                    <p class="forgotpass">Forgot your password?</p>
+                    <button onclick="login()" id="loginbutton">SIGN IN</button>
+
+                </div>
+                <div class="errordiv">
+                    <p class="error" id="errorp"></p>
+                </div>
+            </div>
+
+            <div class="loginactiveregister">
+                <div class="centerdiv">
+                    <h1>New here?</h1>
+                    <p>Enter your details and easily create a free account.</p>
+                    <button type="button" id="tosignup" onclick="location.href='register';">SIGN UP</button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

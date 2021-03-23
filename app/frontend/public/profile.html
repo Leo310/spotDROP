@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+
+
+
+        $(document).ready(() => {
+            getPP();
+            const spotcount = 0; // 0 equals all spots
+            getUsername()
+                .then(username => {
+                    document.querySelector("#username").innerHTML = "@" + username;
+                    getUserSpots(username, spotcount)
+                });
+        });
+
+        /*const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');*/
+
+        function showEditDiv() {
+            var x = document.getElementById("changeimagediv");
+            if (x.style.display === "block") {
+                 x.style.display = "none";
+            } else {
+              x.style.display = "block";
+            }
+        }
+
+
+        function getUserSpots(username, count) {
+            fetch("/getspots/" + username, {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "spotcount": count.toString()
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content[0].status == errorcodes.success) {
+                        document.querySelector("#spotscount").innerHTML = content.length - 1;
+                        createProfileSpots(content, content.length - 1);
+                    } else
+                        console.log(content[0].status);
+
+                })
+                .catch(err => console.log(err))
+        }
+        function delHandler(event, sid){
+            event.stopPropagation()
+            deleteSpot(sid);
+            window.location.reload();
+        }
+        function createProfileSpots(spots, count) {
+        	for(let i = 1; i <= count; i++) //index 0 is status code
+        	{
+        	    $("#spotsview").append(
+        	        $('<div>', {"class": "user-spot-preview","onclick":"redirectSpotView("+ spots[i].sid+")"}).append(
+        	            $('<img>', {"class":"user-previewimg", "id":"spotpreviewimg"+i, "src":"resources/img/spotdefault.png"}),
+        	            $('<div>', {"class":"user-databar"}).append(
+        	                $('<h2>', {"text": spots[i].title}),
+        	                $('<p>' ,{"class":"user-prating", "text":"4.5"})
+        	            ),
+        	            $('<div>', {"class":"user-iconbar"}).append(
+        	                $('<img>', {"class":"user-actionbarmini1", "src":"resources/img/icons/view.png"}),
+        	                $('<p>', {"id":"user-viewcount", "text":spots[i].views}),
+        	                $('<img>', {"class":"user-actionbarmini2", "src":"resources/img/icons/fave.png"}),
+        	                $('<img>', {"class":"user-actionbarmini3", "src":"resources/img/icons/save.png"}),
+                            $('<img>', {"class":"user-actionbarmini4", "onclick":"delHandler(event, "+ spots[i].sid+")", "src":"resources/img/icons/delete.png"})
+        	            )    
+        	        )
+        	    );
+        	    getImage(spots[i].sid, "spotpreviewimg" + i);
+        	}
+        }
+    </script>
+    <!-- === navigationsleiste === -->
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="spots">SPOTS</a></li>
+                <li id="profile"><a href="profile">PROFILE</a></li>
+                <li><a href="spotcreate">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="logout()">SIGN OUT</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="userwrapper">
+
+            <div class="userdata">
+                <div class="userimage">
+                    <img id="profilepicture" src="">
+                    <script>
+                        function uploadPP() {
+                            image = document.getElementById("fileup").files[0];
+                            if (image != undefined) {
+
+                                let formData = new FormData();
+                                formData.append("addpp", image);
+                                fetch("/profile", {
+                                        method: "post",
+                                        body: formData
+                                    })
+                                    .then(response => {
+                                        if (!response.ok)
+                                            throw new Error('Network response was not ok');
+                                        return response.json();
+                                    })
+                                    .then(content => {
+                                        if (content.status == errorcodes.success) {
+                                            console.log("Succesfully uploaded Profile Picture");
+                                            getPP();
+                                            window.location = "/profile";
+                                        } else {
+                                            console.log(content.status);
+                                        }
+                                    })
+                                    .catch(err => console.log(err))
+                            } else {
+                                console.log("no image selected")
+                            }
+                        }
+
+                        function deletePP() {
+                            fetch("/profile", {
+                                    method: "post",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        "deletepp": "Delete the Profile Picture"
+                                    })
+                                })
+                                .then(response => {
+                                    if (!response.ok)
+                                        throw new Error('Network response was not ok');
+                                    return response.json();
+                                })
+                                .then(content => {
+                                    if (content.status == "Success") {
+                                        console.log("Succesfully deleted Profile Picture");
+                                        window.location = "/profile";
+                                    } else
+                                        console.log(content.status);
+
+                                })
+                                .catch(err => console.log(err))
+                        }
+                    </script>
+
+
+                    <button class="profileuploadbutton1" value="Upload" onclick="showEditDiv()">Edit</button>
+                    
+                    <div id="changeimagediv">
+                        <input type="file" class="inputspotimage" id="fileup" name="file" onchange="document.getElementById('profilepicture').src = window.URL.createObjectURL(this.files[0])">
+                        <label for="fileup">Add an image</label>
+                        <input type="button" class="profileuploadbutton2" value="Delete" onclick="deletePP()">
+                        <input type="button" class="profileuploadbutton3" value="Apply Changes" onclick="uploadPP()">
+                        
+                    </div>
+                </div>
+                
+                <div class="userdetails">
+                <h3>USERNAME</h3>
+                <h2 id="username"></h2>
+                <h3>SPOTS</h3>
+                <h2 id="spotscount">0</h2>
+                </div>
+
+            </div>
+
+            <div class="userspots">
+                <div id="spotsview" class="user-flex-container">
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+</body>
+
+</html>

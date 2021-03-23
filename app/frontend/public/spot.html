@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./errorcodes.js"></script>
+    <script src="./categories.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(async () =>  {
+            const logedin = await isLogined();
+            console.log(logedin);
+            if (logedin.status == errorcodes.success) {
+                document.getElementById("commentpopup").style.display = "table-cell";
+                document.getElementById("showprofile").style.display = "inline-block";
+                document.getElementById("shownewspot").style.display = "inline-block";
+                document.getElementById("menubutton").innerHTML = "SIGN OUT";
+                document.getElementById("menubutton").onclick = ()=>{logout()};
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const sid = urlParams.get('sid');
+            const spot = await getSpot(sid);  
+            document.getElementById("susername").innerHTML = "@" + spot.username;
+            console.log(spot.status);
+
+            const spotPicture = await getImage(sid, "spotimage");
+
+            const profilePicture = await getUserPP(spot.username);
+            document.getElementById("suserprofile").src = profilePicture;
+            document.getElementById("suserprofile").addEventListener("click", () => redirectUserView(spot.username)); // need to call in anonymus function or the user would get redirected immediatly
+
+            const ratings = await getRatings(sid); 
+            console.log(ratings);
+            if(ratings[0].status == errorcodes.success){
+                createRatings(ratings, ratings.length-1);
+            }
+
+            const categories = await getCategories(sid);
+            console.log(categories.status);
+            if(spot.status == errorcodes.success)
+            {
+                document.getElementById("stitle").innerHTML = spot.title;
+                document.getElementById("sstreet").innerHTML = spot.street;
+                document.getElementById("shousenumber").innerHTML = spot.housenumber;
+                document.getElementById("scity").innerHTML = spot.city;
+                document.getElementById("szip").innerHTML = spot.zip;
+                document.getElementById("description2").innerHTML = spot.description;
+                if(categories.categories){
+                    let categoriesString = "";
+                    for(let i = 0; i < categories.categories.length; i++)
+                        categoriesString += categories.categories[i].charAt(0).toUpperCase() + categories.categories[i].slice(1) + ", ";
+                     document.getElementById("scategories").innerHTML = categoriesString.substring(0, categoriesString.length - 2); //removes last comma
+                }
+            } else {
+                console.log(spot.status);
+            }
+        });
+        function addRating(){
+                const urlParams = new URLSearchParams(window.location.search);
+                const sid = urlParams.get('sid');;
+                const title = document.getElementById("commenttitle").value;
+                const stars = document.getElementById("commentrating").value;
+                const text = document.getElementById("commenttext").value;
+                rateSpot(sid, title, stars, text);
+                window.location.reload();
+            }
+        async function createRatings(ratings, count) {
+            for(let i = 1; i <= count; i++) //index 0 is status code
+            {
+            $("#listrating").append(
+                $('<div>', {"class": "commentdiv"}).append(
+                    $('<div>', {"class":"commentdiv1"}).append(
+                        $('<img>', {"id":"profilepictures", "onclick":"redirectUserView('"+ratings[i].username+"')", "src": await getUserPP(ratings[i].username)}),
+                        $('<p>' ,{"text":ratings[i].username})
+                    ),
+                    $('<div>', {"class":"commentdiv2"}).append(
+                        $('<h4>', {"text":ratings[i].date.replace("T", " ").substring(0, 19)}),
+                        $('<h2>', {"text":ratings[i].title}),
+                        $('<p>' ,{"text":ratings[i].text})
+                    ),
+                    $('<div>', {"class":"commentdiv3"}).append(
+                        $('<p>' ,{"text":ratings[i].stars})
+                    ) 
+                )
+            );
+        }
+    }
+        async function showCommentDiv() {
+            getPP();
+            document.getElementById("namerating").innerHTML = await getUsername();
+            var x = document.getElementById("createcommentsdiv");
+            if (x.style.display === "flex") {
+                 x.style.display = "none";
+            } else {
+              x.style.display = "flex";
+            }
+        }
+    </script>
+    <!-- === navigationsleiste === -->
+
+    
+        <nav class="header-nav">
+
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="spots">SPOTS</a></li>
+                <li id="profile"><a href="profile" id="showprofile" style="display: none;">PROFILE</a></li>
+                <li><a href="spotcreate" id="shownewspot" style="display: none;">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="window.location = '/login'">SIGN IN</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="viewspotwrapper">
+            
+            <div class="viewspotdata">
+
+                <table style="margin-top: 5vh">                                                 <!-- ja, Tabellen für Layout sind unschön, aber flexcontainer oder grid hätte in dem Moment zu lange gedauert-->
+                    <tr>
+                        <td><label class="tl" for="title">TITLE</label></td>
+                        <td style="width:35%" rowspan="2"><img class="userpictureviewspot" id="suserprofile" src="">
+                        <p id="susername"></p>
+                        </td>
+                    </tr>
+                    <tr colspan="2">
+                        <td>
+                            <h6 id="stitle"></h6>
+                        </td>
+                
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="title">CATEGORIES</label></td>    
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:justify;"><h6 id="scategories"></h6></td>
+                    </tr>
+                </table>
+
+
+
+
+
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="street">STREET</label></td>
+                        <td style="width:35%"><label class="tl" for="number">NUMBER</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 id="sstreet"></h6>
+                        </td>
+                        <td>
+                            <h6 id="shousenumber"></h6>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="city">CITY</label></td>
+                        <td style="width:35%"><label class="tl" for="zip">ZIP</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 id="scity"></h6>
+                        </td>
+                        <td>
+                            <h6 id="szip"></h6>
+                        </td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td><label class="tl" for="info">DESCRIPTION</label></td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="description2"></p>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+            </div>
+
+
+            <div class="viewspotright">
+                <img class="fullsizeimage" id="spotimage" src="resources/img/spotdefault.png">
+                <img src="resources/img/arrow-down.png" class="arrowdown2">
+          
+            </div> 
+        
+        
+        <div class="comments">
+            
+            <h1>Comments</h1>
+            
+            <span><button type="button" id="commentpopup" style="display: none;" onclick="showCommentDiv()">+ add comment</button></span>
+            <div class="makecomment" id="createcommentsdiv">
+                <div class="makecommentdiv1">
+                    <img id="profilepicture" src="resources/img/defaultprofile.png">
+                    <p id="namerating">username<p>
+                </div>
+
+                <div class="makecommentdiv2">
+                    <input type="text" maxlength="50" id="commenttitle"  placeholder='Title of Comment'
+                                name="titel" required>
+
+                    <input type="number" min="0" max="5" step=".1" id="commentrating"  placeholder='4.5'
+                    name="titel" required>
+
+                    <textarea type="text" maxlength="1000" id="commenttext"  placeholder='Your Text'></textarea>
+                    <button onclick="addRating()" id="sendcomment">publish</button>
+                </div>
+
+            </div>
+            <div id="listrating" class="commentflex">
+            
+
+
+            </div>
+
+
+
+
+                <!-- <div class="commentdiv1">
+                     
+                    
+                    <table>
+                        <tr><td><img src="resources/img/defaultprofile.png"></td></tr>
+
+                        <tr><td><center><h3>username</h3></center></td></tr>
+                     </table>
+                </div>
+
+                <div class="commentdiv2">
+                    <h2>Title</h2>
+
+                </div> -->
+ 
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

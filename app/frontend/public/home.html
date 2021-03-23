@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/design.css">
+    <script src="./categories.js"></script>
+    <script src="./errorcodes.js"></script>
+    <script src="./scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(async () => {
+            const logedin = await isLogined();
+            console.log(logedin);
+            if (logedin.status == errorcodes.success) {
+                getPP()
+                
+                document.getElementById("showprofile").style.display = "inline-block";
+                document.getElementById("shownewspot").style.display = "inline-block";
+                document.getElementById("menubutton").innerHTML = "SIGN OUT";
+                document.getElementById("menubutton").onclick = ()=>{logout()};
+                document.getElementById("profilepicture").style.display = "block";
+                document.getElementById("intro").innerHTML = "Great to see you again. As usually, start searching for Spots right away or share your favorite Spots with everyone else.";
+                getUsername()
+                .then((username) => {
+                    document.querySelector("#welcomeback").innerHTML = "Welcome back, " + username + ".";
+                });
+            }
+            const topspotcount = 8;
+            getTopSpots(topspotcount);
+            
+        });
+
+        function getTopSpots(count) {
+            document.getElementById("TopSpots").innerHTML = "Top " + count + " Spots of the Week";
+            fetch("/topspots", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "spotcount": count.toString()
+                    })
+                })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(content => {
+                    if (content[0].status == errorcodes.success) {
+                        createSpots(content, content.length - 1);
+                    } else
+                        console.log(content[0].status);
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        function showCatDiv() {
+            var x = document.getElementById("filtercat");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+    <!-- === navigationsleiste === -->
+    <div class="fullscreen">
+        <nav class="header-nav">
+
+            <a href="/home"><img src="resources/img/logosketchwhite.png" alt=spotDROP.de></a>
+
+            <ul>
+
+                <li><a href="home">HOME</a></li>
+                <li><a href="spots">SPOTS</a></li>
+                <li id="profile"><a href="profile" id="showprofile" style="display: none;">PROFILE</a></li>
+                <li><a href="spotcreate" id="shownewspot" style="display: none;">NEW SPOT</a></li>
+                <li><button type="button" id="menubutton" onclick="window.location = '/login'">SIGN IN</button></li>
+
+            </ul>
+
+        </nav>
+
+        <!--    <script>
+                window.onscroll = scrollShowNav;
+                function scrollShowNav() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementsByTagName("nav")[0].style.top = "-50px";
+                    } else {
+                        document.getElementsByTagName("nav")[0].style.top = "0px";
+                    }
+                }
+            </script> -->
+
+        <!-- === willkommenstext === -->
+
+        <div class="greeting">
+            
+                <img class="homeuserprofile" id="profilepicture" src="resources/img/defaultprofile.png" style="display: none;">
+                <p class="welcomeback" id="welcomeback">Welcome to spotDROP.</p>
+                <center>
+                    <p id="intro">Nice to see you here. Feel free to use spotDrop to discover new Spots suitable for any occasion and to share your favorite Spots with everyone else.</p>
+
+                        
+                </center>
+    
+        </div>
+
+
+           
+
+        
+        <img class="arrowdown2" src="resources/img/arrow-down.png">
+        
+        
+    </div>
+
+    <div class="overview">
+
+        <h1 id="TopSpots"></h1>
+        <p class="subtext">Alternatively, view all Spots or search through them »</p>
+        <div id="spotsview" class="flex-container">
+
+
+
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
